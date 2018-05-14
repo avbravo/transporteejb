@@ -25,7 +25,7 @@ public class RolRepository extends Repository<Rol> {
        return mongoClientProvider.getMongoClient();
     }
     public RolRepository(){
-        super(Rol.class,"seguridad","rol");
+        super(Rol.class,"transporte","rol");
     }
     @Override
     public Object findById(String key, String value) {

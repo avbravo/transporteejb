@@ -6,8 +6,8 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.transporteejb.entity.Usuario;
-import com.avbravo.transporteejb.repository.UsuarioRepository;
+import com.avbravo.transporteejb.entity.Estatus;
+import com.avbravo.transporteejb.repository.EstatusRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -21,37 +21,43 @@ import org.bson.Document;
  * @authoravbravo
  */
 @Stateless
-public class UsuarioServices {
+public class EstatusServices {
 
     @Inject
-    UsuarioRepository usuarioRepository;
-     List<Usuario> usuarioList = new ArrayList<>();
-     public List<Usuario> complete(String query) {
-        List<Usuario> suggestions = new ArrayList<>();
+    EstatusRepository estatusRepository;
+
+     List<Estatus> estatusList = new ArrayList<>();
+     public List<Estatus> complete(String query) {
+        List<Estatus> suggestions = new ArrayList<>();
            try {
                query = query.trim();
                if (query.length() < 1) {
                    return suggestions;
                }   
                String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");               
-               suggestions=  usuarioRepository.findRegex(field,query,true,new Document(field,1));
+               suggestions=  estatusRepository.findRegex(field,query,true,new Document(field,1));
 
            } catch (Exception e) {
                     JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
            }
            return suggestions;
     }
-      public List<Usuario> getUsuarioList() {
+
+    public List<Estatus> getEstatusList() {
           try {
-          usuarioList= usuarioRepository.findAll(new Document("username",1));
+          estatusList= estatusRepository.findAll(new Document("estatus",1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getUsuarioList() " + e.getLocalizedMessage());
+              JsfUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
         }
 
-        return usuarioList;
+        return estatusList;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setEstatusList(List<Estatus> estatusList) {
+        this.estatusList = estatusList;
     }
+     
+     
+     
+     
 }

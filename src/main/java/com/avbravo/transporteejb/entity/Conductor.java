@@ -19,13 +19,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Conductor {
+
     @Id
     private String idconductor;
     private String nombre;
     private String celular;
     private String email;
     private String activo;
-  @Embedded
+    @Embedded
     List<UserInfo> userInfo;
-   
+
 }

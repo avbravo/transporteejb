@@ -54,6 +54,7 @@ public class Solicitud {
     
     private Date fechaestatus;
     
+    private Integer pasajeros;
     
     @Embedded
     List<UserInfo> userInfo;

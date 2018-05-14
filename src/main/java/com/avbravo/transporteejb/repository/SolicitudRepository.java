@@ -4,9 +4,8 @@
  * and open the template in the editor.
 */
 package com.avbravo.transporteejb.repository;
-
 import com.avbravo.ejbjmoordb.mongodb.repository.Repository;
-import com.avbravo.transporteejb.entity.Usuario;
+import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.provider.MongoClientProvider;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
@@ -17,7 +16,7 @@ import com.mongodb.MongoClient;
  * @author avbravo
  */
 @Stateless
-public class UsuarioRepository extends Repository<Usuario> {
+public class SolicitudRepository extends Repository<Solicitud> {
 
     @EJB
     MongoClientProvider mongoClientProvider;
@@ -25,8 +24,8 @@ public class UsuarioRepository extends Repository<Usuario> {
     protected MongoClient getMongoClient() {
        return mongoClientProvider.getMongoClient();
     }
-    public UsuarioRepository(){
-        super(Usuario.class,"transporte","usuario");
+    public SolicitudRepository(){
+        super(Solicitud.class,"transporte","solicitud");
     }
     @Override
     public Object findById(String key, String value) {

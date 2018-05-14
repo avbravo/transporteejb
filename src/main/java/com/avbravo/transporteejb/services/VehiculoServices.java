@@ -6,8 +6,8 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.transporteejb.entity.Usuario;
-import com.avbravo.transporteejb.repository.UsuarioRepository;
+import com.avbravo.transporteejb.entity.Vehiculo;
+import com.avbravo.transporteejb.repository.VehiculoRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -21,37 +21,39 @@ import org.bson.Document;
  * @authoravbravo
  */
 @Stateless
-public class UsuarioServices {
+public class VehiculoServices {
 
     @Inject
-    UsuarioRepository usuarioRepository;
-     List<Usuario> usuarioList = new ArrayList<>();
-     public List<Usuario> complete(String query) {
-        List<Usuario> suggestions = new ArrayList<>();
+    VehiculoRepository vehiculoRepository;
+List<Vehiculo> vehiculoList = new ArrayList<>();
+    public List<Vehiculo> complete(String query) {
+        List<Vehiculo> suggestions = new ArrayList<>();
            try {
                query = query.trim();
                if (query.length() < 1) {
                    return suggestions;
                }   
                String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");               
-               suggestions=  usuarioRepository.findRegex(field,query,true,new Document(field,1));
+               suggestions=  vehiculoRepository.findRegex(field,query,true,new Document(field,1));
 
            } catch (Exception e) {
                     JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
            }
            return suggestions;
     }
-      public List<Usuario> getUsuarioList() {
-          try {
-          usuarioList= usuarioRepository.findAll(new Document("username",1));
+
+    
+    // <editor-fold defaultstate="collapsed" desc="getVehiculoList()">
+    public List<Vehiculo> getVehiculoList() {
+        try {
+           vehiculoList= vehiculoRepository.findAll(new Document("vehiculo",1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getUsuarioList() " + e.getLocalizedMessage());
+              JsfUtil.errorMessage("getVehiculoList() " + e.getLocalizedMessage());
         }
+        return vehiculoList;
+    }// </editor-fold>
 
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setVehiculoList(List<Vehiculo> vehiculoList) {
+        this.vehiculoList = vehiculoList;
     }
 }

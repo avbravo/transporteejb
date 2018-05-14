@@ -6,7 +6,7 @@
 package com.avbravo.transporteejb.repository;
 
 import com.avbravo.ejbjmoordb.mongodb.repository.Repository;
-import com.avbravo.transporteejb.entity.Usuario;
+import com.avbravo.transporteejb.entity.Conductor;
 import com.avbravo.transporteejb.provider.MongoClientProvider;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
@@ -17,7 +17,7 @@ import com.mongodb.MongoClient;
  * @author avbravo
  */
 @Stateless
-public class UsuarioRepository extends Repository<Usuario> {
+public class ConductorRepository extends Repository<Conductor> {
 
     @EJB
     MongoClientProvider mongoClientProvider;
@@ -25,8 +25,8 @@ public class UsuarioRepository extends Repository<Usuario> {
     protected MongoClient getMongoClient() {
        return mongoClientProvider.getMongoClient();
     }
-    public UsuarioRepository(){
-        super(Usuario.class,"transporte","usuario");
+    public ConductorRepository(){
+        super(Conductor.class,"transporte","conductor");
     }
     @Override
     public Object findById(String key, String value) {

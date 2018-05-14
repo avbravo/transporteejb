@@ -18,21 +18,26 @@ import lombok.Setter;
  * @author avbravo
  */
 @Getter
-@Setter 
+@Setter
 public class Vehiculo {
+
     @Id
     private String idvehiculo;
     private String marca;
     private String modelo;
     private Integer anio;
     private String activo;
-      @Referenced(documment = "Tipovehiculo",
+    @Referenced(documment = "Tipovehiculo",
             field = "idtipovehiculo", javatype = "String", lazy = false,
-           repository = "com.avbravo.transporteejb.repository.TipovehiculoRepository")
-   Tipovehiculo tipovehiculo;
-      
-      private Integer pasajeros;
-  @Embedded
+            repository = "com.avbravo.transporteejb.repository.TipovehiculoRepository")
+    Tipovehiculo tipovehiculo;
+
+    private Integer pasajeros;
+
+    private String combustible;
+    private String chasis;
+
+    @Embedded
     List<UserInfo> userInfo;
-   
+
 }

@@ -6,8 +6,8 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.transporteejb.entity.Usuario;
-import com.avbravo.transporteejb.repository.UsuarioRepository;
+import com.avbravo.transporteejb.entity.Conductor;
+import com.avbravo.transporteejb.repository.ConductorRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -21,37 +21,43 @@ import org.bson.Document;
  * @authoravbravo
  */
 @Stateless
-public class UsuarioServices {
+public class ConductorServices {
 
     @Inject
-    UsuarioRepository usuarioRepository;
-     List<Usuario> usuarioList = new ArrayList<>();
-     public List<Usuario> complete(String query) {
-        List<Usuario> suggestions = new ArrayList<>();
+    ConductorRepository conductorRepository;
+    List<Conductor> conductorList = new ArrayList<>();
+     public List<Conductor> complete(String query) {
+        List<Conductor> suggestions = new ArrayList<>();
            try {
                query = query.trim();
                if (query.length() < 1) {
                    return suggestions;
                }   
                String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");               
-               suggestions=  usuarioRepository.findRegex(field,query,true,new Document(field,1));
+               suggestions=  conductorRepository.findRegex(field,query,true,new Document(field,1));
 
            } catch (Exception e) {
                     JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
            }
            return suggestions;
     }
-      public List<Usuario> getUsuarioList() {
+
+    public List<Conductor> getConductorList() {
           try {
-          usuarioList= usuarioRepository.findAll(new Document("username",1));
+        conductorList= conductorRepository.findAll(new Document("idconductor",1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getUsuarioList() " + e.getLocalizedMessage());
+              JsfUtil.errorMessage("getConductorList() " + e.getLocalizedMessage());
         }
 
-        return usuarioList;
+        return conductorList;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setConductorList(List<Conductor> conductorList) {
+        this.conductorList = conductorList;
     }
+     
+     
+     
+     
+     
 }

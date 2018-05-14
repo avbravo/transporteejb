@@ -6,8 +6,8 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.transporteejb.entity.Usuario;
-import com.avbravo.transporteejb.repository.UsuarioRepository;
+import com.avbravo.transporteejb.entity.Solicitud;
+import com.avbravo.transporteejb.repository.SolicitudRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -21,37 +21,39 @@ import org.bson.Document;
  * @authoravbravo
  */
 @Stateless
-public class UsuarioServices {
+public class SolicitudServices {
 
     @Inject
-    UsuarioRepository usuarioRepository;
-     List<Usuario> usuarioList = new ArrayList<>();
-     public List<Usuario> complete(String query) {
-        List<Usuario> suggestions = new ArrayList<>();
+    SolicitudRepository solicitudRepository;
+List<Solicitud> solicitudList = new ArrayList<>();
+    public List<Solicitud> complete(String query) {
+        List<Solicitud> suggestions = new ArrayList<>();
            try {
                query = query.trim();
                if (query.length() < 1) {
                    return suggestions;
                }   
                String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");               
-               suggestions=  usuarioRepository.findRegex(field,query,true,new Document(field,1));
+               suggestions=  solicitudRepository.findRegex(field,query,true,new Document(field,1));
 
            } catch (Exception e) {
                     JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
            }
            return suggestions;
     }
-      public List<Usuario> getUsuarioList() {
-          try {
-          usuarioList= usuarioRepository.findAll(new Document("username",1));
+
+    
+    // <editor-fold defaultstate="collapsed" desc="getSolicitudList()">
+    public List<Solicitud> getSolicitudList() {
+        try {
+           solicitudList= solicitudRepository.findAll(new Document("solicitud",1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getUsuarioList() " + e.getLocalizedMessage());
+              JsfUtil.errorMessage("getSolicitudList() " + e.getLocalizedMessage());
         }
+        return solicitudList;
+    }// </editor-fold>
 
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setSolicitudList(List<Solicitud> solicitudList) {
+        this.solicitudList = solicitudList;
     }
 }
