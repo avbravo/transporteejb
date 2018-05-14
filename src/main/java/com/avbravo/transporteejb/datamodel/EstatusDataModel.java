@@ -26,7 +26,7 @@ public class EstatusDataModel extends ListDataModel<Estatus> implements Selectab
     public Estatus  getRowData(String rowKey) {
         List<Estatus> estatusList = (List<Estatus>) getWrappedData();
         for (Estatus estatus : estatusList) {
-             if (estatus.getEstatus().equals(rowKey)) {
+             if (estatus.getIdestatus().equals(rowKey)) {
                  return estatus;
              }
         }
@@ -34,7 +34,7 @@ public class EstatusDataModel extends ListDataModel<Estatus> implements Selectab
      }
      @Override
      public Object getRowKey(Estatus estatus) {
-         return estatus.getEstatus();
+         return estatus.getIdestatus();
      }
 
 

@@ -33,7 +33,7 @@ public class EstatusConverter implements Converter {
         try{
             if(!s.equals("null")){
                Estatus b = new Estatus();
-               b.setEstatus(s);
+               b.setIdestatus(s);
                Optional<Estatus> optional = estatusRepository.findById(b);
                if (optional.isPresent()) {
                estatus= optional.get();  
@@ -52,7 +52,7 @@ public class EstatusConverter implements Converter {
         try {
             if (o instanceof Estatus) {
                 Estatus estatus = (Estatus) o;
-                r = String.valueOf(estatus.getEstatus());
+                r = String.valueOf(estatus.getIdestatus());
             }else if (o instanceof String) {
                r = (String) o;
             }

@@ -20,7 +20,8 @@ import lombok.Setter;
 @Setter
 public class Estatus {
     @Id
-    private String estatus;
+    private String idestatus;
+    private String activo;
       @Embedded
     List<UserInfo> userInfo;
     
