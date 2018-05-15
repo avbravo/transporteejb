@@ -21,6 +21,7 @@ public class Usuario {
     private String celular;
     private String cargo;
     private String email;
+    private String unidad;
 
     @Referenced(documment = "Rol",
             field = "idrol", javatype = "String", lazy = false,
