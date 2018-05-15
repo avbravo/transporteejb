@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 public class Tipovehiculo {
    @Id
-   private String tipovehiculo;
+   private String idtipovehiculo;
      @Embedded
     List<UserInfo> userInfo;
 }

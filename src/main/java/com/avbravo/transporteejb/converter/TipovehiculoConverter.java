@@ -33,7 +33,7 @@ public class TipovehiculoConverter implements Converter {
         try{
             if(!s.equals("null")){
                Tipovehiculo b = new Tipovehiculo();
-               b.setTipovehiculo(s);
+               b.setIdtipovehiculo(s);
                Optional<Tipovehiculo> optional = tipovehiculoRepository.findById(b);
                if (optional.isPresent()) {
                tipovehiculo= optional.get();  
@@ -52,7 +52,7 @@ public class TipovehiculoConverter implements Converter {
         try {
             if (o instanceof Tipovehiculo) {
                 Tipovehiculo tipovehiculo = (Tipovehiculo) o;
-                r = String.valueOf(tipovehiculo.getTipovehiculo());
+                r = String.valueOf(tipovehiculo.getIdtipovehiculo());
             }else if (o instanceof String) {
                r = (String) o;
             }

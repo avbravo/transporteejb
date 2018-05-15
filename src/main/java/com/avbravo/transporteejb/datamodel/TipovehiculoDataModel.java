@@ -26,7 +26,7 @@ public class TipovehiculoDataModel extends ListDataModel<Tipovehiculo> implement
     public Tipovehiculo  getRowData(String rowKey) {
         List<Tipovehiculo> tipovehiculoList = (List<Tipovehiculo>) getWrappedData();
         for (Tipovehiculo tipovehiculo : tipovehiculoList) {
-             if (tipovehiculo.getTipovehiculo().equals(rowKey)) {
+             if (tipovehiculo.getIdtipovehiculo().equals(rowKey)) {
                  return tipovehiculo;
              }
         }
@@ -34,7 +34,7 @@ public class TipovehiculoDataModel extends ListDataModel<Tipovehiculo> implement
      }
      @Override
      public Object getRowKey(Tipovehiculo tipovehiculo) {
-         return tipovehiculo.getTipovehiculo();
+         return tipovehiculo.getIdtipovehiculo();
      }
 
 

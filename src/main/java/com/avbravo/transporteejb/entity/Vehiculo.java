@@ -26,7 +26,7 @@ public class Vehiculo {
     private String marca;
     private String modelo;
     private Integer anio;
-    private String activo;
+
     @Referenced(documment = "Tipovehiculo",
             field = "idtipovehiculo", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.TipovehiculoRepository")
@@ -36,7 +36,8 @@ public class Vehiculo {
 
     private String combustible;
     private String chasis;
-
+    private Double km;
+    private String activo;
     @Embedded
     List<UserInfo> userInfo;
 
