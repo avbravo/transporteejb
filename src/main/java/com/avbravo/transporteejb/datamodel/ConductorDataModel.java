@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.datamodel;
 
-import com.avbravo.transporteejb.entity.Usuario;
+import com.avbravo.transporteejb.entity.Conductor;
 import java.util.List;
 import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel;
@@ -14,27 +14,27 @@ import org.primefaces.model.SelectableDataModel;
  *
  * @author avbravo
  */
-public class ConductorDataModel extends ListDataModel<Usuario> implements SelectableDataModel<Usuario>{
+public class ConductorDataModel extends ListDataModel<Conductor> implements SelectableDataModel<Conductor>{
 
     public ConductorDataModel() {
     }
-    public ConductorDataModel(List<Usuario>data) {
+    public ConductorDataModel(List<Conductor>data) {
         super(data);
     }
 
     @Override
-    public Usuario  getRowData(String rowKey) {
-        List<Usuario> usuarioList = (List<Usuario>) getWrappedData();
-        for (Usuario usuario : usuarioList) {
-             if (usuario.getUsername().equals(rowKey)) {
-                 return usuario;
+    public Conductor  getRowData(String rowKey) {
+        List<Conductor> conductorList = (List<Conductor>) getWrappedData();
+        for (Conductor conductor : conductorList) {
+             if (conductor.getIdconductor().equals(rowKey)) {
+                 return conductor;
              }
         }
         return null;
      }
      @Override
-     public Object getRowKey(Usuario usuario) {
-         return usuario.getUsername();
+     public Object getRowKey(Conductor conductor) {
+         return conductor.getIdconductor();
      }
 
 

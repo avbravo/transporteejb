@@ -21,6 +21,8 @@ import lombok.Setter;
 public class Tipovehiculo {
    @Id
    private String idtipovehiculo;
+   
+   private String activo;
      @Embedded
     List<UserInfo> userInfo;
 }
