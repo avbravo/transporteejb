@@ -21,13 +21,11 @@ public class Usuario {
     private String celular;
     private String cargo;
     private String email;
-    private String unidad;
-
     @Referenced(documment = "Rol",
             field = "idrol", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.RolRepository")
-    private Rol rol;
-
+    private List<Rol> rol;
+ 
     private String activo;
     @Embedded
     List<UserInfo> userInfo;
