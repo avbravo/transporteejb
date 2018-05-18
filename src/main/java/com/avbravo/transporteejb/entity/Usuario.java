@@ -25,6 +25,10 @@ public class Usuario {
             field = "idrol", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.RolRepository")
     private List<Rol> rol;
+    @Referenced(documment = "Unidad",
+            field = "idunidad", javatype = "String", lazy = false,
+            repository = "com.avbravo.transporteejb.repository.UnidadRepository")
+    private Unidad unidad;
  
     private String activo;
     @Embedded
