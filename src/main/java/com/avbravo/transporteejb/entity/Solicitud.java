@@ -55,6 +55,10 @@ public class Solicitud {
     private Date fechaestatus;
     
     private Integer pasajeros;
+      @Referenced(documment = "Tiposolicitud",
+            field = "idtiposolicitud", javatype = "String", lazy = false,
+           repository = "com.avbravo.transporteejb.repository.TiposolicitudRepository")
+   Tiposolicitud tiposolicitud;
     
     @Embedded
     List<UserInfo> userInfo;
