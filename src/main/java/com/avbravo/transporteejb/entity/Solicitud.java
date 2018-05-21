@@ -28,6 +28,9 @@ public class Solicitud {
     private String numerogrupo;
     private String carrera;
     private String facultad;
+    private String responsable;
+    private String telefono;
+    
    
     
     @Referenced(documment = "Usuario",
