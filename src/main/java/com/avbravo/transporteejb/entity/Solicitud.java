@@ -30,6 +30,7 @@ public class Solicitud {
     private String facultad;
     private String responsable;
     private String telefono;
+    private String email;
     
    
     
@@ -62,6 +63,7 @@ public class Solicitud {
             field = "idtiposolicitud", javatype = "String", lazy = false,
            repository = "com.avbravo.transporteejb.repository.TiposolicitudRepository")
    Tiposolicitud tiposolicitud;
+      private String activo;
     
     @Embedded
     List<UserInfo> userInfo;

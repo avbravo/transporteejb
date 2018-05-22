@@ -44,7 +44,7 @@ public class Viajes {
     private String comentarios;
     
     private Double kmestimados;
-    
+    private String activo;
 
     @Embedded
     List<UserInfo> userInfo;
