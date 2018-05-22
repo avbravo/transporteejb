@@ -14,11 +14,11 @@ import org.primefaces.model.SelectableDataModel;
  *
  * @author avbravo
  */
-public class SolicitudlDataModel extends ListDataModel<Solicitud> implements SelectableDataModel<Solicitud>{
+public class SolicitudDataModel extends ListDataModel<Solicitud> implements SelectableDataModel<Solicitud>{
 
-    public SolicitudlDataModel() {
+    public SolicitudDataModel() {
     }
-    public SolicitudlDataModel(List<Solicitud>data) {
+    public SolicitudDataModel(List<Solicitud>data) {
         super(data);
     }
 

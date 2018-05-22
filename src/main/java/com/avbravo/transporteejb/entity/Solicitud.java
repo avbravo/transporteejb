@@ -31,7 +31,7 @@ public class Solicitud {
     private String responsable;
     private String telefono;
     private String email;
-    
+    private String mision;
    
     
     @Referenced(documment = "Usuario",
@@ -63,6 +63,12 @@ public class Solicitud {
             field = "idtiposolicitud", javatype = "String", lazy = false,
            repository = "com.avbravo.transporteejb.repository.TiposolicitudRepository")
    Tiposolicitud tiposolicitud;
+      
+      
+       @Referenced(documment = "Unidad",
+            field = "idunidad", javatype = "String", lazy = false,
+            repository = "com.avbravo.transporteejb.repository.UnidadRepository")
+    private List<Unidad> unidad;
       private String activo;
     
     @Embedded
