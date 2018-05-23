@@ -26,7 +26,7 @@ public class FacultadRepository extends Repository<Facultad> {
        return mongoClientProvider.getMongoClient();
     }
     public FacultadRepository(){
-        super(Facultad.class,"transporte","facultad");
+        super(Facultad.class,"commondb","facultad");
     }
     @Override
     public Object findById(String key, String value) {

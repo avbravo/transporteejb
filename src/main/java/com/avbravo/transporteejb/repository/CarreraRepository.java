@@ -26,7 +26,7 @@ public class CarreraRepository extends Repository<Carrera> {
        return mongoClientProvider.getMongoClient();
     }
     public CarreraRepository(){
-        super(Carrera.class,"transporte","carrera");
+        super(Carrera.class,"commondb","carrera");
     }
     @Override
     public Object findById(String key, String value) {

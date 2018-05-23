@@ -23,7 +23,7 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class TiposolicitudConverter implements Converter {
-
+ 
     @Inject
     TiposolicitudRepository tiposolicitudRepository;
 
