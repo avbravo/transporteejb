@@ -5,6 +5,7 @@
  */
 package com.avbravo.transporteejb.entity;
 
+import com.avbravo.commonejb.entity.Facultad;
 import com.avbravo.ejbjmoordb.anotations.Embedded;
 import com.avbravo.ejbjmoordb.anotations.Id;
 import com.avbravo.ejbjmoordb.anotations.Referenced;
@@ -27,7 +28,11 @@ public class Solicitud {
     private Date fecha;
     private String numerogrupo;
     private String carrera;
-    private String facultad;
+     @Referenced(documment = "Facultad",
+            field = "idfacultad", javatype = "Integer", lazy = false,
+           repository = "com.avbravo.commonejb.repository.UsuarioRepository")
+    List<Facultad> facultad;
+
     private String responsable;
     private String telefono;
     private String email;
@@ -38,6 +43,7 @@ public class Solicitud {
             field = "username", javatype = "String", lazy = false,
            repository = "com.avbravo.transporteejb.repository.UsuarioRepository")
     Usuario usuario;
+   
     
     private String objetivo;
     private String lugares;
