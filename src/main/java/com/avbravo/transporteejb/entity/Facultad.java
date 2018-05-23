@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 public class Facultad {
     @Id
-    private String idfacultad;
+    private Integer idfacultad;
     private String facultad;
     private String activo;
       @Embedded
