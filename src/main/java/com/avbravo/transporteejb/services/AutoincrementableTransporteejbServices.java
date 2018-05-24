@@ -7,7 +7,7 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.ejbjmoordb.pojos.Autoincrementable;
-import com.avbravo.transporteejb.repository.AutoincrementableRepository;
+import com.avbravo.transporteejb.repository.AutoincrementableTransporteejbRepository;
 import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -18,10 +18,10 @@ import org.bson.Document;
  * @authoravbravo
  */
 @Stateless
-public class AutoincrementableServices {
+public class AutoincrementableTransporteejbServices {
 
     @Inject
-    AutoincrementableRepository autoincrementableRepository;
+    AutoincrementableTransporteejbRepository autoincrementableRepository;
 
     public Integer getContador(String coleccion) {
         Integer id = 0;

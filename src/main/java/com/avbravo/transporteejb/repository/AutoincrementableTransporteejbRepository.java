@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
 import javax.ejb.EJB;
 import com.avbravo.ejbjmoordb.mongodb.repository.Repository;
 import com.avbravo.ejbjmoordb.pojos.Autoincrementable;
-import com.avbravo.transporteejb.provider.MongoClientProvider;
+import com.avbravo.transporteejb.provider.MongoClientTransporteejbProvider;
 
 
 import com.mongodb.MongoClient;
@@ -18,15 +18,15 @@ import com.mongodb.MongoClient;
  * @author avbravo
  */
 @Stateless
-public class AutoincrementableRepository extends Repository<Autoincrementable> {
+public class AutoincrementableTransporteejbRepository extends Repository<Autoincrementable> {
 
     @EJB
-    MongoClientProvider mongoClientProvider;
+    MongoClientTransporteejbProvider mongoClientProvider;
     @Override
     protected MongoClient getMongoClient() {
        return mongoClientProvider.getMongoClient();
     }
-    public AutoincrementableRepository(){
+    public AutoincrementableTransporteejbRepository(){
         super(Autoincrementable.class,"transporte","autoincrementable");
     }
     @Override

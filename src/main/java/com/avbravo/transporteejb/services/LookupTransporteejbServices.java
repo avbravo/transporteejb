@@ -13,7 +13,7 @@ import javax.ejb.Stateless;
  * @author avbravo
  */
 @Stateless
-public class LookupServices {
+public class LookupTransporteejbServices {
 
     private String text;
     private String id;
@@ -84,7 +84,7 @@ public class LookupServices {
     private Double exoneracion;
     private Double totalexoneracion;
 
-    public LookupServices() {
+    public LookupTransporteejbServices() {
     }
 
     public Integer getIdtiempoextra() {

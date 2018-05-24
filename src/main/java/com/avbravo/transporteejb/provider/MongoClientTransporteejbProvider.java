@@ -24,9 +24,9 @@ import javax.ejb.Singleton;
  */
 @Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
-public class MongoClientProvider {
+public class MongoClientTransporteejbProvider {
 
-    private static final Logger LOG = Logger.getLogger(MongoClientProvider.class.getName());
+    private static final Logger LOG = Logger.getLogger(MongoClientTransporteejbProvider.class.getName());
     private MongoClient mongoClient = null;
     
  

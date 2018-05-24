@@ -8,7 +8,7 @@ import com.avbravo.ejbjmoordb.mongodb.repository.Repository;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
 import com.avbravo.ejbjmoordb.pojos.RevisionHistory;
-import com.avbravo.transporteejb.provider.MongoClientProvider;
+import com.avbravo.transporteejb.provider.MongoClientTransporteejbProvider;
 import com.mongodb.MongoClient;
 
 /**
@@ -16,15 +16,15 @@ import com.mongodb.MongoClient;
  * @author avbravo
  */
 @Stateless
-public class RevisionHistoryRepository extends Repository<RevisionHistory>{
+public class RevisionHistoryTransporteejbRepository extends Repository<RevisionHistory>{
 
     @EJB
-    MongoClientProvider mongoClientProvider;
+    MongoClientTransporteejbProvider mongoClientProvider;
     @Override
     protected MongoClient getMongoClient() {
        return mongoClientProvider.getMongoClient();
     }
-    public RevisionHistoryRepository(){
+    public RevisionHistoryTransporteejbRepository(){
         super(RevisionHistory.class,"transporte_history","revisionhistory");
     }
 

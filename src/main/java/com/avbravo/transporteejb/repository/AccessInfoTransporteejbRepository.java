@@ -8,7 +8,7 @@ import com.avbravo.ejbjmoordb.mongodb.repository.Repository;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
 import com.avbravo.ejbjmoordb.pojos.AccessInfo;
-import com.avbravo.transporteejb.provider.MongoClientProvider;
+import com.avbravo.transporteejb.provider.MongoClientTransporteejbProvider;
 import com.mongodb.MongoClient;
 
 /**
@@ -16,18 +16,18 @@ import com.mongodb.MongoClient;
  * @author avbravo
  */
 @Stateless
-public class AccessInfoRepository extends Repository<AccessInfo> {
+public class AccessInfoTransporteejbRepository extends Repository<AccessInfo> {
     @EJB
-    MongoClientProvider mongoClientProvider;
+    MongoClientTransporteejbProvider mongoClientProvider;
     @Override
     protected MongoClient getMongoClient() {
        return mongoClientProvider.getMongoClient();
     }
-    public AccessInfoRepository(){
+    public AccessInfoTransporteejbRepository(){
         super(AccessInfo.class,"transporte_history","accessinfo");
     }
 
-    public AccessInfoRepository(Class<AccessInfo> entityClass, String database, String collection, Boolean... lazy) {
+    public AccessInfoTransporteejbRepository(Class<AccessInfo> entityClass, String database, String collection, Boolean... lazy) {
         super(entityClass, database, collection, lazy);
     }
 
