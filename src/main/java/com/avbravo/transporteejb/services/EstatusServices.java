@@ -2,7 +2,7 @@
 * To change this license header, choose License Headers in Project Properties.
 * To change this template file, choose Tools | Templates
  * and open the template in the editor.
-*/
+ */
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
@@ -26,28 +26,35 @@ public class EstatusServices {
     @Inject
     EstatusRepository estatusRepository;
 
-     List<Estatus> estatusList = new ArrayList<>();
-     public List<Estatus> complete(String query) {
-        List<Estatus> suggestions = new ArrayList<>();
-           try {
-               query = query.trim();
-               if (query.length() < 1) {
-                   return suggestions;
-               }   
-               String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");               
-               suggestions=  estatusRepository.findRegex(field,query,true,new Document(field,1));
+    List<Estatus> estatusList = new ArrayList<>();
 
-           } catch (Exception e) {
-                    JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
-           }
-           return suggestions;
+    public List<Estatus> complete(String query) {
+        List<Estatus> suggestions = new ArrayList<>();
+        try {
+            query = query.trim();
+            String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
+            String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
+            if (fielddropdown.equals("false")) {
+                if (query.length() < Integer.parseInt(fieldquerylenth)) {
+                    return suggestions;
+                }
+                suggestions = estatusRepository.findRegex(field, query, true, new Document(field, 1));
+            } else {
+                suggestions = estatusRepository.findRegexInText(field, query, true, new Document(field, 1));
+
+            }
+        } catch (Exception e) {
+            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+        }
+        return suggestions;
     }
 
     public List<Estatus> getEstatusList() {
-          try {
-          estatusList= estatusRepository.findAll(new Document("estatus",1));
+        try {
+            estatusList = estatusRepository.findAll(new Document("estatus", 1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
         }
 
         return estatusList;
@@ -56,8 +63,5 @@ public class EstatusServices {
     public void setEstatusList(List<Estatus> estatusList) {
         this.estatusList = estatusList;
     }
-     
-     
-     
-     
+
 }

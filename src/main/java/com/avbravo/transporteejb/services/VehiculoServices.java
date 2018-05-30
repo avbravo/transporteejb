@@ -2,7 +2,7 @@
 * To change this license header, choose License Headers in Project Properties.
 * To change this template file, choose Tools | Templates
  * and open the template in the editor.
-*/
+ */
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
@@ -25,30 +25,37 @@ public class VehiculoServices {
 
     @Inject
     VehiculoRepository vehiculoRepository;
-List<Vehiculo> vehiculoList = new ArrayList<>();
+    List<Vehiculo> vehiculoList = new ArrayList<>();
+
     public List<Vehiculo> complete(String query) {
         List<Vehiculo> suggestions = new ArrayList<>();
-           try {
-               query = query.trim();
-               if (query.length() < 1) {
-                   return suggestions;
-               }   
-               String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");               
-               suggestions=  vehiculoRepository.findRegex(field,query,true,new Document(field,1));
+        try {
+            query = query.trim();
+            String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
+            String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
+            if (fielddropdown.equals("false")) {
+                if (query.length() < Integer.parseInt(fieldquerylenth)) {
+                    return suggestions;
+                }
+                suggestions = vehiculoRepository.findRegex(field, query, true, new Document(field, 1));
+            } else {
+                suggestions = vehiculoRepository.findRegexInText(field, query, true, new Document(field, 1));
 
-           } catch (Exception e) {
-                    JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
-           }
-           return suggestions;
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+        }
+        return suggestions;
     }
 
-    
     // <editor-fold defaultstate="collapsed" desc="getVehiculoList()">
     public List<Vehiculo> getVehiculoList() {
         try {
-           vehiculoList= vehiculoRepository.findAll(new Document("vehiculo",1));
+            vehiculoList = vehiculoRepository.findAll(new Document("vehiculo", 1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getVehiculoList() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("getVehiculoList() " + e.getLocalizedMessage());
         }
         return vehiculoList;
     }// </editor-fold>

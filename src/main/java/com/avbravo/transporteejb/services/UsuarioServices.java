@@ -30,12 +30,18 @@ public class UsuarioServices {
         List<Usuario> suggestions = new ArrayList<>();
            try {
                query = query.trim();
-               if (query.length() < 1) {
-                   return suggestions;
-               }   
-               String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");               
+               String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
+            String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
+            if (fielddropdown.equals("false")) {
+                if (query.length() < Integer.parseInt(fieldquerylenth)) {
+                    return suggestions;
+                }
                suggestions=  usuarioRepository.findRegex(field,query,true,new Document(field,1));
+} else {
+                suggestions = usuarioRepository.findRegexInText(field, query, true, new Document(field, 1));
 
+            }
            } catch (Exception e) {
                     JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
            }
