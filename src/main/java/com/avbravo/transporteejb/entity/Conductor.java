@@ -28,5 +28,7 @@ public class Conductor {
     private String activo;
     @Embedded
     List<UserInfo> userInfo;
+    
+    
 
 }

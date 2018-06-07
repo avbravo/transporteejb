@@ -47,7 +47,7 @@ public class Solicitud {
     
     private Date fechahoraregreso;
     
-    private String lugarllegada;
+    private String lugarregreso;
     private String recursossolicitados;
     private String observaciones;
     
