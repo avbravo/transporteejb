@@ -28,30 +28,12 @@ public class RolServices {
 List<Rol> rolList = new ArrayList<>();
     public List<Rol> complete(String query) {
         List<Rol> suggestions = new ArrayList<>();
-           try {
-            query = query.trim();
-            String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
-            String fromstart = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fromstart");
-            String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
-            String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
-
-            if (fielddropdown.equals("false")) {
-                if (query.length() < Integer.parseInt(fieldquerylenth)) {
-                    return suggestions;
-                }
-                if (fromstart.equals("true")) {
-                    suggestions = repository.findRegex(field, query, true, new Document(field, 1));
-                } else {
-                    suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
-                }
-            } else {
-                suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
-
-            }
-
+             try {
+          suggestions=repository.complete(query);
         } catch (Exception e) {
             JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
+
            return suggestions;
     }
     public List<Rol> completeFiltrado(String query) {
