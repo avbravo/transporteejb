@@ -24,28 +24,34 @@ import org.bson.Document;
 public class TipovehiculoServices {
 
     @Inject
-    TipovehiculoRepository tipovehiculoRepository;
+    TipovehiculoRepository repository;
 List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
     public List<Tipovehiculo> complete(String query) {
         List<Tipovehiculo> suggestions = new ArrayList<>();
-           try {
-               query = query.trim();
-                String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            try {
+            query = query.trim();
+            String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            String fromstart = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fromstart");
             String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
             String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
+
             if (fielddropdown.equals("false")) {
                 if (query.length() < Integer.parseInt(fieldquerylenth)) {
                     return suggestions;
                 }
-               suggestions=  tipovehiculoRepository.findRegex(field,query,true,new Document(field,1));
-               } else {
-                suggestions = tipovehiculoRepository.findRegexInText(field, query, true, new Document(field, 1));
+                if (fromstart.equals("true")) {
+                    suggestions = repository.findRegex(field, query, true, new Document(field, 1));
+                } else {
+                    suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
+                }
+            } else {
+                suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
 
             }
 
-           } catch (Exception e) {
-                    JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
-           }
+        } catch (Exception e) {
+            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+        }
            return suggestions;
     }
 
@@ -53,7 +59,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
     // <editor-fold defaultstate="collapsed" desc="getTipovehiculoList()">
     public List<Tipovehiculo> getTipovehiculoList() {
         try {
-           tipovehiculoList= tipovehiculoRepository.findAll(new Document("tipovehiculo",1));
+           tipovehiculoList= repository.findAll(new Document("tipovehiculo",1));
         } catch (Exception e) {
               JsfUtil.errorMessage("getTipovehiculoList() " + e.getLocalizedMessage());
         }

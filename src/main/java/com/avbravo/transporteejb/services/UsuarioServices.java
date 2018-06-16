@@ -24,32 +24,39 @@ import org.bson.Document;
 public class UsuarioServices {
 
     @Inject
-    UsuarioRepository usuarioRepository;
+    UsuarioRepository repository;
      List<Usuario> usuarioList = new ArrayList<>();
      public List<Usuario> complete(String query) {
         List<Usuario> suggestions = new ArrayList<>();
-           try {
-               query = query.trim();
-               String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            try {
+            query = query.trim();
+            String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            String fromstart = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fromstart");
             String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
             String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
+
             if (fielddropdown.equals("false")) {
                 if (query.length() < Integer.parseInt(fieldquerylenth)) {
                     return suggestions;
                 }
-               suggestions=  usuarioRepository.findRegex(field,query,true,new Document(field,1));
-} else {
-                suggestions = usuarioRepository.findRegexInText(field, query, true, new Document(field, 1));
+                if (fromstart.equals("true")) {
+                    suggestions = repository.findRegex(field, query, true, new Document(field, 1));
+                } else {
+                    suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
+                }
+            } else {
+                suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
 
             }
-           } catch (Exception e) {
-                    JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
-           }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+        }
            return suggestions;
     }
       public List<Usuario> getUsuarioList() {
           try {
-          usuarioList= usuarioRepository.findAll(new Document("username",1));
+          usuarioList= repository.findAll(new Document("username",1));
         } catch (Exception e) {
               JsfUtil.errorMessage("getUsuarioList() " + e.getLocalizedMessage());
         }

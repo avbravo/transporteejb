@@ -24,26 +24,33 @@ import org.bson.Document;
 public class EstatusServices {
 
     @Inject
-    EstatusRepository estatusRepository;
+    EstatusRepository repository;
 
     List<Estatus> estatusList = new ArrayList<>();
 
     public List<Estatus> complete(String query) {
         List<Estatus> suggestions = new ArrayList<>();
-        try {
+         try {
             query = query.trim();
             String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            String fromstart = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fromstart");
             String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
             String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
+
             if (fielddropdown.equals("false")) {
                 if (query.length() < Integer.parseInt(fieldquerylenth)) {
                     return suggestions;
                 }
-                suggestions = estatusRepository.findRegex(field, query, true, new Document(field, 1));
+                if (fromstart.equals("true")) {
+                    suggestions = repository.findRegex(field, query, true, new Document(field, 1));
+                } else {
+                    suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
+                }
             } else {
-                suggestions = estatusRepository.findRegexInText(field, query, true, new Document(field, 1));
+                suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
 
             }
+
         } catch (Exception e) {
             JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
@@ -52,7 +59,7 @@ public class EstatusServices {
 
     public List<Estatus> getEstatusList() {
         try {
-            estatusList = estatusRepository.findAll(new Document("estatus", 1));
+            estatusList = repository.findAll(new Document("estatus", 1));
         } catch (Exception e) {
             JsfUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
         }

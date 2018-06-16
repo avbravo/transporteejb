@@ -24,28 +24,34 @@ import org.bson.Document;
 public class RolServices {
 
     @Inject
-    RolRepository rolRepository;
+    RolRepository repository;
 List<Rol> rolList = new ArrayList<>();
     public List<Rol> complete(String query) {
         List<Rol> suggestions = new ArrayList<>();
            try {
-               query = query.trim();
-                String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            query = query.trim();
+            String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            String fromstart = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fromstart");
             String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
             String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
+
             if (fielddropdown.equals("false")) {
                 if (query.length() < Integer.parseInt(fieldquerylenth)) {
                     return suggestions;
                 }
-               suggestions=  rolRepository.findRegex(field,query,true,new Document(field,1));
+                if (fromstart.equals("true")) {
+                    suggestions = repository.findRegex(field, query, true, new Document(field, 1));
                 } else {
-                suggestions = rolRepository.findRegexInText(field, query, true, new Document(field, 1));
+                    suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
+                }
+            } else {
+                suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
 
             }
 
-           } catch (Exception e) {
-                    JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
-           }
+        } catch (Exception e) {
+            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+        }
            return suggestions;
     }
     public List<Rol> completeFiltrado(String query) {
@@ -56,7 +62,7 @@ List<Rol> rolList = new ArrayList<>();
                    return suggestions;
                }   
                String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");               
-               suggestions=  rolRepository.findRegex(field,query,true,new Document(field,1));
+               suggestions=  repository.findRegex(field,query,true,new Document(field,1));
 
            } catch (Exception e) {
                     JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
@@ -68,7 +74,7 @@ List<Rol> rolList = new ArrayList<>();
     // <editor-fold defaultstate="collapsed" desc="getRolList()">
     public List<Rol> getRolList() {
         try {
-           rolList= rolRepository.findAll(new Document("rol",1));
+           rolList= repository.findAll(new Document("rol",1));
         } catch (Exception e) {
               JsfUtil.errorMessage("getRolList() " + e.getLocalizedMessage());
         }

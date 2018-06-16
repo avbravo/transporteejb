@@ -24,7 +24,7 @@ import org.bson.Document;
 public class VehiculoServices {
 
     @Inject
-    VehiculoRepository vehiculoRepository;
+    VehiculoRepository repository;
     List<Vehiculo> vehiculoList = new ArrayList<>();
 
     public List<Vehiculo> complete(String query) {
@@ -32,15 +32,21 @@ public class VehiculoServices {
         try {
             query = query.trim();
             String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            String fromstart = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fromstart");
             String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
             String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
+
             if (fielddropdown.equals("false")) {
                 if (query.length() < Integer.parseInt(fieldquerylenth)) {
                     return suggestions;
                 }
-                suggestions = vehiculoRepository.findRegex(field, query, true, new Document(field, 1));
+                if (fromstart.equals("true")) {
+                    suggestions = repository.findRegex(field, query, true, new Document(field, 1));
+                } else {
+                    suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
+                }
             } else {
-                suggestions = vehiculoRepository.findRegexInText(field, query, true, new Document(field, 1));
+                suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
 
             }
 
@@ -53,7 +59,7 @@ public class VehiculoServices {
     // <editor-fold defaultstate="collapsed" desc="getVehiculoList()">
     public List<Vehiculo> getVehiculoList() {
         try {
-            vehiculoList = vehiculoRepository.findAll(new Document("vehiculo", 1));
+            vehiculoList = repository.findAll(new Document("vehiculo", 1));
         } catch (Exception e) {
             JsfUtil.errorMessage("getVehiculoList() " + e.getLocalizedMessage());
         }

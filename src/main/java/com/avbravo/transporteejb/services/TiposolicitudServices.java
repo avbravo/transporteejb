@@ -24,33 +24,40 @@ import org.bson.Document;
 public class TiposolicitudServices {
 
     @Inject
-    TiposolicitudRepository tiposolicitudRepository;
+    TiposolicitudRepository repository;
     List<Tiposolicitud> tiposolicitudList = new ArrayList<>();
      public List<Tiposolicitud> complete(String query) {
         List<Tiposolicitud> suggestions = new ArrayList<>();
-           try {
-               query = query.trim();
-                String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            try {
+            query = query.trim();
+            String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            String fromstart = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fromstart");
             String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
             String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
+
             if (fielddropdown.equals("false")) {
                 if (query.length() < Integer.parseInt(fieldquerylenth)) {
                     return suggestions;
                 }
-               suggestions=  tiposolicitudRepository.findRegex(field,query,true,new Document(field,1));
- } else {
-                suggestions = tiposolicitudRepository.findRegexInText(field, query, true, new Document(field, 1));
+                if (fromstart.equals("true")) {
+                    suggestions = repository.findRegex(field, query, true, new Document(field, 1));
+                } else {
+                    suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
+                }
+            } else {
+                suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
 
             }
-           } catch (Exception e) {
-                    JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
-           }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+        }
            return suggestions;
     }
 
     public List<Tiposolicitud> getTiposolicitudList() {
           try {
-        tiposolicitudList= tiposolicitudRepository.findAll(new Document("idtiposolicitud",1));
+        tiposolicitudList= repository.findAll(new Document("idtiposolicitud",1));
         } catch (Exception e) {
               JsfUtil.errorMessage("getTiposolicitudList() " + e.getLocalizedMessage());
         }

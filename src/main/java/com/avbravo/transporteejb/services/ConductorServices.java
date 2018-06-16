@@ -24,33 +24,40 @@ import org.bson.Document;
 public class ConductorServices {
 
     @Inject
-    ConductorRepository conductorRepository;
+    ConductorRepository repository;
     List<Conductor> conductorList = new ArrayList<>();
      public List<Conductor> complete(String query) {
         List<Conductor> suggestions = new ArrayList<>();
-           try {
-             
+          try {
+            query = query.trim();
             String field = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("field");
+            String fromstart = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fromstart");
             String fielddropdown = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fielddropdown");
             String fieldquerylenth = (String) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance()).getAttributes().get("fieldquerylenth");
+
             if (fielddropdown.equals("false")) {
                 if (query.length() < Integer.parseInt(fieldquerylenth)) {
                     return suggestions;
                 }
-               suggestions=  conductorRepository.findRegex(field,query,true,new Document(field,1));
-} else {
-                suggestions = conductorRepository.findRegexInText(field, query, true, new Document(field, 1));
+                if (fromstart.equals("true")) {
+                    suggestions = repository.findRegex(field, query, true, new Document(field, 1));
+                } else {
+                    suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
+                }
+            } else {
+                suggestions = repository.findRegexInText(field, query, false, new Document(field, 1));
 
             }
-           } catch (Exception e) {
-                    JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
-           }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+        }
            return suggestions;
     }
 
     public List<Conductor> getConductorList() {
           try {
-        conductorList= conductorRepository.findAll(new Document("idconductor",1));
+        conductorList= repository.findAll(new Document("idconductor",1));
         } catch (Exception e) {
               JsfUtil.errorMessage("getConductorList() " + e.getLocalizedMessage());
         }
