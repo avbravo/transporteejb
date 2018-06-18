@@ -80,6 +80,7 @@ public class ConfiguracionTransporteejbServices {
                 configuracion.setIdconfiguracion(id);
                 configuracion.setActivo("si");
                 configuracion.setDecimales(2);
+                configuracion.setFormatodecimal("#0.00");
                 configuracion.setFormatofecha("dd/MM/yyyy");
                 configuracion.setFormatofechahora("dd/MM/yyyy HH:mm:ss");
                 configuracion.setItbms(0.07);
