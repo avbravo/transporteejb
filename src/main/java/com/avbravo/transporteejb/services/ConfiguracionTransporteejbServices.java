@@ -106,4 +106,26 @@ public class ConfiguracionTransporteejbServices {
         }
         return configuracion;
     }
+    
+     public Configuracion produce() {
+        Configuracion configuracion = new Configuracion();
+        try {
+
+                configuracion.setActivo("si");
+                configuracion.setDecimales(2);
+                configuracion.setFormatodecimal("#0.00");
+                configuracion.setRowsforpage(25);
+                configuracion.setFormatofecha("dd/MM/yyyy");               
+                configuracion.setFormatofechahora("dd/MM/yyyy HH:mm:ss");
+                configuracion.setItbms(0.07);
+                configuracion.setMinQueryLengthAutocompleteSmall(1);
+                configuracion.setMinQueryLengthAutocompleteMedium(3);
+                configuracion.setMinQueryLengthAutocompleteLarge(4);
+
+             
+        } catch (Exception e) {
+            JsfUtil.errorMessage("produce() " + e.getLocalizedMessage());
+        }
+        return configuracion;
+    }
 }
