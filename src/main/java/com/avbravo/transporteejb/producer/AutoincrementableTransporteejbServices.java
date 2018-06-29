@@ -3,11 +3,11 @@
 * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.transporteejb.services;
+package com.avbravo.transporteejb.producer;
 
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.ejbjmoordb.pojos.Autoincrementable;
-import com.avbravo.transporteejb.repository.AutoincrementableTransporteejbRepository;
+import com.avbravo.transporteejb.producer.AutoincrementableTransporteejbRepository;
 import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

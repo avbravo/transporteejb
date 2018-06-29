@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.transporteejb.services;
+package com.avbravo.transporteejb.producer;
 
 import java.util.Date;
 import javax.ejb.Stateless;

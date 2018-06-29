@@ -3,14 +3,13 @@
 * To change this template file, choose Tools | Templates
  * and open the template in the editor.
 */
-package com.avbravo.transporteejb.repository;
+package com.avbravo.transporteejb.producer;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
 import com.avbravo.ejbjmoordb.mongodb.repository.Repository;
-import com.avbravo.ejbjmoordb.pojos.Autoincrementable;
+import com.avbravo.ejbjmoordb.pojos.Configuracion;
+
 import com.avbravo.transporteejb.provider.MongoClientTransporteejbProvider;
-
-
 import com.mongodb.MongoClient;
 
 /**
@@ -18,16 +17,16 @@ import com.mongodb.MongoClient;
  * @author avbravo
  */
 @Stateless
-public class AutoincrementableTransporteejbRepository extends Repository<Autoincrementable> {
+public class ConfiguracionTransporteejbRepository extends Repository<Configuracion> {
 
     @EJB
-    MongoClientTransporteejbProvider mongoClientProvider;
+    MongoClientTransporteejbProvider MongoClientTransporteejbProvider;
     @Override
     protected MongoClient getMongoClient() {
-       return mongoClientProvider.getMongoClient();
+       return MongoClientTransporteejbProvider.getMongoClient();
     }
-    public AutoincrementableTransporteejbRepository(){
-        super(Autoincrementable.class,"transporte","autoincrementable");
+    public ConfiguracionTransporteejbRepository(){
+        super(Configuracion.class,"transporte","configuracion");
     }
     @Override
     public Object findById(String key, String value) {

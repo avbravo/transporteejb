@@ -8,7 +8,7 @@ package com.avbravo.transporteejb.converter;
 
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.ejbjmoordb.pojos.Configuracion;
-import com.avbravo.transporteejb.repository.ConfiguracionTransporteejbRepository;
+import com.avbravo.transporteejb.producer.ConfiguracionTransporteejbRepository;
 import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

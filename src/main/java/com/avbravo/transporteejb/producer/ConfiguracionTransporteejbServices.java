@@ -3,15 +3,16 @@
 * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.avbravo.transporteejb.services;
+package com.avbravo.transporteejb.producer;
 
+import com.avbravo.transporteejb.producer.AutoincrementableTransporteejbServices;
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.ejbjmoordb.pojos.Configuracion;
 import com.avbravo.ejbjmoordb.services.RevisionHistoryServices;
 import com.avbravo.ejbjmoordb.services.UserInfoServices;
-import com.avbravo.transporteejb.repository.AutoincrementableTransporteejbRepository;
-import com.avbravo.transporteejb.repository.ConfiguracionTransporteejbRepository;
-import com.avbravo.transporteejb.repository.RevisionHistoryTransporteejbRepository;
+import com.avbravo.transporteejb.producer.AutoincrementableTransporteejbRepository;
+import com.avbravo.transporteejb.producer.ConfiguracionTransporteejbRepository;
+import com.avbravo.transporteejb.producer.RevisionHistoryTransporteejbRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
