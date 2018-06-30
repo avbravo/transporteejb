@@ -12,7 +12,7 @@ import javax.ejb.Stateless;
  * @authoravbravo
  */
 @Stateless
-public class IntegerirdadreferencialTransporteejbServices {
+public class ReferentialIntegrityTransporteejbServices {
 
 
 }
