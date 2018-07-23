@@ -5,7 +5,14 @@
  */
 package com.avbravo.transporteejb.producer;
 
+import com.avbravo.transporteejb.repository.ConductorRepository;
+import com.avbravo.transporteejb.repository.EstatusRepository;
+import com.avbravo.transporteejb.repository.RolRepository;
+import com.avbravo.transporteejb.repository.SolicitudRepository;
+import com.avbravo.transporteejb.repository.TiposolicitudRepository;
+import com.avbravo.transporteejb.repository.TipovehiculoRepository;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  *
@@ -14,5 +21,17 @@ import javax.ejb.Stateless;
 @Stateless
 public class ReferentialIntegrityTransporteejbServices {
 
+    @Inject
+    ConductorRepository conductorRepository;
+    @Inject
+    EstatusRepository estatusRepository;
+    @Inject
+    RolRepository rolRepository;
+    @Inject
+    SolicitudRepository solicitudRepository;
+    @Inject
+    TiposolicitudRepository tiposolicitudRepository;
+    @Inject
+    TipovehiculoRepository tipovehiculoRepository;
 
 }
