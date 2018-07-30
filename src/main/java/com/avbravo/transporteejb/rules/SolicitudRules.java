@@ -6,7 +6,7 @@
 package com.avbravo.transporteejb.rules;
 
 import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.transporteejb.entity.Conductor;
+import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.repository.ViajesRepository;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,28 +17,25 @@ import org.bson.Document;
  * @authoravbravo
  */
 @Stateless
-public class ConductorRules {
+public class SolicitudRules {
 
     @Inject
     ViajesRepository viajesRepository;
-    
-   
 
-    // <editor-fold defaultstate="collapsed" desc="isDeleted(Conductor conductor)">
-  
-    public Boolean isDeleted(Conductor conductor){
-        Boolean found=false;
+    // <editor-fold defaultstate="collapsed" desc="isDeleted(Solicitud solicitud)">
+    public Boolean isDeleted(Solicitud solicitud) {
+        Boolean found = false;
         try {
-            Document doc = new Document("conductor.idconductor",conductor.getIdconductor());
+            Document doc = new Document("solicitud.idsolicitud", solicitud.getIdsolicitud());
             Integer count = viajesRepository.count(doc);
-            if (count > 0){
+            if (count > 0) {
                 return false;
             }
-            
+
         } catch (Exception e) {
-             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
-   
+
 }

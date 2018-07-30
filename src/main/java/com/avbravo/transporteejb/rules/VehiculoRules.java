@@ -6,7 +6,7 @@
 package com.avbravo.transporteejb.rules;
 
 import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.transporteejb.entity.Conductor;
+import com.avbravo.transporteejb.entity.Vehiculo;
 import com.avbravo.transporteejb.repository.ViajesRepository;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,19 +17,19 @@ import org.bson.Document;
  * @authoravbravo
  */
 @Stateless
-public class ConductorRules {
+public class VehiculoRules {
 
     @Inject
-    ViajesRepository viajesRepository;
+   ViajesRepository viajesRepository;
     
    
 
-    // <editor-fold defaultstate="collapsed" desc="isDeleted(Conductor conductor)">
+    // <editor-fold defaultstate="collapsed" desc="isDeleted(Vehiculo vehiculo)">
   
-    public Boolean isDeleted(Conductor conductor){
+    public Boolean isDeleted(Vehiculo vehiculo){
         Boolean found=false;
         try {
-            Document doc = new Document("conductor.idconductor",conductor.getIdconductor());
+            Document doc = new Document("vehiculo.idvehiculo",vehiculo.getIdvehiculo());
             Integer count = viajesRepository.count(doc);
             if (count > 0){
                 return false;

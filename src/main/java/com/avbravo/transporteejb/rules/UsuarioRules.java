@@ -25,7 +25,7 @@ public class UsuarioRules {
 
     
  
-    // <editor-fold defaultstate="collapsed" desc="isDeleted(...)">
+    // <editor-fold defaultstate="collapsed" desc="isDeleted(Usuario usuario)">
   
     public Boolean isDeleted(Usuario usuario){
         Boolean found=false;

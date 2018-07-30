@@ -24,7 +24,7 @@ public class EstatusRules {
     
    
 
-    // <editor-fold defaultstate="collapsed" desc="isDeleted(Tamano tamano)">
+    // <editor-fold defaultstate="collapsed" desc="isDeleted(Estatus estatus)">
   
     public Boolean isDeleted(Estatus estatus){
         Boolean found=false;
