@@ -40,5 +40,13 @@ public class Estatus {
     public void setActivo(String activo) {
         this.activo = activo;
     }
+
+    public List<UserInfo> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(List<UserInfo> userInfo) {
+        this.userInfo = userInfo;
+    }
     
 }
