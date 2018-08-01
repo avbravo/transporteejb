@@ -59,6 +59,7 @@ public class LookupTransporteejbServices {
     /*
     numeros
      */
+    private Integer idcarrera;
     private Integer idvacacion;
     private Integer idpermiso;
     private Integer idtiempoextra;
@@ -87,6 +88,17 @@ public class LookupTransporteejbServices {
     public LookupTransporteejbServices() {
     }
 
+    public Integer getIdcarrera() {
+        return idcarrera;
+    }
+
+    public void setIdcarrera(Integer idcarrera) {
+        this.idcarrera = idcarrera;
+    }
+
+    
+    
+    
     public Integer getIdtiempoextra() {
         return idtiempoextra;
     }
