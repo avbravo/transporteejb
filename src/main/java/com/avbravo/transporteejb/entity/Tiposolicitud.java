@@ -24,4 +24,31 @@ public class Tiposolicitud {
     private String activo;
     @Embedded
     List<UserInfo> userInfo;
+
+    public String getIdtiposolicitud() {
+        return idtiposolicitud;
+    }
+
+    public void setIdtiposolicitud(String idtiposolicitud) {
+        this.idtiposolicitud = idtiposolicitud;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
+
+    public List<UserInfo> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(List<UserInfo> userInfo) {
+        this.userInfo = userInfo;
+    }
+    
+    
+    
 }

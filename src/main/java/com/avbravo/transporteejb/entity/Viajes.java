@@ -48,4 +48,87 @@ public class Viajes {
 
     @Embedded
     List<UserInfo> userInfo;
+
+    public Integer getIdviaje() {
+        return idviaje;
+    }
+
+    public void setIdviaje(Integer idviaje) {
+        this.idviaje = idviaje;
+    }
+
+    public Solicitud getSolicitud() {
+        return solicitud;
+    }
+
+    public void setSolicitud(Solicitud solicitud) {
+        this.solicitud = solicitud;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
+    public Conductor getConductor() {
+        return conductor;
+    }
+
+    public void setConductor(Conductor conductor) {
+        this.conductor = conductor;
+    }
+
+    public Date getFechahorasalida() {
+        return fechahorasalida;
+    }
+
+    public void setFechahorasalida(Date fechahorasalida) {
+        this.fechahorasalida = fechahorasalida;
+    }
+
+    public Date getFechahorallegada() {
+        return fechahorallegada;
+    }
+
+    public void setFechahorallegada(Date fechahorallegada) {
+        this.fechahorallegada = fechahorallegada;
+    }
+
+    public String getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(String comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public Double getKmestimados() {
+        return kmestimados;
+    }
+
+    public void setKmestimados(Double kmestimados) {
+        this.kmestimados = kmestimados;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
+
+    public List<UserInfo> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(List<UserInfo> userInfo) {
+        this.userInfo = userInfo;
+    }
+    
+    
+    
 }

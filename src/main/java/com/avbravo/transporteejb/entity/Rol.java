@@ -23,6 +23,38 @@ public class Rol {
     public String toString() {
         return "Rol{" + "idrol=" + idrol + ", rol=" + rol + '}';
     }
+
+    public String getIdrol() {
+        return idrol;
+    }
+
+    public void setIdrol(String idrol) {
+        this.idrol = idrol;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
+
+    public List<UserInfo> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(List<UserInfo> userInfo) {
+        this.userInfo = userInfo;
+    }
     
     
 }

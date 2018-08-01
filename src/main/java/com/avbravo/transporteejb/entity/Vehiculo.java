@@ -41,4 +41,94 @@ public class Vehiculo {
     @Embedded
     List<UserInfo> userInfo;
 
+    public String getIdvehiculo() {
+        return idvehiculo;
+    }
+
+    public void setIdvehiculo(String idvehiculo) {
+        this.idvehiculo = idvehiculo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public Integer getAnio() {
+        return anio;
+    }
+
+    public void setAnio(Integer anio) {
+        this.anio = anio;
+    }
+
+    public Tipovehiculo getTipovehiculo() {
+        return tipovehiculo;
+    }
+
+    public void setTipovehiculo(Tipovehiculo tipovehiculo) {
+        this.tipovehiculo = tipovehiculo;
+    }
+
+    public Integer getPasajeros() {
+        return pasajeros;
+    }
+
+    public void setPasajeros(Integer pasajeros) {
+        this.pasajeros = pasajeros;
+    }
+
+    public String getCombustible() {
+        return combustible;
+    }
+
+    public void setCombustible(String combustible) {
+        this.combustible = combustible;
+    }
+
+    public String getChasis() {
+        return chasis;
+    }
+
+    public void setChasis(String chasis) {
+        this.chasis = chasis;
+    }
+
+    public Double getKm() {
+        return km;
+    }
+
+    public void setKm(Double km) {
+        this.km = km;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
+
+    public List<UserInfo> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(List<UserInfo> userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    
+    
 }

@@ -24,5 +24,21 @@ public class Estatus {
     private String activo;
       @Embedded
     List<UserInfo> userInfo;
+
+    public String getIdestatus() {
+        return idestatus;
+    }
+
+    public void setIdestatus(String idestatus) {
+        this.idestatus = idestatus;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
     
 }

@@ -28,5 +28,46 @@ public class Conductor {
     private String activo;
     @Embedded
     List<UserInfo> userInfo;
+
+    public String getIdconductor() {
+        return idconductor;
+    }
+
+    public void setIdconductor(String idconductor) {
+        this.idconductor = idconductor;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
    
+    
 }

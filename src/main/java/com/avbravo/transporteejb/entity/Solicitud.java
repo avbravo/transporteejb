@@ -73,5 +73,208 @@ public class Solicitud {
     
     @Embedded
     List<UserInfo> userInfo;
+
+    public Integer getIdsolicitud() {
+        return idsolicitud;
+    }
+
+    public void setIdsolicitud(Integer idsolicitud) {
+        this.idsolicitud = idsolicitud;
+    }
+
+    public String getPeriodoacademico() {
+        return periodoacademico;
+    }
+
+    public void setPeriodoacademico(String periodoacademico) {
+        this.periodoacademico = periodoacademico;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getNumerogrupo() {
+        return numerogrupo;
+    }
+
+    public void setNumerogrupo(String numerogrupo) {
+        this.numerogrupo = numerogrupo;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
+
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMision() {
+        return mision;
+    }
+
+    public void setMision(String mision) {
+        this.mision = mision;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(String objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    public String getLugares() {
+        return lugares;
+    }
+
+    public void setLugares(String lugares) {
+        this.lugares = lugares;
+    }
+
+    public Date getFechahorapartida() {
+        return fechahorapartida;
+    }
+
+    public void setFechahorapartida(Date fechahorapartida) {
+        this.fechahorapartida = fechahorapartida;
+    }
+
+    public String getLugarpartida() {
+        return lugarpartida;
+    }
+
+    public void setLugarpartida(String lugarpartida) {
+        this.lugarpartida = lugarpartida;
+    }
+
+    public Date getFechahoraregreso() {
+        return fechahoraregreso;
+    }
+
+    public void setFechahoraregreso(Date fechahoraregreso) {
+        this.fechahoraregreso = fechahoraregreso;
+    }
+
+    public String getLugarregreso() {
+        return lugarregreso;
+    }
+
+    public void setLugarregreso(String lugarregreso) {
+        this.lugarregreso = lugarregreso;
+    }
+
+    public String getRecursossolicitados() {
+        return recursossolicitados;
+    }
+
+    public void setRecursossolicitados(String recursossolicitados) {
+        this.recursossolicitados = recursossolicitados;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public Estatus getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(Estatus estatus) {
+        this.estatus = estatus;
+    }
+
+    public Date getFechaestatus() {
+        return fechaestatus;
+    }
+
+    public void setFechaestatus(Date fechaestatus) {
+        this.fechaestatus = fechaestatus;
+    }
+
+    public Integer getPasajeros() {
+        return pasajeros;
+    }
+
+    public void setPasajeros(Integer pasajeros) {
+        this.pasajeros = pasajeros;
+    }
+
+    public Tiposolicitud getTiposolicitud() {
+        return tiposolicitud;
+    }
+
+    public void setTiposolicitud(Tiposolicitud tiposolicitud) {
+        this.tiposolicitud = tiposolicitud;
+    }
+
+    public List<Unidad> getUnidad() {
+        return unidad;
+    }
+
+    public void setUnidad(List<Unidad> unidad) {
+        this.unidad = unidad;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
+
+    public List<UserInfo> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(List<UserInfo> userInfo) {
+        this.userInfo = userInfo;
+    }
+    
+    
+    
     
 }

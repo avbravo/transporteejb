@@ -24,5 +24,31 @@ public class Unidad {
     private String activo;
       @Embedded
     List<UserInfo> userInfo;
+
+    public String getIdunidad() {
+        return idunidad;
+    }
+
+    public void setIdunidad(String idunidad) {
+        this.idunidad = idunidad;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
+
+    public List<UserInfo> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(List<UserInfo> userInfo) {
+        this.userInfo = userInfo;
+    }
     
+      
+      
 }
