@@ -20,6 +20,7 @@ public class LookupTransporteejbServices {
 
     
     private String idunidad;
+    private String idtiposolicitud;
     private String nombre;
     private String pais;
     private String descripcion;
@@ -96,6 +97,14 @@ public class LookupTransporteejbServices {
 
     public void setIdcarrera(Integer idcarrera) {
         this.idcarrera = idcarrera;
+    }
+
+    public String getIdtiposolicitud() {
+        return idtiposolicitud;
+    }
+
+    public void setIdtiposolicitud(String idtiposolicitud) {
+        this.idtiposolicitud = idtiposolicitud;
     }
 
     
