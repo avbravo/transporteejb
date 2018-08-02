@@ -18,6 +18,8 @@ public class LookupTransporteejbServices {
     private String text;
     private String id;
 
+    
+    private String idunidad;
     private String nombre;
     private String pais;
     private String descripcion;
@@ -123,6 +125,14 @@ public class LookupTransporteejbServices {
 
     public void setIdpermiso(Integer idpermiso) {
         this.idpermiso = idpermiso;
+    }
+
+    public String getIdunidad() {
+        return idunidad;
+    }
+
+    public void setIdunidad(String idunidad) {
+        this.idunidad = idunidad;
     }
 
    
