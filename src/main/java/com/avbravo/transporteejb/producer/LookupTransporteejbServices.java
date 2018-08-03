@@ -21,6 +21,10 @@ public class LookupTransporteejbServices {
     
     private String idunidad;
     private String idtiposolicitud;
+    private String idtipovehiculo;
+     private String idestatus;
+         private String idconductor;
+          private String idvehiculo;
     private String nombre;
     private String pais;
     private String descripcion;
@@ -63,6 +67,7 @@ public class LookupTransporteejbServices {
     numeros
      */
     private Integer idcarrera;
+     private Integer idviaje;
     private Integer idvacacion;
     private Integer idpermiso;
     private Integer idtiempoextra;
@@ -107,6 +112,38 @@ public class LookupTransporteejbServices {
         this.idtiposolicitud = idtiposolicitud;
     }
 
+    public String getIdestatus() {
+        return idestatus;
+    }
+
+    public void setIdestatus(String idestatus) {
+        this.idestatus = idestatus;
+    }
+
+    public String getIdconductor() {
+        return idconductor;
+    }
+
+    public void setIdconductor(String idconductor) {
+        this.idconductor = idconductor;
+    }
+
+    public String getIdvehiculo() {
+        return idvehiculo;
+    }
+
+    public void setIdvehiculo(String idvehiculo) {
+        this.idvehiculo = idvehiculo;
+    }
+
+    public Integer getIdviaje() {
+        return idviaje;
+    }
+
+    public void setIdviaje(Integer idviaje) {
+        this.idviaje = idviaje;
+    }
+
     
     
     
@@ -116,6 +153,14 @@ public class LookupTransporteejbServices {
 
     public void setIdtiempoextra(Integer idtiempoextra) {
         this.idtiempoextra = idtiempoextra;
+    }
+
+    public String getIdtipovehiculo() {
+        return idtipovehiculo;
+    }
+
+    public void setIdtipovehiculo(String idtipovehiculo) {
+        this.idtipovehiculo = idtipovehiculo;
     }
 
     
