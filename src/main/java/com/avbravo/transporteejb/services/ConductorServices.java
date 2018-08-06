@@ -8,6 +8,7 @@ package com.avbravo.transporteejb.services;
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Conductor;
 import com.avbravo.transporteejb.repository.ConductorRepository;
+import com.avbravo.transporteejb.repository.ViajesRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -22,10 +23,13 @@ import org.bson.Document;
  */
 @Stateless
 public class ConductorServices {
-
+ @Inject
+    ViajesRepository viajesRepository;
+        
     @Inject
     ConductorRepository repository;
     List<Conductor> conductorList = new ArrayList<>();
+    
      public List<Conductor> complete(String query) {
         List<Conductor> suggestions = new ArrayList<>();
            try {
@@ -51,7 +55,22 @@ public class ConductorServices {
         this.conductorList = conductorList;
     }
      
-     
+     // <editor-fold defaultstate="collapsed" desc="isDeleted(Conductor conductor)">
+  
+    public Boolean isDeleted(Conductor conductor){
+        Boolean found=false;
+        try {
+            Document doc = new Document("conductor.idconductor",conductor.getIdconductor());
+            Integer count = viajesRepository.count(doc);
+            if (count > 0){
+                return false;
+            }
+            
+        } catch (Exception e) {
+             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+        }
+        return true;
+    }  // </editor-fold>
      
      
      
