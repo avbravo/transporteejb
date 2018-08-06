@@ -8,6 +8,7 @@ package com.avbravo.transporteejb.services;
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Estatus;
 import com.avbravo.transporteejb.repository.EstatusRepository;
+import com.avbravo.transporteejb.repository.SolicitudRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -25,7 +26,8 @@ public class EstatusServices {
 
     @Inject
     EstatusRepository repository;
-
+ @Inject
+   SolicitudRepository solicitudRepository;
     List<Estatus> estatusList = new ArrayList<>();
 
     public List<Estatus> complete(String query) {
@@ -52,5 +54,22 @@ public class EstatusServices {
     public void setEstatusList(List<Estatus> estatusList) {
         this.estatusList = estatusList;
     }
+    
+        // <editor-fold defaultstate="collapsed" desc="isDeleted(Estatus estatus)">
+  
+    public Boolean isDeleted(Estatus estatus){
+        Boolean found=false;
+        try {
+            Document doc = new Document("estatus.idestatus",estatus.getIdestatus());
+            Integer count = solicitudRepository.count(doc);
+            if (count > 0){
+                return false;
+            }
+            
+        } catch (Exception e) {
+             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+        }
+        return true;
+    }  // </editor-fold>
 
 }

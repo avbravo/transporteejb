@@ -8,6 +8,7 @@ package com.avbravo.transporteejb.services;
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
+import com.avbravo.transporteejb.repository.ViajesRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -23,6 +24,8 @@ public class SolicitudServices {
 
     @Inject
     SolicitudRepository repository;
+      @Inject
+    ViajesRepository viajesRepository;
 List<Solicitud> solicitudList = new ArrayList<>();
     public List<Solicitud> complete(String query) {
         List<Solicitud> suggestions = new ArrayList<>();
@@ -49,4 +52,20 @@ List<Solicitud> solicitudList = new ArrayList<>();
     public void setSolicitudList(List<Solicitud> solicitudList) {
         this.solicitudList = solicitudList;
     }
+    
+       // <editor-fold defaultstate="collapsed" desc="isDeleted(Solicitud solicitud)">
+    public Boolean isDeleted(Solicitud solicitud) {
+        Boolean found = false;
+        try {
+            Document doc = new Document("solicitud.idsolicitud", solicitud.getIdsolicitud());
+            Integer count = viajesRepository.count(doc);
+            if (count > 0) {
+                return false;
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+        }
+        return true;
+    }  // </editor-fold>
 }

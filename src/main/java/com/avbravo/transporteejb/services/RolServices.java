@@ -8,6 +8,7 @@ package com.avbravo.transporteejb.services;
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Rol;
 import com.avbravo.transporteejb.repository.RolRepository;
+import com.avbravo.transporteejb.repository.UsuarioRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -25,6 +26,9 @@ public class RolServices {
 
     @Inject
     RolRepository repository;
+    
+     @Inject
+    UsuarioRepository usuarioRepository;
 List<Rol> rolList = new ArrayList<>();
     public List<Rol> complete(String query) {
         List<Rol> suggestions = new ArrayList<>();
@@ -66,4 +70,21 @@ List<Rol> rolList = new ArrayList<>();
     public void setRolList(List<Rol> rolList) {
         this.rolList = rolList;
     }
+    
+      // <editor-fold defaultstate="collapsed" desc="isDeleted(Rol rol)">
+  
+    public Boolean isDeleted(Rol rol){
+        Boolean found=false;
+        try {
+            Document doc = new Document("rol.idrol",rol.getIdrol());
+            Integer count = usuarioRepository.count(doc);
+            if (count > 0){
+                return false;
+            }
+            
+        } catch (Exception e) {
+             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+        }
+        return true;
+    }  // </editor-fold>
 }
