@@ -7,6 +7,7 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Usuario;
+import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.UsuarioRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,9 @@ public class UsuarioServices {
 
     @Inject
     UsuarioRepository repository;
+       @Inject
+   SolicitudRepository solicitudRepository;
+       
      List<Usuario> usuarioList = new ArrayList<>();
      public List<Usuario> complete(String query) {
         List<Usuario> suggestions = new ArrayList<>();
@@ -49,4 +53,22 @@ public class UsuarioServices {
     public void setUsuarioList(List<Usuario> usuarioList) {
         this.usuarioList = usuarioList;
     }
+    
+    
+        // <editor-fold defaultstate="collapsed" desc="isDeleted(Usuario usuario)">
+  
+    public Boolean isDeleted(Usuario usuario){
+        Boolean found=false;
+        try {
+            Document doc = new Document("usuario.username",usuario.getUsername());
+            Integer count = solicitudRepository.count(doc);
+            if (count > 0){
+                return false;
+            }
+            
+        } catch (Exception e) {
+             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+        }
+        return true;
+    }  // </editor-fold>
 }

@@ -7,6 +7,7 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Tiposolicitud;
+import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.TiposolicitudRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ public class TiposolicitudServices {
 
     @Inject
     TiposolicitudRepository repository;
+      @Inject
+   SolicitudRepository solicitudRepository;
     List<Tiposolicitud> tiposolicitudList = new ArrayList<>();
      public List<Tiposolicitud> complete(String query) {
         List<Tiposolicitud> suggestions = new ArrayList<>();
@@ -50,7 +53,22 @@ public class TiposolicitudServices {
     }
      
      
-     
+         // <editor-fold defaultstate="collapsed" desc="isDeleted(Tiposolicitud tiposolicitud)">
+  
+    public Boolean isDeleted(Tiposolicitud tiposolicitud){
+        Boolean found=false;
+        try {
+            Document doc = new Document("tiposolicitud.idtiposolicitud",tiposolicitud.getIdtiposolicitud());
+            Integer count = solicitudRepository.count(doc);
+            if (count > 0){
+                return false;
+            }
+            
+        } catch (Exception e) {
+             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+        }
+        return true;
+    }  // </editor-fold>
      
      
 }

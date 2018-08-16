@@ -7,7 +7,9 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Unidad;
+import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.UnidadRepository;
+import com.avbravo.transporteejb.repository.UsuarioRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -25,6 +27,10 @@ public class UnidadServices {
 
     @Inject
     UnidadRepository repository;
+     @Inject
+   SolicitudRepository solicitudRepository;
+    @Inject
+    UsuarioRepository usuarioRepository;
 
      List<Unidad> unidadList = new ArrayList<>();
      public List<Unidad> complete(String query) {
@@ -53,6 +59,25 @@ public class UnidadServices {
     }
      
      
-     
+         // <editor-fold defaultstate="collapsed" desc="isDeleted(Unidad unidad)">
+  
+    public Boolean isDeleted(Unidad unidad){
+        Boolean found=false;
+        try {
+            Document doc = new Document("unidad.idunidad",unidad.getIdunidad());
+            Integer count = solicitudRepository.count(doc);
+            if (count > 0){
+                return false;
+            }
+             count = usuarioRepository.count(doc);
+            if (count > 0){
+                return false;
+            }
+            
+        } catch (Exception e) {
+             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+        }
+        return true;
+    }  // </editor-fold>
      
 }

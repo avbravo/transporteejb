@@ -8,6 +8,7 @@ package com.avbravo.transporteejb.services;
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Tipovehiculo;
 import com.avbravo.transporteejb.repository.TipovehiculoRepository;
+import com.avbravo.transporteejb.repository.VehiculoRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -25,6 +26,8 @@ public class TipovehiculoServices {
 
     @Inject
     TipovehiculoRepository repository;
+       @Inject
+   VehiculoRepository vehiculoRepository;
 List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
     public List<Tipovehiculo> complete(String query) {
         List<Tipovehiculo> suggestions = new ArrayList<>();
@@ -51,4 +54,21 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
     public void setTipovehiculoList(List<Tipovehiculo> tipovehiculoList) {
         this.tipovehiculoList = tipovehiculoList;
     }
+    
+        // <editor-fold defaultstate="collapsed" desc="isDeleted(Tipovehiculo tipovehiculo)">
+  
+    public Boolean isDeleted(Tipovehiculo tipovehiculo){
+        Boolean found=false;
+        try {
+            Document doc = new Document("tipovehiculo.idtipovehiculo",tipovehiculo.getIdtipovehiculo());
+            Integer count = vehiculoRepository.count(doc);
+            if (count > 0){
+                return false;
+            }
+            
+        } catch (Exception e) {
+             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+        }
+        return true;
+    }  // </editor-fold>
 }

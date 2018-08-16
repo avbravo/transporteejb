@@ -7,6 +7,7 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
+import com.avbravo.transporteejb.entity.Viajes;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,4 +50,19 @@ List<Solicitud> solicitudList = new ArrayList<>();
     public void setSolicitudList(List<Solicitud> solicitudList) {
         this.solicitudList = solicitudList;
     }
+    
+    
+    
+    
+       // <editor-fold defaultstate="collapsed" desc="isDeleted(Rol rol)">
+  
+    public Boolean isDeleted(Viajes viajes){
+        Boolean found=false;
+        try {
+        
+        } catch (Exception e) {
+             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+        }
+        return true;
+    }  // </editor-fold>
 }
