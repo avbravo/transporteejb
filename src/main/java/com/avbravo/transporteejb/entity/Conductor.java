@@ -21,7 +21,8 @@ import lombok.Setter;
 public class Conductor {
 
     @Id
-    private String idconductor;
+    private Integer idconductor;
+    private String cedula;
     private String nombre;
     private String celular;
     private String email;
@@ -29,13 +30,23 @@ public class Conductor {
     @Embedded
     List<UserInfo> userInfo;
 
-    public String getIdconductor() {
+    public Integer getIdconductor() {
         return idconductor;
     }
 
-    public void setIdconductor(String idconductor) {
+    public void setIdconductor(Integer idconductor) {
         this.idconductor = idconductor;
     }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+   
 
     public String getNombre() {
         return nombre;

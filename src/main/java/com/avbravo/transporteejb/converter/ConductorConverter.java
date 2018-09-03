@@ -33,7 +33,7 @@ public class ConductorConverter implements Converter {
         try {
             if (!s.equals("null")) {
                 Conductor b = new Conductor();
-                b.setIdconductor(s);
+                b.setIdconductor(Integer.parseInt(s));
                 Optional<Conductor> optional = conductorRepository.findById(b);
                 if (optional.isPresent()) {
                     conductor = optional.get();

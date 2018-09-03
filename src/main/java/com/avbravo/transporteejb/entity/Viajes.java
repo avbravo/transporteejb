@@ -29,11 +29,11 @@ public class Viajes {
             repository = "com.avbravo.transporteejb.repository.SolicitudRepository")
     private Solicitud solicitud;
     @Referenced(documment = "Vehiculo",
-            field = "idvehiculo", javatype = "String", lazy = false,
+            field = "idvehiculo", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.VehiculoRepository")
     private Vehiculo vehiculo;
     @Referenced(documment = "Conductor",
-            field = "idconductor", javatype = "String", lazy = false,
+            field = "idconductor", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.ConductorRepository")
     private Conductor conductor;
     

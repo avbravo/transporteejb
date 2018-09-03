@@ -22,7 +22,9 @@ import lombok.Setter;
 public class Vehiculo {
 
     @Id
-    private String idvehiculo;
+    private Integer idvehiculo;
+    
+    private String placa;
     private String marca;
     private String modelo;
     private Integer anio;
@@ -41,13 +43,23 @@ public class Vehiculo {
     @Embedded
     List<UserInfo> userInfo;
 
-    public String getIdvehiculo() {
+    public Integer getIdvehiculo() {
         return idvehiculo;
     }
 
-    public void setIdvehiculo(String idvehiculo) {
+    public void setIdvehiculo(Integer idvehiculo) {
         this.idvehiculo = idvehiculo;
     }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+  
 
     public String getMarca() {
         return marca;

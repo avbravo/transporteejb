@@ -33,7 +33,7 @@ public class VehiculoConverter implements Converter {
         try{
             if(!s.equals("null")){
                Vehiculo b = new Vehiculo();
-               b.setIdvehiculo(s);
+               b.setIdvehiculo(Integer.parseInt(s));
                Optional<Vehiculo> optional = vehiculoRepository.findById(b);
                if (optional.isPresent()) {
                vehiculo= optional.get();  
