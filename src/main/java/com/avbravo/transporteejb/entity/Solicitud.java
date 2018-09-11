@@ -44,6 +44,7 @@ public class Solicitud {
     
     private Date fechahorapartida;
     private String lugarpartida;
+    private String lugarllegada;
     
     private Date fechahoraregreso;
     
@@ -272,6 +273,14 @@ public class Solicitud {
 
     public void setUserInfo(List<UserInfo> userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public String getLugarllegada() {
+        return lugarllegada;
+    }
+
+    public void setLugarllegada(String lugarllegada) {
+        this.lugarllegada = lugarllegada;
     }
     
     

@@ -11,6 +11,7 @@ import com.avbravo.transporteejb.repository.VehiculoRepository;
 import com.avbravo.transporteejb.repository.ViajesRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
@@ -71,4 +72,23 @@ public class VehiculoServices {
         }
         return true;
     }  // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
+
+    public Vehiculo findById(Integer id){
+           Vehiculo vehiculo = new Vehiculo();
+        try {
+         
+            vehiculo.setIdvehiculo(id);
+            Optional<Vehiculo> optional = repository.findById(vehiculo);
+            if (optional.isPresent()) {
+               return optional.get();
+            } 
+        } catch (Exception e) {
+             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+      
+      return vehiculo;
+    }
+    // </editor-fold>
 }

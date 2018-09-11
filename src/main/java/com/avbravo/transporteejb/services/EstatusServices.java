@@ -11,6 +11,7 @@ import com.avbravo.transporteejb.repository.EstatusRepository;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -71,5 +72,25 @@ public class EstatusServices {
         }
         return true;
     }  // </editor-fold>
+    
+    
+    // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
+
+    public Estatus findById(String id){
+           Estatus estatus = new Estatus();
+        try {
+         
+            estatus.setIdestatus(id);
+            Optional<Estatus> optional = repository.findById(estatus);
+            if (optional.isPresent()) {
+               return optional.get();
+            } 
+        } catch (Exception e) {
+             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+      
+      return estatus;
+    }
+    // </editor-fold>
 
 }

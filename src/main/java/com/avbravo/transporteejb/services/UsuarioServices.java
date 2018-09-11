@@ -11,6 +11,7 @@ import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.UsuarioRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -71,4 +72,23 @@ public class UsuarioServices {
         }
         return true;
     }  // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="findById(String id)">
+
+    public Usuario findById(String id){
+           Usuario usuario = new Usuario();
+        try {
+         
+            usuario.setUsername(id);
+            Optional<Usuario> optional = repository.findById(usuario);
+            if (optional.isPresent()) {
+               return optional.get();
+            } 
+        } catch (Exception e) {
+             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+      
+      return usuario;
+    }
+    // </editor-fold>
 }

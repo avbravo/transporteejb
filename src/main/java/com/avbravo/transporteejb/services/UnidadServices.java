@@ -12,6 +12,7 @@ import com.avbravo.transporteejb.repository.UnidadRepository;
 import com.avbravo.transporteejb.repository.UsuarioRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -79,5 +80,24 @@ public class UnidadServices {
         }
         return true;
     }  // </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="findById(String id)">
+
+    public Unidad findById(String id){
+           Unidad unidad = new Unidad();
+        try {
+         
+            unidad.setIdunidad(id);
+            Optional<Unidad> optional = repository.findById(unidad);
+            if (optional.isPresent()) {
+               return optional.get();
+            } 
+        } catch (Exception e) {
+             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+      
+      return unidad;
+    }
+    // </editor-fol
      
 }

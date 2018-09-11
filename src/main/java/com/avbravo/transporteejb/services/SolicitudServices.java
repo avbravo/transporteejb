@@ -11,6 +11,7 @@ import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.ViajesRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
@@ -68,4 +69,23 @@ List<Solicitud> solicitudList = new ArrayList<>();
         }
         return true;
     }  // </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
+
+    public Solicitud findById(Integer id){
+           Solicitud solicitud = new Solicitud();
+        try {
+         
+            solicitud.setIdsolicitud(id);
+            Optional<Solicitud> optional = repository.findById(solicitud);
+            if (optional.isPresent()) {
+               return optional.get();
+            } 
+        } catch (Exception e) {
+             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+      
+      return solicitud;
+    }
+    // 
 }

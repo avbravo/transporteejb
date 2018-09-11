@@ -11,9 +11,8 @@ import com.avbravo.transporteejb.repository.ConductorRepository;
 import com.avbravo.transporteejb.repository.ViajesRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.bson.Document;
 
@@ -72,6 +71,23 @@ public class ConductorServices {
         return true;
     }  // </editor-fold>
      
-     
+       // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
+
+    public Conductor findById(Integer id){
+           Conductor conductor = new Conductor();
+        try {
+         
+            conductor.setIdconductor(id);
+            Optional<Conductor> optional = repository.findById(conductor);
+            if (optional.isPresent()) {
+               return optional.get();
+            } 
+        } catch (Exception e) {
+             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+      
+      return conductor;
+    }
+    // </editor-fold>
      
 }

@@ -11,6 +11,7 @@ import com.avbravo.transporteejb.repository.TipovehiculoRepository;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
@@ -69,4 +70,23 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
         }
         return true;
     }  // </editor-fold>
+    
+      // <editor-fold defaultstate="collapsed" desc="findById(String id)">
+
+    public Tipovehiculo findById(String id){
+           Tipovehiculo tipovehiculo = new Tipovehiculo();
+        try {
+         
+            tipovehiculo.setIdtipovehiculo(id);
+            Optional<Tipovehiculo> optional = repository.findById(tipovehiculo);
+            if (optional.isPresent()) {
+               return optional.get();
+            } 
+        } catch (Exception e) {
+             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+      
+      return tipovehiculo;
+    }
+    // </editor-fold>
 }

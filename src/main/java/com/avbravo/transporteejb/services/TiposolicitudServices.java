@@ -11,6 +11,7 @@ import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.TiposolicitudRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
@@ -70,5 +71,22 @@ public class TiposolicitudServices {
         return true;
     }  // </editor-fold>
      
-     
+     // <editor-fold defaultstate="collapsed" desc="findById(String id)">
+
+        public Tiposolicitud findById(String id){
+           Tiposolicitud tiposolicitud = new Tiposolicitud();
+        try {
+         
+            tiposolicitud.setIdtiposolicitud(id);
+            Optional<Tiposolicitud> optional = repository.findById(tiposolicitud);
+            if (optional.isPresent()) {
+               return optional.get();
+            } 
+        } catch (Exception e) {
+             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+      
+      return tiposolicitud;
+    }
+    // </editor-fold>
 }

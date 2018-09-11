@@ -11,6 +11,7 @@ import com.avbravo.transporteejb.repository.RolRepository;
 import com.avbravo.transporteejb.repository.UsuarioRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -87,4 +88,23 @@ List<Rol> rolList = new ArrayList<>();
         }
         return true;
     }  // </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="findById(String id)">
+
+    public Rol findById(String id){
+           Rol rol = new Rol();
+        try {
+         
+            rol.setIdrol(id);
+            Optional<Rol> optional = repository.findById(rol);
+            if (optional.isPresent()) {
+               return optional.get();
+            } 
+        } catch (Exception e) {
+             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+      
+      return rol;
+    }
+    // </editor-fold>
 }

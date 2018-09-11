@@ -6,11 +6,12 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Viajes;
-import com.avbravo.transporteejb.repository.SolicitudRepository;
+import com.avbravo.transporteejb.entity.Viajes;
+import com.avbravo.transporteejb.repository.ViajesRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
@@ -23,10 +24,10 @@ import org.bson.Document;
 public class ViajesServices {
 
     @Inject
-    SolicitudRepository repository;
-List<Solicitud> solicitudList = new ArrayList<>();
-    public List<Solicitud> complete(String query) {
-        List<Solicitud> suggestions = new ArrayList<>();
+    ViajesRepository repository;
+List<Viajes> solicitudList = new ArrayList<>();
+    public List<Viajes> complete(String query) {
+        List<Viajes> suggestions = new ArrayList<>();
             try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
@@ -37,17 +38,17 @@ List<Solicitud> solicitudList = new ArrayList<>();
     }
 
     
-    // <editor-fold defaultstate="collapsed" desc="getSolicitudList()">
-    public List<Solicitud> getSolicitudList() {
+    // <editor-fold defaultstate="collapsed" desc="getViajesList()">
+    public List<Viajes> getViajesList() {
         try {
            solicitudList= repository.findAll(new Document("solicitud",1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getSolicitudList() " + e.getLocalizedMessage());
+              JsfUtil.errorMessage("getViajesList() " + e.getLocalizedMessage());
         }
         return solicitudList;
     }// </editor-fold>
 
-    public void setSolicitudList(List<Solicitud> solicitudList) {
+    public void setViajesList(List<Viajes> solicitudList) {
         this.solicitudList = solicitudList;
     }
     
@@ -65,4 +66,23 @@ List<Solicitud> solicitudList = new ArrayList<>();
         }
         return true;
     }  // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="findById(String id)">
+
+    public Viajes findById(Integer id){
+           Viajes viajes = new Viajes();
+        try {
+         
+            viajes.setIdviaje(id);
+            Optional<Viajes> optional = repository.findById(viajes);
+            if (optional.isPresent()) {
+               return optional.get();
+            } 
+        } catch (Exception e) {
+             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+      
+      return viajes;
+    }
+    // </editor-fold
 }
