@@ -72,6 +72,7 @@ List<Solicitud> solicitudList = new ArrayList<>();
     
      // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
 
+    
     public Solicitud findById(Integer id){
            Solicitud solicitud = new Solicitud();
         try {
@@ -87,5 +88,5 @@ List<Solicitud> solicitudList = new ArrayList<>();
       
       return solicitud;
     }
-    // 
+  // </editor-fold>
 }

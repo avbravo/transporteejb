@@ -5,6 +5,8 @@
  */
 package com.avbravo.transporteejb.entity;
 
+import com.avbravo.commonejb.entity.Carrera;
+import com.avbravo.commonejb.entity.Facultad;
 import com.avbravo.ejbjmoordb.anotations.Embedded;
 import com.avbravo.ejbjmoordb.anotations.Id;
 import com.avbravo.ejbjmoordb.anotations.Referenced;
@@ -26,7 +28,16 @@ public class Solicitud {
     private String periodoacademico;
     private Date fecha;
     private String numerogrupo;
-    private String carrera;
+    
+       @Referenced(documment = "Facultad",
+            field = "idfacultad", javatype = "Integer", lazy = false,
+            repository = "com.avbravo.commonejb.repository.FacultadRepository")
+    private List<Facultad> facultad;
+       @Referenced(documment = "Carrera",
+            field = "idcarrera", javatype = "Integer", lazy = false,
+            repository = "com.avbravo.commonejb.repository.CarreraRepository")
+    private List<Carrera> carrera;
+
     private String responsable;
     private String telefono;
     private String email;
@@ -75,6 +86,22 @@ public class Solicitud {
     @Embedded
     List<UserInfo> userInfo;
 
+    public Solicitud() {
+    }
+
+    public List<Facultad> getFacultad() {
+        return facultad;
+    }
+
+    public void setFacultad(List<Facultad> facultad) {
+        this.facultad = facultad;
+    }
+
+    
+
+    
+    
+    
     public Integer getIdsolicitud() {
         return idsolicitud;
     }
@@ -107,14 +134,16 @@ public class Solicitud {
         this.numerogrupo = numerogrupo;
     }
 
-    public String getCarrera() {
+    public List<Carrera> getCarrera() {
         return carrera;
     }
 
-    public void setCarrera(String carrera) {
+    public void setCarrera(List<Carrera> carrera) {
         this.carrera = carrera;
     }
 
+  
+    
     public String getResponsable() {
         return responsable;
     }
