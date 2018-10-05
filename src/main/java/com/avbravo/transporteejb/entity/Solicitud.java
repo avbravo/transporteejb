@@ -7,6 +7,7 @@ package com.avbravo.transporteejb.entity;
 
 import com.avbravo.commonejb.entity.Carrera;
 import com.avbravo.commonejb.entity.Facultad;
+import com.avbravo.commonejb.entity.Semestre;
 import com.avbravo.ejbjmoordb.anotations.Embedded;
 import com.avbravo.ejbjmoordb.anotations.Id;
 import com.avbravo.ejbjmoordb.anotations.Referenced;
@@ -37,6 +38,10 @@ public class Solicitud {
             field = "idcarrera", javatype = "Integer", lazy = false,
             repository = "com.avbravo.commonejb.repository.CarreraRepository")
     private List<Carrera> carrera;
+       @Referenced(documment = "Semestre",
+            field = "idsemestre", javatype = "String", lazy = false,
+            repository = "com.avbravo.commonejb.repository.SemestreRepository")
+    private Semestre semestre;
 
     private String responsable;
     private String telefono;
@@ -89,6 +94,17 @@ public class Solicitud {
     public Solicitud() {
     }
 
+    public Semestre getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(Semestre semestre) {
+        this.semestre = semestre;
+    }
+
+    
+    
+    
     public List<Facultad> getFacultad() {
         return facultad;
     }
