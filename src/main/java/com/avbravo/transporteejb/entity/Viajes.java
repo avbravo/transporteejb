@@ -11,15 +11,12 @@ import com.avbravo.ejbjmoordb.anotations.Referenced;
 import com.avbravo.ejbjmoordb.pojos.UserInfo;
 import java.util.Date;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  *
  * @author avbravo
  */
-@Getter
-@Setter
+
 public class Viajes {
 
     @Id
@@ -39,11 +36,15 @@ public class Viajes {
     
     
     private Date fechahorasalida;
+    
 
     private Date fechahorallegada;
     private String comentarios;
     
     private Double kmestimados;
+    
+    private Date fechahorainicioocupado;
+    private Date fechahorafinocupado;
     private String activo;
 
     @Embedded

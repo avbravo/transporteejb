@@ -14,15 +14,12 @@ import com.avbravo.ejbjmoordb.anotations.Referenced;
 import com.avbravo.ejbjmoordb.pojos.UserInfo;
 import java.util.Date;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  *
  * @author avbravo
  */
-@Getter
-@Setter
+
 public class Solicitud {
     @Id
     private Integer idsolicitud;
@@ -38,10 +35,18 @@ public class Solicitud {
             field = "idcarrera", javatype = "Integer", lazy = false,
             repository = "com.avbravo.commonejb.repository.CarreraRepository")
     private List<Carrera> carrera;
+    
        @Referenced(documment = "Semestre",
             field = "idsemestre", javatype = "String", lazy = false,
             repository = "com.avbravo.commonejb.repository.SemestreRepository")
     private Semestre semestre;
+       
+       @Referenced(documment = "Tipovehiculo",
+            field = "idtipovehiculo", javatype = "String", lazy = false,
+            repository = "com.avbravo.commonejb.repository.TipovehiculoRepository")
+    private Tipovehiculo tipovehiculo;
+       
+       
 
     private String responsable;
     private String telefono;
@@ -100,6 +105,14 @@ public class Solicitud {
 
     public void setSemestre(Semestre semestre) {
         this.semestre = semestre;
+    }
+
+    public Tipovehiculo getTipovehiculo() {
+        return tipovehiculo;
+    }
+
+    public void setTipovehiculo(Tipovehiculo tipovehiculo) {
+        this.tipovehiculo = tipovehiculo;
     }
 
     

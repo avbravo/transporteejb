@@ -89,4 +89,35 @@ List<Solicitud> solicitudList = new ArrayList<>();
       return solicitud;
     }
   // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="coincidenciaEnRango(Solicitud solicitud)">
+    
+    /**
+     * coincide en el rango con la orden que se devuelve o un entity si no coincide
+     * @param solicitud
+     * @return 
+     */
+    
+  public  Optional<Solicitud> coincidenciaEnRango(Solicitud solicitud) {
+        Integer idsolicitud=0;
+        try {
+             
+              List<Solicitud> list = repository.findBy(new Document("usuario.username", solicitud.getUsuario().getUsername()), new Document("idsolicitud", -1));
+            if (!list.isEmpty()) {
+                for (Solicitud s : list) {
+                    if (JsfUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
+                            || JsfUtil.dateBetween(solicitud.getFechahoraregreso(), s.getFechahorapartida(), s.getFechahoraregreso())) {
+
+// coincide en el rango de fecha y hora con la solicitud s
+                        return Optional.of(s);
+                    }
+                }
+            }
+        } catch (Exception e) {
+              JsfUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
+        }
+        return Optional.empty();
+    }
+           
+    // </editor-fold>
 }
