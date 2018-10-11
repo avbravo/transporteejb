@@ -43,7 +43,7 @@ public class Solicitud {
        
        @Referenced(documment = "Tipovehiculo",
             field = "idtipovehiculo", javatype = "String", lazy = false,
-            repository = "com.avbravo.commonejb.repository.TipovehiculoRepository")
+            repository = "com.avbravo.transporteejb.repository.TipovehiculoRepository")
     private Tipovehiculo tipovehiculo;
        
        
