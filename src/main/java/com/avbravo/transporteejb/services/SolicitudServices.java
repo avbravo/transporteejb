@@ -105,7 +105,7 @@ List<Solicitud> solicitudList = new ArrayList<>();
         try {
              
             
-            Bson filter_1 =Filters.eq("usuario.1.username",solicitud.getUsuario().get(1).getUsername());
+            Bson filter_1 =Filters.eq("usuario.0.username",solicitud.getUsuario().get(1).getUsername());
 
               List<Solicitud> list = repository.filters(filter_1,new Document("idsolicitud", -1));
 //              List<Solicitud> list = repository.findBy(new Document("usuario.username", solicitud.getUsuario().getUsername()), new Document("idsolicitud", -1));
