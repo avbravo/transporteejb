@@ -9,12 +9,14 @@ import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.ViajesRepository;
+import com.mongodb.client.model.Filters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -102,7 +104,11 @@ List<Solicitud> solicitudList = new ArrayList<>();
         Integer idsolicitud=0;
         try {
              
-              List<Solicitud> list = repository.findBy(new Document("usuario.username", solicitud.getUsuario().getUsername()), new Document("idsolicitud", -1));
+            
+            Bson filter_1 =Filters.eq("usuario.1.username",solicitud.getUsuario().get(1).getUsername());
+
+              List<Solicitud> list = repository.filters(filter_1,new Document("idsolicitud", -1));
+//              List<Solicitud> list = repository.findBy(new Document("usuario.username", solicitud.getUsuario().getUsername()), new Document("idsolicitud", -1));
             if (!list.isEmpty()) {
                 for (Solicitud s : list) {
                     if (JsfUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())

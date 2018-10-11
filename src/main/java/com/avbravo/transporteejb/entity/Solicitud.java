@@ -47,17 +47,13 @@ public class Solicitud {
     private Tipovehiculo tipovehiculo;
        
        
-
-    private String responsable;
-    private String telefono;
-    private String email;
     private String mision;
    
     
     @Referenced(documment = "Usuario",
             field = "username", javatype = "String", lazy = false,
            repository = "com.avbravo.transporteejb.repository.UsuarioRepository")
-    Usuario usuario;
+    List<Usuario> usuario;
    
     
     private String objetivo;
@@ -173,29 +169,7 @@ public class Solicitud {
 
   
     
-    public String getResponsable() {
-        return responsable;
-    }
-
-    public void setResponsable(String responsable) {
-        this.responsable = responsable;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  
 
     public String getMision() {
         return mision;
@@ -205,14 +179,15 @@ public class Solicitud {
         this.mision = mision;
     }
 
-    public Usuario getUsuario() {
+    public List<Usuario> getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(List<Usuario> usuario) {
         this.usuario = usuario;
     }
 
+   
     public String getObjetivo() {
         return objetivo;
     }
