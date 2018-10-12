@@ -7,6 +7,7 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
+import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.ViajesRepository;
 import com.mongodb.client.model.Filters;
@@ -92,7 +93,7 @@ List<Solicitud> solicitudList = new ArrayList<>();
     }
   // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="coincidenciaEnRango(Solicitud solicitud)">
+    // <editor-fold defaultstate="collapsed" desc="coincidenciaSolicitadoEnRango(Solicitud solicitud)">
     
     /**
      * coincide en el rango con la orden que se devuelve o un entity si no coincide
@@ -100,15 +101,14 @@ List<Solicitud> solicitudList = new ArrayList<>();
      * @return 
      */
     
-  public  Optional<Solicitud> coincidenciaEnRango(Solicitud solicitud) {
+  public  Optional<Solicitud> coincidenciaSolicitadoEnRango(Solicitud solicitud) {
         Integer idsolicitud=0;
         try {
              
             
-            Bson filter_1 =Filters.eq("usuario.0.username",solicitud.getUsuario().get(1).getUsername());
+            Bson filter_1 =Filters.eq("usuario.0.username",solicitud.getUsuario().get(0).getUsername());
 
               List<Solicitud> list = repository.filters(filter_1,new Document("idsolicitud", -1));
-//              List<Solicitud> list = repository.findBy(new Document("usuario.username", solicitud.getUsuario().getUsername()), new Document("idsolicitud", -1));
             if (!list.isEmpty()) {
                 for (Solicitud s : list) {
                     if (JsfUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
@@ -126,4 +126,62 @@ List<Solicitud> solicitudList = new ArrayList<>();
     }
            
     // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="coincidenciaSolicitadoEnRango(Solicitud solicitud)">
+    
+    /**
+     * coincide en el rango con la orden que se devuelve o un entity si no coincide
+     * @param solicitud
+     * @return 
+     */
+    
+  public  Optional<Solicitud> coincidenciaResponsableEnRango(Solicitud solicitud) {
+        Integer idsolicitud=0;
+        try {
+             
+            
+            Bson filter_1 =Filters.eq("usuario.1.username",solicitud.getUsuario().get(1).getUsername());
+
+              List<Solicitud> list = repository.filters(filter_1,new Document("idsolicitud", -1));
+            if (!list.isEmpty()) {
+                for (Solicitud s : list) {
+                    if (JsfUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
+                            || JsfUtil.dateBetween(solicitud.getFechahoraregreso(), s.getFechahorapartida(), s.getFechahoraregreso())) {
+
+// coincide en el rango de fecha y hora con la solicitud s
+                        return Optional.of(s);
+                    }
+                }
+            }
+        } catch (Exception e) {
+              JsfUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
+        }
+        return Optional.empty();
+    }
+           
+    // </editor-fold>
+  
+  
+    // <editor-fold defaultstate="collapsed" desc="solicitadoPor(Solicitud solicitud)">
+   public   Usuario solicitadoPor(Solicitud solicitud) {
+    Usuario usuario = new Usuario();
+      try {
+          usuario= solicitud.getUsuario().get(0);
+      } catch (Exception e) {
+JsfUtil.errorMessage("solicitadoPor() " + e.getLocalizedMessage());
+      }
+      return usuario;
+  }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="responsable(Solicitud solicitud)">
+   public  Usuario responsable(Solicitud solicitud) {
+     Usuario usuario = new Usuario();
+      try {
+          usuario= solicitud.getUsuario().get(1);
+      } catch (Exception e) {
+JsfUtil.errorMessage("responsable() " + e.getLocalizedMessage());
+      }
+      return usuario;
+  }
+    // </editor-fold>
+ 
 }
