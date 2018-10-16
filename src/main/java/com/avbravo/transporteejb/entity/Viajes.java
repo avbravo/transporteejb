@@ -34,17 +34,12 @@ public class Viajes {
             repository = "com.avbravo.transporteejb.repository.ConductorRepository")
     private Conductor conductor;
     
-    
-    private Date fechahorasalida;
-    
-
-    private Date fechahorallegada;
-    private String comentarios;
+      private String comentarios;
     
     private Double kmestimados;
     
-    private Date fechahorainicioocupado;
-    private Date fechahorafinocupado;
+    private Date fechahorainicioreserva;
+    private Date fechahorafinreserva;
     private String activo;
 
     @Embedded
@@ -82,21 +77,7 @@ public class Viajes {
         this.conductor = conductor;
     }
 
-    public Date getFechahorasalida() {
-        return fechahorasalida;
-    }
-
-    public void setFechahorasalida(Date fechahorasalida) {
-        this.fechahorasalida = fechahorasalida;
-    }
-
-    public Date getFechahorallegada() {
-        return fechahorallegada;
-    }
-
-    public void setFechahorallegada(Date fechahorallegada) {
-        this.fechahorallegada = fechahorallegada;
-    }
+  
 
     public String getComentarios() {
         return comentarios;
@@ -128,6 +109,22 @@ public class Viajes {
 
     public void setUserInfo(List<UserInfo> userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public Date getFechahorainicioreserva() {
+        return fechahorainicioreserva;
+    }
+
+    public void setFechahorainicioreserva(Date fechahorainicioreserva) {
+        this.fechahorainicioreserva = fechahorainicioreserva;
+    }
+
+    public Date getFechahorafinreserva() {
+        return fechahorafinreserva;
+    }
+
+    public void setFechahorafinreserva(Date fechahorafinreserva) {
+        this.fechahorafinreserva = fechahorafinreserva;
     }
     
     
