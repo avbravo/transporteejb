@@ -37,6 +37,7 @@ public class Viajes {
       private String comentarios;
     
     private Double kmestimados;
+    private Double costocombustible;
     
     private Date fechahorainicioreserva;
     private Date fechahorafinreserva;
@@ -49,6 +50,17 @@ public class Viajes {
         return idviaje;
     }
 
+    public Double getCostocombustible() {
+        return costocombustible;
+    }
+
+    public void setCostocombustible(Double costocombustible) {
+        this.costocombustible = costocombustible;
+    }
+
+    
+    
+    
     public void setIdviaje(Integer idviaje) {
         this.idviaje = idviaje;
     }

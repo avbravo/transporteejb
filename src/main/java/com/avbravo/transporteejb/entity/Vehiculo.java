@@ -39,6 +39,7 @@ public class Vehiculo {
     private String combustible;
     private String chasis;
     private Double km;
+    private String enreparacion;
     private String activo;
     @Embedded
     List<UserInfo> userInfo;
@@ -57,6 +58,14 @@ public class Vehiculo {
 
     public void setPlaca(String placa) {
         this.placa = placa;
+    }
+
+    public String getEnreparacion() {
+        return enreparacion;
+    }
+
+    public void setEnreparacion(String enreparacion) {
+        this.enreparacion = enreparacion;
     }
 
   
