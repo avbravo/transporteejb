@@ -42,6 +42,7 @@ public class Viajes {
     private Date fechahorainicioreserva;
     private Date fechahorafinreserva;
     private String activo;
+    private Integer numerovehiculos;
 
     @Embedded
     List<UserInfo> userInfo;
