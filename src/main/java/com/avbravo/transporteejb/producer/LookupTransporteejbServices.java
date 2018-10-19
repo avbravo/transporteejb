@@ -18,13 +18,15 @@ public class LookupTransporteejbServices {
     private String text;
     private String id;
 
-    
     private String idunidad;
+    private String idsemestre;
+    private String username;
     private String idtiposolicitud;
     private String idtipovehiculo;
-     private String idestatus;
-         private String idconductor;
-          private String idvehiculo;
+    private String idestatus;
+
+    private String idrol;
+
     private String nombre;
     private String pais;
     private String descripcion;
@@ -66,8 +68,12 @@ public class LookupTransporteejbServices {
     /*
     numeros
      */
+        private Integer idconductor;
+    private Integer idfacultad;
+    private Integer idsolicitud;
+    private Integer idvehiculo;
     private Integer idcarrera;
-     private Integer idviaje;
+    private Integer idviaje;
     private Integer idvacacion;
     private Integer idpermiso;
     private Integer idtiempoextra;
@@ -100,6 +106,26 @@ public class LookupTransporteejbServices {
         return idcarrera;
     }
 
+    public String getIdsemestre() {
+        return idsemestre;
+    }
+
+    public void setIdsemestre(String idsemestre) {
+        this.idsemestre = idsemestre;
+    }
+
+    public String getIdrol() {
+        return idrol;
+    }
+
+    public void setIdrol(String idrol) {
+        this.idrol = idrol;
+    }
+
+  
+    
+    
+    
     public void setIdcarrera(Integer idcarrera) {
         this.idcarrera = idcarrera;
     }
@@ -116,23 +142,35 @@ public class LookupTransporteejbServices {
         return idestatus;
     }
 
+    public Integer getIdsolicitud() {
+        return idsolicitud;
+    }
+
+    public void setIdsolicitud(Integer idsolicitud) {
+        this.idsolicitud = idsolicitud;
+    }
+
+    
+    
     public void setIdestatus(String idestatus) {
         this.idestatus = idestatus;
     }
 
-    public String getIdconductor() {
+    public Integer getIdconductor() {
         return idconductor;
     }
 
-    public void setIdconductor(String idconductor) {
+    public void setIdconductor(Integer idconductor) {
         this.idconductor = idconductor;
     }
 
-    public String getIdvehiculo() {
+  
+
+    public Integer getIdvehiculo() {
         return idvehiculo;
     }
 
-    public void setIdvehiculo(String idvehiculo) {
+    public void setIdvehiculo(Integer idvehiculo) {
         this.idvehiculo = idvehiculo;
     }
 
@@ -144,9 +182,6 @@ public class LookupTransporteejbServices {
         this.idviaje = idviaje;
     }
 
-    
-    
-    
     public Integer getIdtiempoextra() {
         return idtiempoextra;
     }
@@ -163,8 +198,6 @@ public class LookupTransporteejbServices {
         this.idtipovehiculo = idtipovehiculo;
     }
 
-    
-    
     public Integer getIdvacacion() {
         return idvacacion;
     }
@@ -188,8 +221,6 @@ public class LookupTransporteejbServices {
     public void setIdunidad(String idunidad) {
         this.idunidad = idunidad;
     }
-
-   
 
     public String getText() {
         return text;
@@ -639,4 +670,22 @@ public class LookupTransporteejbServices {
         this.totalexoneracion = totalexoneracion;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Integer getIdfacultad() {
+        return idfacultad;
+    }
+
+    public void setIdfacultad(Integer idfacultad) {
+        this.idfacultad = idfacultad;
+    }
+
+    
+    
 }
