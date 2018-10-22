@@ -183,5 +183,57 @@ JsfUtil.errorMessage("responsable() " + e.getLocalizedMessage());
       return usuario;
   }
     // </editor-fold>
+   
+   
+    // <editor-fold defaultstate="collapsed" desc="metodo()">
+   public Boolean isValid(Solicitud solicitud){
+       try {
+           
+              if (JsfUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+
+                JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                return false;
+            }
+              
+          
+        //guarda el contenido actualizado
+            if (JsfUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+
+                JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                return false;
+            }
+           
+           
+            
+           
+             if (JsfUtil.getHoraDeUnaFecha(solicitud.getFechahorapartida()) == 0
+                    && JsfUtil.getMinutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
+                JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
+                return false;
+            }
+             
+         
+            if (JsfUtil.getHoraDeUnaFecha(solicitud.getFechahoraregreso()) == 0
+                    && JsfUtil.getMinutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
+                JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
+                return false;
+            }
+            
+            if (solicitud.getPasajeros() <= 0) {
+                JsfUtil.warningDialog("Advertencia", "Numero de pasajeros menor que cero");
+               return false;
+            }
+            
+             if(solicitud.getNumerodevehiculos() <=0){
+           JsfUtil.warningDialog("Advertencia","Numero de vehiculos debe ser mayor que cero");
+              return false;
+            }
+return true;
+       } catch (Exception e) {
+            JsfUtil.errorDialog("isValid() ",e.getLocalizedMessage().toString());
+       }
+   return false;
+   }
+    // </editor-fold>
  
 }

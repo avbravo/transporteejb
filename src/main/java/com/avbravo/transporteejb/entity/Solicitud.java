@@ -26,6 +26,7 @@ public class Solicitud {
     private String periodoacademico;
     private Date fecha;
     private String numerogrupo;
+    private Integer numerodevehiculos;
     
        @Referenced(documment = "Facultad",
             field = "idfacultad", javatype = "Integer", lazy = false,
@@ -120,6 +121,14 @@ public class Solicitud {
 
     public void setFacultad(List<Facultad> facultad) {
         this.facultad = facultad;
+    }
+
+    public Integer getNumerodevehiculos() {
+        return numerodevehiculos;
+    }
+
+    public void setNumerodevehiculos(Integer numerodevehiculos) {
+        this.numerodevehiculos = numerodevehiculos;
     }
 
     
