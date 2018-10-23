@@ -2,13 +2,14 @@
 * To change this license header, choose License Headers in Project Properties.
 * To change this template file, choose Tools | Templates
  * and open the template in the editor.
-*/
+ */
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
+import com.avbravo.transporteejb.repository.VehiculoRepository;
 import com.avbravo.transporteejb.repository.ViajesRepository;
 import com.mongodb.client.model.Filters;
 import java.util.ArrayList;
@@ -28,27 +29,30 @@ public class SolicitudServices {
 
     @Inject
     SolicitudRepository repository;
-      @Inject
+    @Inject
     ViajesRepository viajesRepository;
-List<Solicitud> solicitudList = new ArrayList<>();
+    @Inject
+    VehiculoRepository vehiculoRepository;
+
+    List<Solicitud> solicitudList = new ArrayList<>();
+
     public List<Solicitud> complete(String query) {
         List<Solicitud> suggestions = new ArrayList<>();
-            try {
-          suggestions=repository.complete(query);
+        try {
+            suggestions = repository.complete(query);
         } catch (Exception e) {
             JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
-           return suggestions;
+        return suggestions;
     }
 
-    
     // <editor-fold defaultstate="collapsed" desc="getSolicitudList()">
     public List<Solicitud> getSolicitudList() {
         try {
-           solicitudList= repository.findAll(new Document("solicitud",1));
+            solicitudList = repository.findAll(new Document("solicitud", 1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getSolicitudList() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("getSolicitudList() " + e.getLocalizedMessage());
         }
         return solicitudList;
     }// </editor-fold>
@@ -56,8 +60,8 @@ List<Solicitud> solicitudList = new ArrayList<>();
     public void setSolicitudList(List<Solicitud> solicitudList) {
         this.solicitudList = solicitudList;
     }
-    
-       // <editor-fold defaultstate="collapsed" desc="isDeleted(Solicitud solicitud)">
+
+    // <editor-fold defaultstate="collapsed" desc="isDeleted(Solicitud solicitud)">
     public Boolean isDeleted(Solicitud solicitud) {
         Boolean found = false;
         try {
@@ -72,43 +76,40 @@ List<Solicitud> solicitudList = new ArrayList<>();
         }
         return true;
     }  // </editor-fold>
-    
-     // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
 
-    
-    public Solicitud findById(Integer id){
-           Solicitud solicitud = new Solicitud();
+    // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
+    public Solicitud findById(Integer id) {
+        Solicitud solicitud = new Solicitud();
         try {
-         
+
             solicitud.setIdsolicitud(id);
             Optional<Solicitud> optional = repository.findById(solicitud);
             if (optional.isPresent()) {
-               return optional.get();
-            } 
+                return optional.get();
+            }
         } catch (Exception e) {
-             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
-      
-      return solicitud;
-    }
-  // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="coincidenciaSolicitadoEnRango(Solicitud solicitud)">
-    
-    /**
-     * coincide en el rango con la orden que se devuelve o un entity si no coincide
-     * @param solicitud
-     * @return 
-     */
-    
-  public  Optional<Solicitud> coincidenciaSolicitadoEnRango(Solicitud solicitud) {
-        Integer idsolicitud=0;
-        try {
-             
-            
-            Bson filter_1 =Filters.eq("usuario.0.username",solicitud.getUsuario().get(0).getUsername());
 
-              List<Solicitud> list = repository.filters(filter_1,new Document("idsolicitud", -1));
+        return solicitud;
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="coincidenciaSolicitadoEnRango(Solicitud solicitud)">
+    /**
+     * coincide en el rango con la orden que se devuelve o un entity si no
+     * coincide
+     *
+     * @param solicitud
+     * @return
+     */
+    public Optional<Solicitud> coincidenciaSolicitadoEnRango(Solicitud solicitud) {
+        Integer idsolicitud = 0;
+        try {
+
+            Bson filter_1 = Filters.eq("usuario.0.username", solicitud.getUsuario().get(0).getUsername());
+
+            List<Solicitud> list = repository.filters(filter_1, new Document("idsolicitud", -1));
             if (!list.isEmpty()) {
                 for (Solicitud s : list) {
                     if (JsfUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
@@ -120,28 +121,27 @@ List<Solicitud> solicitudList = new ArrayList<>();
                 }
             }
         } catch (Exception e) {
-              JsfUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
         }
         return Optional.empty();
     }
-           
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="coincidenciaSolicitadoEnRango(Solicitud solicitud)">
-    
     /**
-     * coincide en el rango con la orden que se devuelve o un entity si no coincide
+     * coincide en el rango con la orden que se devuelve o un entity si no
+     * coincide
+     *
      * @param solicitud
-     * @return 
+     * @return
      */
-    
-  public  Optional<Solicitud> coincidenciaResponsableEnRango(Solicitud solicitud) {
-        Integer idsolicitud=0;
+    public Optional<Solicitud> coincidenciaResponsableEnRango(Solicitud solicitud) {
+        Integer idsolicitud = 0;
         try {
-             
-            
-            Bson filter_1 =Filters.eq("usuario.1.username",solicitud.getUsuario().get(1).getUsername());
 
-              List<Solicitud> list = repository.filters(filter_1,new Document("idsolicitud", -1));
+            Bson filter_1 = Filters.eq("usuario.1.username", solicitud.getUsuario().get(1).getUsername());
+
+            List<Solicitud> list = repository.filters(filter_1, new Document("idsolicitud", -1));
             if (!list.isEmpty()) {
                 for (Solicitud s : list) {
                     if (JsfUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
@@ -153,87 +153,88 @@ List<Solicitud> solicitudList = new ArrayList<>();
                 }
             }
         } catch (Exception e) {
-              JsfUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
         }
         return Optional.empty();
     }
-           
+
     // </editor-fold>
-  
-  
     // <editor-fold defaultstate="collapsed" desc="solicitadoPor(Solicitud solicitud)">
-   public   Usuario solicitadoPor(Solicitud solicitud) {
-    Usuario usuario = new Usuario();
-      try {
-          usuario= solicitud.getUsuario().get(0);
-      } catch (Exception e) {
-JsfUtil.errorMessage("solicitadoPor() " + e.getLocalizedMessage());
-      }
-      return usuario;
-  }
+    public Usuario solicitadoPor(Solicitud solicitud) {
+        Usuario usuario = new Usuario();
+        try {
+            usuario = solicitud.getUsuario().get(0);
+        } catch (Exception e) {
+            JsfUtil.errorMessage("solicitadoPor() " + e.getLocalizedMessage());
+        }
+        return usuario;
+    }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="responsable(Solicitud solicitud)">
-   public  Usuario responsable(Solicitud solicitud) {
-     Usuario usuario = new Usuario();
-      try {
-          usuario= solicitud.getUsuario().get(1);
-      } catch (Exception e) {
-JsfUtil.errorMessage("responsable() " + e.getLocalizedMessage());
-      }
-      return usuario;
-  }
+    public Usuario responsable(Solicitud solicitud) {
+        Usuario usuario = new Usuario();
+        try {
+            usuario = solicitud.getUsuario().get(1);
+        } catch (Exception e) {
+            JsfUtil.errorMessage("responsable() " + e.getLocalizedMessage());
+        }
+        return usuario;
+    }
     // </editor-fold>
-   
-   
-    // <editor-fold defaultstate="collapsed" desc="metodo()">
-   public Boolean isValid(Solicitud solicitud){
-       try {
-           
-              if (JsfUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
-                JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
-                return false;
-            }
-              
-          
-        //guarda el contenido actualizado
+    // <editor-fold defaultstate="collapsed" desc="metodo()">
+    public Boolean isValid(Solicitud solicitud) {
+        try {
+
             if (JsfUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
                 JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
                 return false;
             }
-           
-           
-            
-           
-             if (JsfUtil.getHoraDeUnaFecha(solicitud.getFechahorapartida()) == 0
+
+            //guarda el contenido actualizado
+            if (JsfUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+
+                JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                return false;
+            }
+
+            if (JsfUtil.getHoraDeUnaFecha(solicitud.getFechahorapartida()) == 0
                     && JsfUtil.getMinutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
                 return false;
             }
-             
-         
+
             if (JsfUtil.getHoraDeUnaFecha(solicitud.getFechahoraregreso()) == 0
                     && JsfUtil.getMinutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
                 return false;
             }
-            
+
             if (solicitud.getPasajeros() <= 0) {
                 JsfUtil.warningDialog("Advertencia", "Numero de pasajeros menor que cero");
-               return false;
+                return false;
+            }
+
+            if (solicitud.getNumerodevehiculos() <= 0) {
+                JsfUtil.warningDialog("Advertencia", "Numero de vehiculos debe ser mayor que cero");
+                return false;
+            }
+            Integer totalvehiculos=vehiculoRepository.count(new Document("activo","si"));
+            
+            if (solicitud.getNumerodevehiculos() >= totalvehiculos) {
+                JsfUtil.warningDialog("Advertencia", "Numero de vehiculos es mayor que la cantidad de vehiculos disponibles");
+                return false;
             }
             
-             if(solicitud.getNumerodevehiculos() <=0){
-           JsfUtil.warningDialog("Advertencia","Numero de vehiculos debe ser mayor que cero");
-              return false;
-            }
-return true;
-       } catch (Exception e) {
-            JsfUtil.errorDialog("isValid() ",e.getLocalizedMessage().toString());
-       }
-   return false;
-   }
+            
+            return true;
+        } catch (Exception e) {
+            JsfUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
     // </editor-fold>
- 
+
 }
