@@ -16,8 +16,7 @@ import lombok.Setter;
  *
  * @author avbravo
  */
-@Getter
-@Setter
+
 public class Tiposolicitud {
     @Id
     private String idtiposolicitud;

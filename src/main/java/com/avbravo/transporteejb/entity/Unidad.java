@@ -9,15 +9,14 @@ import com.avbravo.ejbjmoordb.anotations.Embedded;
 import com.avbravo.ejbjmoordb.anotations.Id;
 import com.avbravo.ejbjmoordb.pojos.UserInfo;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+
+
 
 /**
  *
  * @author avbravo
  */
-@Getter
-@Setter
+
 public class Unidad {
     @Id
     private String idunidad;

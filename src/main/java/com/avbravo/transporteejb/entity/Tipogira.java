@@ -9,28 +9,29 @@ import com.avbravo.ejbjmoordb.anotations.Embedded;
 import com.avbravo.ejbjmoordb.anotations.Id;
 import com.avbravo.ejbjmoordb.pojos.UserInfo;
 import java.util.List;
-
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author avbravo
  */
-
-public class Tipovehiculo {
-   @Id
-   private String idtipovehiculo;
-   
-   private String activo;
-     @Embedded
+public class Tipogira {
+    @Id
+    private String idtipogira;
+    private String activo;
+    @Embedded
     List<UserInfo> userInfo;
 
-    public String getIdtipovehiculo() {
-        return idtipovehiculo;
+    public String getIdtipogira() {
+        return idtipogira;
     }
 
-    public void setIdtipovehiculo(String idtipovehiculo) {
-        this.idtipovehiculo = idtipovehiculo;
+    public void setIdtipogira(String idtipogira) {
+        this.idtipogira = idtipogira;
     }
+
+   
 
     public String getActivo() {
         return activo;
@@ -47,7 +48,7 @@ public class Tipovehiculo {
     public void setUserInfo(List<UserInfo> userInfo) {
         this.userInfo = userInfo;
     }
-     
-     
-     
+    
+    
+    
 }

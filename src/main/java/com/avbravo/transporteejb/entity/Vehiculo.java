@@ -10,15 +10,13 @@ import com.avbravo.ejbjmoordb.anotations.Id;
 import com.avbravo.ejbjmoordb.anotations.Referenced;
 import com.avbravo.ejbjmoordb.pojos.UserInfo;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+
 
 /**
  *
  * @author avbravo
  */
-@Getter
-@Setter
+
 public class Vehiculo {
 
     @Id
