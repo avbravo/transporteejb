@@ -66,7 +66,7 @@ public class Solicitud {
     
     private Date fechahoraregreso;
     
-    private String lugarregreso;
+ 
     private List<String> recursossolicitados;
     private String observaciones;
     
@@ -234,13 +234,7 @@ public class Solicitud {
         this.fechahoraregreso = fechahoraregreso;
     }
 
-    public String getLugarregreso() {
-        return lugarregreso;
-    }
-
-    public void setLugarregreso(String lugarregreso) {
-        this.lugarregreso = lugarregreso;
-    }
+   
 
     public List<String> getLugares() {
         return lugares;
