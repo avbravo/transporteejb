@@ -116,6 +116,14 @@ public class Solicitud {
         this.tipovehiculo = tipovehiculo;
     }
 
+    public Tipogira getTipogira() {
+        return tipogira;
+    }
+
+    public void setTipogira(Tipogira tipogira) {
+        this.tipogira = tipogira;
+    }
+
     
     
     

@@ -22,7 +22,6 @@ import org.bson.Document;
  */
 @Stateless
 public class VehiculoServices {
-
     @Inject
     VehiculoRepository repository;
       @Inject
