@@ -46,6 +46,10 @@ public class Solicitud {
             field = "idtipovehiculo", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.TipovehiculoRepository")
     private Tipovehiculo tipovehiculo;
+       @Referenced(documment = "Tipogira",
+            field = "idtipogira", javatype = "String", lazy = false,
+            repository = "com.avbravo.transporteejb.repository.TipogiraRepository")
+    private Tipogira tipogira;
        
        
     private String mision;
