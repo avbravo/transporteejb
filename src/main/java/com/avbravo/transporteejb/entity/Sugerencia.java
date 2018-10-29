@@ -18,10 +18,22 @@ import java.util.List;
 public class Sugerencia {
     @Id
     private String idsugerencia;
+    private String descripcion;
     private String activo;
     @Embedded
     List<UserInfo> userInfo;
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    
+    
+    
     public String getIdsugerencia() {
         return idsugerencia;
     }
