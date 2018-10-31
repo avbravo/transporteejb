@@ -45,7 +45,9 @@ public class Solicitud {
        @Referenced(documment = "Tipovehiculo",
             field = "idtipovehiculo", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.TipovehiculoRepository")
-    private Tipovehiculo tipovehiculo;
+    private List<Tipovehiculo> tipovehiculo;
+       
+       
        @Referenced(documment = "Tipogira",
             field = "idtipogira", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.TipogiraRepository")
@@ -108,14 +110,17 @@ public class Solicitud {
         this.semestre = semestre;
     }
 
-    public Tipovehiculo getTipovehiculo() {
+    public List<Tipovehiculo> getTipovehiculo() {
         return tipovehiculo;
     }
 
-    public void setTipovehiculo(Tipovehiculo tipovehiculo) {
+    public void setTipovehiculo(List<Tipovehiculo> tipovehiculo) {
         this.tipovehiculo = tipovehiculo;
     }
 
+
+    
+    
     public Tipogira getTipogira() {
         return tipogira;
     }
