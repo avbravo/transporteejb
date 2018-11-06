@@ -28,11 +28,11 @@ public class Viajes {
     @Referenced(documment = "Vehiculo",
             field = "idvehiculo", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.VehiculoRepository")
-    private Vehiculo vehiculo;
+    private List<Vehiculo> vehiculo;
     @Referenced(documment = "Conductor",
             field = "idconductor", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.ConductorRepository")
-    private Conductor conductor;
+    private List<Conductor> conductor;
     
       private String comentarios;
     
@@ -74,21 +74,31 @@ public class Viajes {
         this.solicitud = solicitud;
     }
 
-    public Vehiculo getVehiculo() {
+    public List<Vehiculo> getVehiculo() {
         return vehiculo;
     }
 
-    public void setVehiculo(Vehiculo vehiculo) {
+    public void setVehiculo(List<Vehiculo> vehiculo) {
         this.vehiculo = vehiculo;
     }
 
-    public Conductor getConductor() {
+    public List<Conductor> getConductor() {
         return conductor;
     }
 
-    public void setConductor(Conductor conductor) {
+    public void setConductor(List<Conductor> conductor) {
         this.conductor = conductor;
     }
+
+    public Integer getNumerovehiculos() {
+        return numerovehiculos;
+    }
+
+    public void setNumerovehiculos(Integer numerovehiculos) {
+        this.numerovehiculos = numerovehiculos;
+    }
+
+    
 
   
 
