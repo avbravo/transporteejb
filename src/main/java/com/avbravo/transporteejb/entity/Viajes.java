@@ -22,7 +22,7 @@ public class Viajes {
     @Id
     private Integer idviaje;
     @Referenced(documment = "Solicitud",
-            field = "idsolicitud", javatype = "String", lazy = false,
+            field = "idsolicitud", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.SolicitudRepository")
     private Solicitud solicitud;
     @Referenced(documment = "Vehiculo",
@@ -34,7 +34,7 @@ public class Viajes {
             repository = "com.avbravo.transporteejb.repository.ConductorRepository")
     private List<Conductor> conductor;
     
-      private String comentarios;
+    private String comentarios;
     
     private Double kmestimados;
     private Double costocombustible;
