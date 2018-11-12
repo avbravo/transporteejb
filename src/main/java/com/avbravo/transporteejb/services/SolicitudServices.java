@@ -239,30 +239,30 @@ public class SolicitudServices {
 
     // <editor-fold defaultstate="collapsed" desc="copiarDesde(Solicitud fuente, Solicitud destino)">
 
-    public Solicitud copiarDesde(Solicitud fuente, Solicitud destino) {
+   public Solicitud copiarDesde(Solicitud solicitudCopiar, Solicitud solicitud) {
         try {
-            destino.setFacultad(fuente.getFacultad());
-            destino.setCarrera(fuente.getCarrera());
-            destino.setLugares(fuente.getLugares());
-            destino.setLugarllegada(fuente.getLugarllegada());
-            destino.setLugarpartida(fuente.getLugarpartida());
-            destino.setMision(fuente.getMision());
-            destino.setNumerodevehiculos(fuente.getNumerodevehiculos());
-            destino.setNumerogrupo(fuente.getNumerogrupo());
-            destino.setObjetivo(fuente.getObjetivo());
-            destino.setObservaciones(fuente.getObservaciones());
-            destino.setSemestre(fuente.getSemestre());
-            destino.setPeriodoacademico(fuente.getPeriodoacademico());
-            destino.setPasajeros(fuente.getPasajeros());
-            destino.setTipogira(fuente.getTipogira());
-            destino.setTipovehiculo(fuente.getTipovehiculo());
-            destino.setTiposolicitud(fuente.getTiposolicitud());
-            destino.setRecursossolicitados(fuente.getRecursossolicitados());
+            solicitud.setFacultad(solicitudCopiar.getFacultad());
+            solicitud.setCarrera(solicitudCopiar.getCarrera());
+            solicitud.setLugares(solicitudCopiar.getLugares());
+            solicitud.setLugarllegada(solicitudCopiar.getLugarllegada());
+            solicitud.setLugarpartida(solicitudCopiar.getLugarpartida());
+            solicitud.setMision(solicitudCopiar.getMision());
+            solicitud.setNumerodevehiculos(solicitudCopiar.getNumerodevehiculos());
+            solicitud.setNumerogrupo(solicitudCopiar.getNumerogrupo());
+            solicitud.setObjetivo(solicitudCopiar.getObjetivo());
+            solicitud.setObservaciones(solicitudCopiar.getObservaciones());
+            solicitud.setSemestre(solicitudCopiar.getSemestre());
+            solicitud.setPeriodoacademico(solicitudCopiar.getPeriodoacademico());
+            solicitud.setPasajeros(solicitudCopiar.getPasajeros());
+            solicitud.setTipogira(solicitudCopiar.getTipogira());
+            solicitud.setTipovehiculo(solicitudCopiar.getTipovehiculo());
+            solicitud.setTiposolicitud(solicitudCopiar.getTiposolicitud());
+            solicitud.setRecursossolicitados(solicitudCopiar.getRecursossolicitados());
 
         } catch (Exception ex) {
             JsfUtil.errorDialog("copiarDesde() ", ex.getLocalizedMessage().toString());
         }
-        return destino;
+        return solicitud;
     }
     // </editor-fold>
 }
