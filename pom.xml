@@ -4,7 +4,7 @@
 
     <groupId>com.avbravo</groupId>
     <artifactId>transporteejb</artifactId>
-    <version>0.5.29</version>
+    <version>0.5.30</version>
     <packaging>ejb</packaging>
 
     <name>transporteejb</name>

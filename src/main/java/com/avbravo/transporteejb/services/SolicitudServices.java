@@ -19,6 +19,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -183,7 +184,7 @@ public class SolicitudServices {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="metodo()">
+    // <editor-fold defaultstate="collapsed" desc="isValid()">
     public Boolean isValid(Solicitud solicitud) {
         try {
 
@@ -221,14 +222,13 @@ public class SolicitudServices {
                 JsfUtil.warningDialog("Advertencia", "Numero de vehiculos debe ser mayor que cero");
                 return false;
             }
-            Integer totalvehiculos=vehiculoRepository.count(new Document("activo","si"));
-            
+            Integer totalvehiculos = vehiculoRepository.count(new Document("activo", "si"));
+
             if (solicitud.getNumerodevehiculos() >= totalvehiculos) {
                 JsfUtil.warningDialog("Advertencia", "Numero de vehiculos es mayor que la cantidad de vehiculos disponibles");
                 return false;
             }
-            
-            
+
             return true;
         } catch (Exception e) {
             JsfUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
@@ -237,4 +237,32 @@ public class SolicitudServices {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="copiarDesde(Solicitud fuente, Solicitud destino)">
+
+    public Solicitud copiarDesde(Solicitud fuente, Solicitud destino) {
+        try {
+            destino.setFacultad(fuente.getFacultad());
+            destino.setCarrera(fuente.getCarrera());
+            destino.setLugares(fuente.getLugares());
+            destino.setLugarllegada(fuente.getLugarllegada());
+            destino.setLugarpartida(fuente.getLugarpartida());
+            destino.setMision(fuente.getMision());
+            destino.setNumerodevehiculos(fuente.getNumerodevehiculos());
+            destino.setNumerogrupo(fuente.getNumerogrupo());
+            destino.setObjetivo(fuente.getObjetivo());
+            destino.setObservaciones(fuente.getObservaciones());
+            destino.setSemestre(fuente.getSemestre());
+            destino.setPeriodoacademico(fuente.getPeriodoacademico());
+            destino.setPasajeros(fuente.getPasajeros());
+            destino.setTipogira(fuente.getTipogira());
+            destino.setTipovehiculo(fuente.getTipovehiculo());
+            destino.setTiposolicitud(fuente.getTiposolicitud());
+            destino.setRecursossolicitados(fuente.getRecursossolicitados());
+
+        } catch (Exception ex) {
+            JsfUtil.errorDialog("copiarDesde() ", ex.getLocalizedMessage().toString());
+        }
+        return destino;
+    }
+    // </editor-fold>
 }
