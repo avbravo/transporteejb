@@ -24,7 +24,7 @@ public class Viajes {
     @Referenced(documment = "Solicitud",
             field = "idsolicitud", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.SolicitudRepository")
-    private Solicitud solicitud;
+    private List<Solicitud> solicitud;
     @Referenced(documment = "Vehiculo",
             field = "idvehiculo", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.VehiculoRepository")
@@ -66,14 +66,17 @@ public class Viajes {
         this.idviaje = idviaje;
     }
 
-    public Solicitud getSolicitud() {
+    public List<Solicitud> getSolicitud() {
         return solicitud;
     }
 
-    public void setSolicitud(Solicitud solicitud) {
+    public void setSolicitud(List<Solicitud> solicitud) {
         this.solicitud = solicitud;
     }
 
+
+    
+    
     public List<Vehiculo> getVehiculo() {
         return vehiculo;
     }
