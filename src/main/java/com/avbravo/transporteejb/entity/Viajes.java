@@ -21,10 +21,10 @@ public class Viajes {
 
     @Id
     private Integer idviaje;
-    @Referenced(documment = "Solicitud",
-            field = "idsolicitud", javatype = "Integer", lazy = false,
-            repository = "com.avbravo.transporteejb.repository.SolicitudRepository")
-    private List<Solicitud> solicitud;
+//    @Referenced(documment = "Solicitud",
+//            field = "idsolicitud", javatype = "Integer", lazy = false,
+//            repository = "com.avbravo.transporteejb.repository.SolicitudRepository")
+//    private List<Solicitud> solicitud;
     @Referenced(documment = "Vehiculo",
             field = "idvehiculo", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.VehiculoRepository")
@@ -66,13 +66,13 @@ public class Viajes {
         this.idviaje = idviaje;
     }
 
-    public List<Solicitud> getSolicitud() {
-        return solicitud;
-    }
-
-    public void setSolicitud(List<Solicitud> solicitud) {
-        this.solicitud = solicitud;
-    }
+//    public List<Solicitud> getSolicitud() {
+//        return solicitud;
+//    }
+//
+//    public void setSolicitud(List<Solicitud> solicitud) {
+//        this.solicitud = solicitud;
+//    }
 
 
     

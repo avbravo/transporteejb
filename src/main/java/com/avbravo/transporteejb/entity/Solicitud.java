@@ -95,6 +95,11 @@ public class Solicitud {
             repository = "com.avbravo.transporteejb.repository.UnidadRepository")
     private List<Unidad> unidad;
       private String activo;
+      
+ @Referenced(documment = "Viajes",
+            field = "idviaje", javatype = "Integer", lazy = false,
+           repository = "com.avbravo.transporteejb.repository.ViajesRepository")
+   private List<Viajes> viajes;
     
     @Embedded
     List<UserInfo> userInfo;
@@ -102,6 +107,19 @@ public class Solicitud {
     public Solicitud() {
     }
 
+    public List<Viajes> getViajes() {
+        return viajes;
+    }
+
+    public void setViajes(List<Viajes> viajes) {
+        this.viajes = viajes;
+    }
+
+ 
+
+    
+    
+    
     public Semestre getSemestre() {
         return semestre;
     }
