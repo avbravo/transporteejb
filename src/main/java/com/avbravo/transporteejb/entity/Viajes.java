@@ -21,10 +21,6 @@ public class Viajes {
 
     @Id
     private Integer idviaje;
-//    @Referenced(documment = "Solicitud",
-//            field = "idsolicitud", javatype = "Integer", lazy = false,
-//            repository = "com.avbravo.transporteejb.repository.SolicitudRepository")
-//    private List<Solicitud> solicitud;
     @Referenced(documment = "Vehiculo",
             field = "idvehiculo", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.VehiculoRepository")
