@@ -39,10 +39,33 @@ public class Viajes {
     private Date fechahorafinreserva;
     private String activo;
     private Integer numerovehiculos;
+    
+    private String lugarpartida;
+    private String lugarregreso;
 
     @Embedded
     List<UserInfo> userInfo;
 
+    public String getLugarpartida() {
+        return lugarpartida;
+    }
+
+    public void setLugarpartida(String lugarpartida) {
+        this.lugarpartida = lugarpartida;
+    }
+
+    public String getLugarregreso() {
+        return lugarregreso;
+    }
+
+    public void setLugarregreso(String lugarregreso) {
+        this.lugarregreso = lugarregreso;
+    }
+
+   
+    
+    
+    
     public Integer getIdviaje() {
         return idviaje;
     }
