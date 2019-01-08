@@ -100,6 +100,26 @@ public class Solicitud {
             field = "idviaje", javatype = "Integer", lazy = false,
            repository = "com.avbravo.transporteejb.repository.ViajesRepository")
    private List<Viajes> viajes;
+ 
+ private String idaasignado;
+ private String regresoasignado;
+
+    public String getIdaasignado() {
+        return idaasignado;
+    }
+
+    public void setIdaasignado(String idaasignado) {
+        this.idaasignado = idaasignado;
+    }
+
+    public String getRegresoasignado() {
+        return regresoasignado;
+    }
+
+    public void setRegresoasignado(String regresoasignado) {
+        this.regresoasignado = regresoasignado;
+    }
+
     
     @Embedded
     List<UserInfo> userInfo;
