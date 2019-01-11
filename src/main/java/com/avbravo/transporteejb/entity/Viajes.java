@@ -42,6 +42,15 @@ public class Viajes {
     
     private String lugarpartida;
     private String lugarregreso;
+    private String realizado;
+
+    public String getRealizado() {
+        return realizado;
+    }
+
+    public void setRealizado(String realizado) {
+        this.realizado = realizado;
+    }
 
     @Embedded
     List<UserInfo> userInfo;
