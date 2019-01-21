@@ -28,13 +28,6 @@ public class UnidadRepository extends Repository<Unidad> {
     public UnidadRepository(){
         super(Unidad.class,"transporte","unidad");
     }
-    @Override
-    public Object findById(String key, String value) {
-       return search(key,value); 
-    }
-    @Override
-    public Object findById(String key, Integer value) {
-        return search(key,value);
-    }
+   
 
 }

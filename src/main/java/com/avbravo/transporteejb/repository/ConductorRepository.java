@@ -28,13 +28,6 @@ public class ConductorRepository extends Repository<Conductor> {
     public ConductorRepository(){
         super(Conductor.class,"transporte","conductor");
     }
-    @Override
-    public Object findById(String key, String value) {
-       return search(key,value); 
-    }
-    @Override
-    public Object findById(String key, Integer value) {
-        return search(key,value);
-    }
+   
 
 }

@@ -5,6 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
+import com.avbravo.avbravoutils.DateUtil;
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
@@ -19,7 +20,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -113,8 +113,8 @@ public class SolicitudServices {
             List<Solicitud> list = repository.filters(filter_1, new Document("idsolicitud", -1));
             if (!list.isEmpty()) {
                 for (Solicitud s : list) {
-                    if (JsfUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
-                            || JsfUtil.dateBetween(solicitud.getFechahoraregreso(), s.getFechahorapartida(), s.getFechahoraregreso())) {
+                    if (DateUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
+                            || DateUtil.dateBetween(solicitud.getFechahoraregreso(), s.getFechahorapartida(), s.getFechahoraregreso())) {
 
 // coincide en el rango de fecha y hora con la solicitud s
                         return Optional.of(s);
@@ -145,8 +145,8 @@ public class SolicitudServices {
             List<Solicitud> list = repository.filters(filter_1, new Document("idsolicitud", -1));
             if (!list.isEmpty()) {
                 for (Solicitud s : list) {
-                    if (JsfUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
-                            || JsfUtil.dateBetween(solicitud.getFechahoraregreso(), s.getFechahorapartida(), s.getFechahoraregreso())) {
+                    if (DateUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
+                            || DateUtil.dateBetween(solicitud.getFechahoraregreso(), s.getFechahorapartida(), s.getFechahoraregreso())) {
 
 // coincide en el rango de fecha y hora con la solicitud s
                         return Optional.of(s);
@@ -188,27 +188,27 @@ public class SolicitudServices {
     public Boolean isValid(Solicitud solicitud) {
         try {
 
-            if (JsfUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+            if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
                 JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
                 return false;
             }
 
             //guarda el contenido actualizado
-            if (JsfUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+            if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
                 JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
                 return false;
             }
 
-            if (JsfUtil.getHoraDeUnaFecha(solicitud.getFechahorapartida()) == 0
-                    && JsfUtil.getMinutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
+            if (DateUtil.getHoraDeUnaFecha(solicitud.getFechahorapartida()) == 0
+                    && DateUtil.getMinutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
                 return false;
             }
 
-            if (JsfUtil.getHoraDeUnaFecha(solicitud.getFechahoraregreso()) == 0
-                    && JsfUtil.getMinutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
+            if (DateUtil.getHoraDeUnaFecha(solicitud.getFechahoraregreso()) == 0
+                    && DateUtil.getMinutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
                 return false;
             }

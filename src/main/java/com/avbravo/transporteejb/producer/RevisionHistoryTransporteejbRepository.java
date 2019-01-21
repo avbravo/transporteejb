@@ -30,14 +30,6 @@ public class RevisionHistoryTransporteejbRepository extends Repository<RevisionH
 
   
 
-    
-    @Override
-    public Object findById(String key, String value) {
-       return search(key,value); 
-    }
-    @Override
-    public Object findById(String key, Integer value) {
-        return search(key,value);
-    }
+   
 
 }

@@ -28,13 +28,5 @@ public class TipogiraRepository extends Repository<Tipogira> {
     public TipogiraRepository(){
         super(Tipogira.class,"transporte","tipogira");
     }
-    @Override
-    public Object findById(String key, String value) {
-       return search(key,value); 
-    }
-    @Override
-    public Object findById(String key, Integer value) {
-        return search(key,value);
-    }
-
+  
 }

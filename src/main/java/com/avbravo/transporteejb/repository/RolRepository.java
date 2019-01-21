@@ -27,13 +27,6 @@ public class RolRepository extends Repository<Rol> {
     public RolRepository(){
         super(Rol.class,"transporte","rol");
     }
-    @Override
-    public Object findById(String key, String value) {
-       return search(key,value); 
-    }
-    @Override
-    public Object findById(String key, Integer value) {
-        return search(key,value);
-    }
+   
 
 }

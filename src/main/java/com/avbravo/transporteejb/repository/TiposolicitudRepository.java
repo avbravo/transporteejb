@@ -28,13 +28,5 @@ public class TiposolicitudRepository extends Repository<Tiposolicitud> {
     public TiposolicitudRepository(){
         super(Tiposolicitud.class,"transporte","tiposolicitud");
     }
-    @Override
-    public Object findById(String key, String value) {
-       return search(key,value); 
-    }
-    @Override
-    public Object findById(String key, Integer value) {
-        return search(key,value);
-    }
-
+   
 }

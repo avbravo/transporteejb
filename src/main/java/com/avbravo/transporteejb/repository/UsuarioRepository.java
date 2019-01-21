@@ -28,13 +28,6 @@ public class UsuarioRepository extends Repository<Usuario> {
     public UsuarioRepository(){
         super(Usuario.class,"transporte","usuario");
     }
-    @Override
-    public Object findById(String key, String value) {
-       return search(key,value); 
-    }
-    @Override
-    public Object findById(String key, Integer value) {
-        return search(key,value);
-    }
+   
 
 }

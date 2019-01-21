@@ -29,13 +29,6 @@ public class AutoincrementableTransporteejbRepository extends Repository<Autoinc
     public AutoincrementableTransporteejbRepository(){
         super(Autoincrementable.class,"transporte","autoincrementable");
     }
-    @Override
-    public Object findById(String key, String value) {
-       return search(key,value); 
-    }
-    @Override
-    public Object findById(String key, Integer value) {
-        return search(key,value);
-    }
+   
 
 }

@@ -28,13 +28,6 @@ public class ConfiguracionTransporteejbRepository extends Repository<Configuraci
     public ConfiguracionTransporteejbRepository(){
         super(Configuracion.class,"transporte","configuracion");
     }
-    @Override
-    public Object findById(String key, String value) {
-       return search(key,value); 
-    }
-    @Override
-    public Object findById(String key, Integer value) {
-        return search(key,value);
-    }
+   
 
 }

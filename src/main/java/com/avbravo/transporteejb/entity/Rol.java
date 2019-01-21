@@ -3,18 +3,26 @@ package com.avbravo.transporteejb.entity;
 import com.avbravo.ejbjmoordb.anotations.Embedded;
 import com.avbravo.ejbjmoordb.anotations.Id;
 import com.avbravo.ejbjmoordb.pojos.UserInfo;
+import java.util.Date;
 import java.util.List;
 
-
-
 public class Rol {
-  @Id
+
+    @Id
     private String idrol;
     private String rol;
-      private String activo;
-   @Embedded
+    private String activo;
+    @Embedded
     List<UserInfo> userInfo;
+
     public Rol() {
+    }
+
+    public Rol(String idrol, String rol, String activo, List<UserInfo> userInfo) {
+        this.idrol = idrol;
+        this.rol = rol;
+        this.activo = activo;
+        this.userInfo = userInfo;
     }
 
     @Override
@@ -53,6 +61,38 @@ public class Rol {
     public void setUserInfo(List<UserInfo> userInfo) {
         this.userInfo = userInfo;
     }
-    
-    
+
+    public static class Builder {
+
+        private String idrol;
+        private String rol;
+        private String activo;
+        List<UserInfo> userInfo;
+
+        public Builder withIdrol(String idrol) {
+            this.idrol = idrol;
+            return this;
+        }
+
+        public Builder withRol(String rol) {
+            this.rol = rol;
+            return this;
+        }
+
+        public Builder withActivo(String activo) {
+            this.activo = activo;
+            return this;
+        }
+
+        public Builder withUserinfo(List<UserInfo> userInfo) {
+            this.userInfo = userInfo;
+            return this;
+        }
+
+        public Rol build() {
+            return new Rol(idrol, rol, activo, userInfo);
+        }
+
+    }
+
 }
