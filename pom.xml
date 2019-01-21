@@ -15,11 +15,10 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>commonejb</artifactId>
-            <version>0.2.2</version>
+            <version>0.3</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
