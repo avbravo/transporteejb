@@ -19,114 +19,104 @@ import java.util.List;
  *
  * @author avbravo
  */
-
 public class Solicitud {
+
     @Id
     private Integer idsolicitud;
     private String periodoacademico;
     private Date fecha;
     private List<String> numerogrupo;
     private Integer numerodevehiculos;
-    
-       @Referenced(documment = "Facultad",
+
+    @Referenced(documment = "Facultad",
             field = "idfacultad", javatype = "Integer", lazy = false,
             repository = "com.avbravo.commonejb.repository.FacultadRepository")
     private List<Facultad> facultad;
-       @Referenced(documment = "Carrera",
+    @Referenced(documment = "Carrera",
             field = "idcarrera", javatype = "Integer", lazy = false,
             repository = "com.avbravo.commonejb.repository.CarreraRepository")
     private List<Carrera> carrera;
-    
-       @Referenced(documment = "Semestre",
+
+    @Referenced(documment = "Semestre",
             field = "idsemestre", javatype = "String", lazy = false,
             repository = "com.avbravo.commonejb.repository.SemestreRepository")
     private Semestre semestre;
-       
-       @Referenced(documment = "Tipovehiculo",
+
+    @Referenced(documment = "Tipovehiculo",
             field = "idtipovehiculo", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.TipovehiculoRepository")
     private List<Tipovehiculo> tipovehiculo;
-       
-       
-       @Referenced(documment = "Tipogira",
+
+    @Referenced(documment = "Tipogira",
             field = "idtipogira", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.TipogiraRepository")
     private Tipogira tipogira;
-       
-       
+
     private String mision;
-   
-    
+
     @Referenced(documment = "Usuario",
             field = "username", javatype = "String", lazy = false,
-           repository = "com.avbravo.transporteejb.repository.UsuarioRepository")
+            repository = "com.avbravo.transporteejb.repository.UsuarioRepository")
     List<Usuario> usuario;
-   
-    
+
     private String objetivo;
     private List<String> lugares;
-    
+
     private Date fechahorapartida;
     private String lugarpartida;
     private String lugarllegada;
-    
+
     private Date fechahoraregreso;
-    
- 
+
     private List<String> recursossolicitados;
     private String observaciones;
-    
-     @Referenced(documment = "Estatus",
+
+    @Referenced(documment = "Estatus",
             field = "idestatus", javatype = "String", lazy = false,
-           repository = "com.avbravo.transporteejb.repository.EstatusRepository")
+            repository = "com.avbravo.transporteejb.repository.EstatusRepository")
     Estatus estatus;
-    
+
     private Date fechaestatus;
-    
+
     private Integer pasajeros;
-      @Referenced(documment = "Tiposolicitud",
+    @Referenced(documment = "Tiposolicitud",
             field = "idtiposolicitud", javatype = "String", lazy = false,
-           repository = "com.avbravo.transporteejb.repository.TiposolicitudRepository")
-   Tiposolicitud tiposolicitud;
-      
-      
-       @Referenced(documment = "Unidad",
+            repository = "com.avbravo.transporteejb.repository.TiposolicitudRepository")
+    Tiposolicitud tiposolicitud;
+
+    @Referenced(documment = "Unidad",
             field = "idunidad", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.UnidadRepository")
     private List<Unidad> unidad;
-      private String activo;
-      
- @Referenced(documment = "Viajes",
+    private String activo;
+
+    @Referenced(documment = "Viajes",
             field = "idviaje", javatype = "Integer", lazy = false,
-           repository = "com.avbravo.transporteejb.repository.ViajesRepository")
-   private List<Viajes> viajes;
- 
- private String idaasignado;
- private String regresoasignado;
+            repository = "com.avbravo.transporteejb.repository.ViajesRepository")
+    private List<Viajes> viajes;
 
-    public String getIdaasignado() {
-        return idaasignado;
-    }
-
-    public void setIdaasignado(String idaasignado) {
-        this.idaasignado = idaasignado;
-    }
-
-    public String getRegresoasignado() {
-        return regresoasignado;
-    }
-
-    public void setRegresoasignado(String regresoasignado) {
-        this.regresoasignado = regresoasignado;
-    }
-
+  
     
+    private Integer solicitudpadre;
+
+   
     @Embedded
     List<UserInfo> userInfo;
 
     public Solicitud() {
     }
 
+    public Integer getSolicitudpadre() {
+        return solicitudpadre;
+    }
+
+    public void setSolicitudpadre(Integer solicitudpadre) {
+        this.solicitudpadre = solicitudpadre;
+    }
+
+    
+    
+    
     public List<Viajes> getViajes() {
         return viajes;
     }
@@ -135,11 +125,6 @@ public class Solicitud {
         this.viajes = viajes;
     }
 
- 
-
-    
-    
-    
     public Semestre getSemestre() {
         return semestre;
     }
@@ -156,9 +141,6 @@ public class Solicitud {
         this.tipovehiculo = tipovehiculo;
     }
 
-
-    
-    
     public Tipogira getTipogira() {
         return tipogira;
     }
@@ -167,9 +149,6 @@ public class Solicitud {
         this.tipogira = tipogira;
     }
 
-    
-    
-    
     public List<Facultad> getFacultad() {
         return facultad;
     }
@@ -186,11 +165,6 @@ public class Solicitud {
         this.numerodevehiculos = numerodevehiculos;
     }
 
-    
-
-    
-    
-    
     public Integer getIdsolicitud() {
         return idsolicitud;
     }
@@ -223,9 +197,6 @@ public class Solicitud {
         this.numerogrupo = numerogrupo;
     }
 
-    
-   
-
     public List<Carrera> getCarrera() {
         return carrera;
     }
@@ -233,10 +204,6 @@ public class Solicitud {
     public void setCarrera(List<Carrera> carrera) {
         this.carrera = carrera;
     }
-
-  
-    
-  
 
     public String getMision() {
         return mision;
@@ -254,7 +221,6 @@ public class Solicitud {
         this.usuario = usuario;
     }
 
-   
     public String getObjetivo() {
         return objetivo;
     }
@@ -262,8 +228,6 @@ public class Solicitud {
     public void setObjetivo(String objetivo) {
         this.objetivo = objetivo;
     }
-
-   
 
     public Date getFechahorapartida() {
         return fechahorapartida;
@@ -289,8 +253,6 @@ public class Solicitud {
         this.fechahoraregreso = fechahoraregreso;
     }
 
-   
-
     public List<String> getLugares() {
         return lugares;
     }
@@ -306,8 +268,6 @@ public class Solicitud {
     public void setRecursossolicitados(List<String> recursossolicitados) {
         this.recursossolicitados = recursossolicitados;
     }
-
-  
 
     public String getObservaciones() {
         return observaciones;
@@ -380,8 +340,5 @@ public class Solicitud {
     public void setLugarllegada(String lugarllegada) {
         this.lugarllegada = lugarllegada;
     }
-    
-    
-    
-    
+
 }
