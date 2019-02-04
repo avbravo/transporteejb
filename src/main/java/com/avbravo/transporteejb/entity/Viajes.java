@@ -16,7 +16,6 @@ import java.util.List;
  *
  * @author avbravo
  */
-
 public class Viajes {
 
     @Id
@@ -29,17 +28,16 @@ public class Viajes {
             field = "idconductor", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.ConductorRepository")
     private Conductor conductor;
-    
+
     private String comentarios;
-    
+
     private Double kmestimados;
     private Double costocombustible;
-    
+
     private Date fechahorainicioreserva;
     private Date fechahorafinreserva;
     private String activo;
-    private Integer numerovehiculos;
-    
+
     private String lugarpartida;
     private String lugarregreso;
     private String realizado;
@@ -71,10 +69,6 @@ public class Viajes {
         this.lugarregreso = lugarregreso;
     }
 
-   
-    
-    
-    
     public Integer getIdviaje() {
         return idviaje;
     }
@@ -87,9 +81,6 @@ public class Viajes {
         this.costocombustible = costocombustible;
     }
 
-    
-    
-    
     public void setIdviaje(Integer idviaje) {
         this.idviaje = idviaje;
     }
@@ -101,7 +92,6 @@ public class Viajes {
 //    public void setSolicitud(List<Solicitud> solicitud) {
 //        this.solicitud = solicitud;
 //    }
-
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
@@ -117,23 +107,6 @@ public class Viajes {
     public void setConductor(Conductor conductor) {
         this.conductor = conductor;
     }
-
-
-    
-    
-    
-
-    public Integer getNumerovehiculos() {
-        return numerovehiculos;
-    }
-
-    public void setNumerovehiculos(Integer numerovehiculos) {
-        this.numerovehiculos = numerovehiculos;
-    }
-
-    
-
-  
 
     public String getComentarios() {
         return comentarios;
@@ -182,7 +155,5 @@ public class Viajes {
     public void setFechahorafinreserva(Date fechahorafinreserva) {
         this.fechahorafinreserva = fechahorafinreserva;
     }
-    
-    
-    
+
 }

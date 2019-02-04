@@ -7,6 +7,8 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.avbravoutils.DateUtil;
 import com.avbravo.avbravoutils.JsfUtil;
+import static com.avbravo.avbravoutils.JsfUtil.nameOfClass;
+import static com.avbravo.avbravoutils.JsfUtil.nameOfMethod;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
@@ -263,6 +265,33 @@ public class SolicitudServices {
             JsfUtil.errorDialog("copiarDesde() ", ex.getLocalizedMessage().toString());
         }
         return solicitud;
+    }
+    // </editor-fold>
+   
+    // <editor-fold defaultstate="collapsed" desc="Boolean esMismoDiaSolicitud()">
+    /**
+     * si el dia de partida es el mismo que el de regreso
+     *
+     * @return
+     */
+    public Boolean esMismoDiaSolicitud(Solicitud solicitud) {
+        try {
+
+            Integer dia = DateUtil.getDiaDeUnaFecha(solicitud.getFechahorapartida());
+            Integer mes = DateUtil.getDiaDeUnaFecha(solicitud.getFechahorapartida());
+            Integer anio = DateUtil.getDiaDeUnaFecha(solicitud.getFechahorapartida());
+            Integer diaf = DateUtil.getDiaDeUnaFecha(solicitud.getFechahoraregreso());
+            Integer mesf = DateUtil.getDiaDeUnaFecha(solicitud.getFechahoraregreso());
+            Integer aniof = DateUtil.getDiaDeUnaFecha(solicitud.getFechahoraregreso());
+// ES EN LA MISMA FECHA
+
+            if (anio == aniof && mes == mesf && dia == diaf) {
+                return true;
+            }
+        } catch (Exception e) {
+             JsfUtil.errorDialog("esMismoDiaSolicitud() ", e.getLocalizedMessage().toString());
+        }
+        return false;
     }
     // </editor-fold>
 }
