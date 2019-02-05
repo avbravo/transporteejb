@@ -196,10 +196,15 @@ public class SolicitudServices {
                 return false;
             }
 
-            //guarda el contenido actualizado
+           
             if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
                 JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                return false;
+            }
+            if (DateUtil.fechaIgual(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+
+                JsfUtil.warningDialog("Advertencia", "Fecha de regreso es igual que la fecha de partida");
                 return false;
             }
 

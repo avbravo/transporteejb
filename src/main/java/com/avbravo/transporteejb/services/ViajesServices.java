@@ -11,6 +11,7 @@ import com.avbravo.transporteejb.entity.Conductor;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Vehiculo;
 import com.avbravo.transporteejb.entity.Viajes;
+import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.ViajesRepository;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -35,6 +36,8 @@ public class ViajesServices {
     @Inject
     ViajesRepository repository;
 List<Viajes> solicitudList = new ArrayList<>();
+@Inject
+SolicitudRepository solicitudRepository;
     public List<Viajes> complete(String query) {
         List<Viajes> suggestions = new ArrayList<>();
             try {
@@ -69,7 +72,11 @@ List<Viajes> solicitudList = new ArrayList<>();
     public Boolean isDeleted(Viajes viajes){
         Boolean found=false;
         try {
-        
+         Document doc = new Document("viajes.idviaje",viajes.getIdviaje());
+            Integer count = solicitudRepository.count(doc);
+            if (count > 0){
+                return false;
+            }
         } catch (Exception e) {
              JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
@@ -208,10 +215,15 @@ List<Viajes> solicitudList = new ArrayList<>();
                 return false;
             }
 
-            //guarda el contenido actualizado
+            
             if (DateUtil.fechaMenor(viajes.getFechahorafinreserva(), viajes.getFechahorainicioreserva())) {
 
                 JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                return false;
+            }
+            if (DateUtil.fechaIgual(viajes.getFechahorafinreserva(), viajes.getFechahorainicioreserva())) {
+
+                JsfUtil.warningDialog("Advertencia", "Fecha de regreso es igual a la  fecha de partida");
                 return false;
             }
 
@@ -254,13 +266,20 @@ List<Viajes> solicitudList = new ArrayList<>();
     public Boolean vehiculoTieneViajeFecha(Viajes viajes){
         try {
              //Vehiculos en viajes
-            List<Viajes> listVehiculos = repository.findBy(and(
-                    eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
-                    gte("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    lte("fechahorafinreserva", viajes.getFechahorafinreserva())
-            )
-            );
-            if (!listVehiculos.isEmpty()) {
+//            List<Viajes> listVehiculos = repository.findBy(and(
+//                    eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
+//                    gte("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
+//                    lte("fechahorafinreserva", viajes.getFechahorafinreserva())
+//            )
+//            );
+            
+              List<Viajes> list = repository.filterBetweenDate(
+                  "vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo(), 
+                "fechahorainicioreserva",viajes.getFechahorainicioreserva(), 
+                "fechahorafinreserva",viajes.getFechahorafinreserva());
+                                
+                                
+            if (!list.isEmpty()) {
                return true;
             }
         } catch (Exception e) {
@@ -302,12 +321,19 @@ List<Viajes> solicitudList = new ArrayList<>();
     public Boolean conductorTieneViajeFecha(Viajes viajes){
         try {
              //Vehiculos en viajes
-            List<Viajes> list= repository.findBy(and(
-                    eq("conductor.idconductor", viajes.getVehiculo().getIdvehiculo()),
-                    gte("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    lte("fechahorafinreserva", viajes.getFechahorafinreserva())
-            )
-            );
+//            List<Viajes> list= repository.findBy(and(
+//                    eq("conductor.idconductor", viajes.getVehiculo().getIdvehiculo()),
+//                    gte("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
+//                    lte("fechahorafinreserva", viajes.getFechahorafinreserva())
+//            )
+//            );
+             List<Viajes> list = repository.filterBetweenDate(
+                  "conductor.idconductor", viajes.getConductor().getIdconductor(), 
+                "fechahorainicioreserva",viajes.getFechahorainicioreserva(), 
+                "fechahorafinreserva",viajes.getFechahorafinreserva());
+                                
+            
+
             if (!list.isEmpty()) {
                return true;
             }
