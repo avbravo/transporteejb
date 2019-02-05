@@ -327,6 +327,11 @@ SolicitudRepository solicitudRepository;
 //                    lte("fechahorafinreserva", viajes.getFechahorafinreserva())
 //            )
 //            );
+//             List<Viajes> list = repository.filterBetweenDate(
+//                  "conductor.idconductor", viajes.getConductor().getIdconductor(), 
+//                "fechahorainicioreserva",viajes.getFechahorainicioreserva(), 
+//                "fechahorafinreserva",viajes.getFechahorafinreserva());
+//                                
              List<Viajes> list = repository.filterBetweenDate(
                   "conductor.idconductor", viajes.getConductor().getIdconductor(), 
                 "fechahorainicioreserva",viajes.getFechahorainicioreserva(), 
