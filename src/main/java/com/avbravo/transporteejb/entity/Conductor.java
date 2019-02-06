@@ -24,6 +24,9 @@ public class Conductor {
     private String celular;
     private String email;
     private String activo;
+    private String escontrol;
+
+    
     @Embedded
     List<UserInfo> userInfo;
 
@@ -31,6 +34,18 @@ public class Conductor {
         return idconductor;
     }
 
+    public String getEscontrol() {
+        return escontrol;
+    }
+
+    public void setEscontrol(String escontrol) {
+        this.escontrol = escontrol;
+    }
+
+    
+    
+    
+    
     public void setIdconductor(Integer idconductor) {
         this.idconductor = idconductor;
     }
