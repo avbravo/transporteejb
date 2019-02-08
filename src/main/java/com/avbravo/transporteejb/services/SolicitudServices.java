@@ -13,7 +13,7 @@ import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
-import com.avbravo.transporteejb.repository.ViajesRepository;
+import com.avbravo.transporteejb.repository.ViajeRepository;
 import com.mongodb.client.model.Filters;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class SolicitudServices {
     @Inject
     SolicitudRepository repository;
     @Inject
-    ViajesRepository viajesRepository;
+    ViajeRepository viajesRepository;
     @Inject
     VehiculoRepository vehiculoRepository;
 

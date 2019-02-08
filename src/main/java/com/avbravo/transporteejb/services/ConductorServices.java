@@ -8,7 +8,7 @@ package com.avbravo.transporteejb.services;
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Conductor;
 import com.avbravo.transporteejb.repository.ConductorRepository;
-import com.avbravo.transporteejb.repository.ViajesRepository;
+import com.avbravo.transporteejb.repository.ViajeRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +23,7 @@ import org.bson.Document;
 @Stateless
 public class ConductorServices {
  @Inject
-    ViajesRepository viajesRepository;
+    ViajeRepository viajesRepository;
         
     @Inject
     ConductorRepository repository;

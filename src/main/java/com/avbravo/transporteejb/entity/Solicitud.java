@@ -93,7 +93,7 @@ public class Solicitud {
     @Referenced(documment = "Viajes",
             field = "idviaje", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.ViajesRepository")
-    private List<Viajes> viajes;
+    private List<Viaje> viajes;
 
   
     
@@ -117,11 +117,11 @@ public class Solicitud {
     
     
     
-    public List<Viajes> getViajes() {
+    public List<Viaje> getViajes() {
         return viajes;
     }
 
-    public void setViajes(List<Viajes> viajes) {
+    public void setViajes(List<Viaje> viajes) {
         this.viajes = viajes;
     }
 

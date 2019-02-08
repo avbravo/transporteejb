@@ -6,8 +6,8 @@
 package com.avbravo.transporteejb.converter;
 
 import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.transporteejb.entity.Viajes;
-import com.avbravo.transporteejb.repository.ViajesRepository;
+import com.avbravo.transporteejb.entity.Viaje;
+import com.avbravo.transporteejb.repository.ViajeRepository;
 import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -22,19 +22,19 @@ import javax.inject.Named;
  */
 @Named
 @RequestScoped
-public class ViajesConverter implements Converter {
+public class ViajeConverter implements Converter {
 
     @Inject
-    ViajesRepository viajesRepository;
+    ViajeRepository viajesRepository;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
-        Viajes viajes = new Viajes();
+        Viaje viajes = new Viaje();
         try{
             if(!s.equals("null")){
-               Viajes b = new Viajes();
+               Viaje b = new Viaje();
                b.setIdviaje(Integer.parseInt(s));
-               Optional<Viajes> optional = viajesRepository.findById(b);
+               Optional<Viaje> optional = viajesRepository.findById(b);
                if (optional.isPresent()) {
                viajes= optional.get();  
                }   
@@ -50,8 +50,8 @@ public class ViajesConverter implements Converter {
     public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object o) {
         String r = "";
         try {
-            if (o instanceof Viajes) {
-                Viajes viajes = (Viajes) o;
+            if (o instanceof Viaje) {
+                Viaje viajes = (Viaje) o;
                 r = String.valueOf(viajes.getIdviaje());
             }else if (o instanceof String) {
                r = (String) o;

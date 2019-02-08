@@ -10,9 +10,9 @@ import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Conductor;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Vehiculo;
-import com.avbravo.transporteejb.entity.Viajes;
+import com.avbravo.transporteejb.entity.Viaje;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
-import com.avbravo.transporteejb.repository.ViajesRepository;
+import com.avbravo.transporteejb.repository.ViajeRepository;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -34,16 +34,16 @@ import org.bson.conversions.Bson;
  * @authoravbravo
  */
 @Stateless
-public class ViajesServices {
+public class ViajeServices {
 
     @Inject
-    ViajesRepository repository;
-    List<Viajes> solicitudList = new ArrayList<>();
+    ViajeRepository repository;
+    List<Viaje> solicitudList = new ArrayList<>();
     @Inject
     SolicitudRepository solicitudRepository;
 
-    public List<Viajes> complete(String query) {
-        List<Viajes> suggestions = new ArrayList<>();
+    public List<Viaje> complete(String query) {
+        List<Viaje> suggestions = new ArrayList<>();
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
@@ -54,7 +54,7 @@ public class ViajesServices {
     }
 
     // <editor-fold defaultstate="collapsed" desc="getViajesList()">
-    public List<Viajes> getViajesList() {
+    public List<Viaje> getViajesList() {
         try {
             solicitudList = repository.findAll(new Document("solicitud", 1));
         } catch (Exception e) {
@@ -63,12 +63,12 @@ public class ViajesServices {
         return solicitudList;
     }// </editor-fold>
 
-    public void setViajesList(List<Viajes> solicitudList) {
+    public void setViajesList(List<Viaje> solicitudList) {
         this.solicitudList = solicitudList;
     }
 
     // <editor-fold defaultstate="collapsed" desc="isDeleted(Viajes viajes)">
-    public Boolean isDeleted(Viajes viajes) {
+    public Boolean isDeleted(Viaje viajes) {
         Boolean found = false;
         try {
             Document doc = new Document("viajes.idviaje", viajes.getIdviaje());
@@ -83,12 +83,12 @@ public class ViajesServices {
     }  // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="findById(String id)">
-    public Viajes findById(Integer id) {
-        Viajes viajes = new Viajes();
+    public Viaje findById(Integer id) {
+        Viaje viajes = new Viaje();
         try {
 
             viajes.setIdviaje(id);
-            Optional<Viajes> optional = repository.findById(viajes);
+            Optional<Viaje> optional = repository.findById(viajes);
             if (optional.isPresent()) {
                 return optional.get();
             }
@@ -109,12 +109,12 @@ public class ViajesServices {
      *
      * @return
      */
-    public List<Viajes> viajesVariosDias(Vehiculo v, Solicitud solicitud) {
-        List<Viajes> viajesList = new ArrayList<>();
+    public List<Viaje> viajesVariosDias(Vehiculo v, Solicitud solicitud) {
+        List<Viaje> viajesList = new ArrayList<>();
         try {
             viajesList = repository.filterDayWithoutHour("vehiculo.idvehiculo", v.getIdvehiculo(), "fechahorainicioreserva", solicitud.getFechahorapartida());
-            List<Viajes> viajesStart = repository.filterDayWithoutHour("vehiculo.idvehiculo", v.getIdvehiculo(), "fechahorainicioreserva", solicitud.getFechahorapartida());
-            List<Viajes> viajesEnd = repository.filterDayWithoutHour("vehiculo.idvehiculo", v.getIdvehiculo(), "fechahorafinreserva", solicitud.getFechahoraregreso());
+            List<Viaje> viajesStart = repository.filterDayWithoutHour("vehiculo.idvehiculo", v.getIdvehiculo(), "fechahorainicioreserva", solicitud.getFechahorapartida());
+            List<Viaje> viajesEnd = repository.filterDayWithoutHour("vehiculo.idvehiculo", v.getIdvehiculo(), "fechahorafinreserva", solicitud.getFechahoraregreso());
             viajesList = new ArrayList<>();
             if (viajesStart.isEmpty() && viajesEnd.isEmpty()) {
                 // NO HAY VIAJES EN ESAS FECHAS
@@ -122,9 +122,9 @@ public class ViajesServices {
             } else {
                 if (!viajesStart.isEmpty() && !viajesEnd.isEmpty()) {
                     viajesList = viajesStart;
-                    for (Viajes vjs : viajesEnd) {
+                    for (Viaje vjs : viajesEnd) {
                         Boolean foundv = false;
-                        for (Viajes vje : viajesList) {
+                        for (Viaje vje : viajesList) {
                             if (vjs.getIdviaje() == vje.getIdviaje()) {
                                 foundv = true;
                                 break;
@@ -144,7 +144,7 @@ public class ViajesServices {
                     }
                 }
                 Collections.sort(viajesList,
-                        (Viajes a, Viajes b) -> a.getIdviaje().compareTo(b.getIdviaje()));
+                        (Viaje a, Viaje b) -> a.getIdviaje().compareTo(b.getIdviaje()));
             }
 
         } catch (Exception e) {
@@ -162,7 +162,7 @@ public class ViajesServices {
      * @param viajes
      * @return
      */
-    public Boolean esOcupadoEseDiaHora(Solicitud solicitud, Viajes viajes) {
+    public Boolean esOcupadoEseDiaHora(Solicitud solicitud, Viaje viajes) {
         try {
             if (DateUtil.dateBetween(solicitud.getFechahorapartida(), viajes.getFechahorainicioreserva(), viajes.getFechahorainicioreserva())
                     || DateUtil.dateBetween(solicitud.getFechahoraregreso(), viajes.getFechahorainicioreserva(), viajes.getFechahorainicioreserva())) {
@@ -182,11 +182,11 @@ public class ViajesServices {
      * @param viajesList
      * @return
      */
-    public Boolean tieneDisponibilidadViaje(List<Viajes> viajesList, Solicitud solicitud) {
+    public Boolean tieneDisponibilidadViaje(List<Viaje> viajesList, Solicitud solicitud) {
         Boolean disponible = true;
         try {
 
-            for (Viajes vj : viajesList) {
+            for (Viaje vj : viajesList) {
                 if (esOcupadoEseDiaHora(solicitud, vj)) {
                     disponible = false;
                     break;
@@ -200,7 +200,7 @@ public class ViajesServices {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="isValid()">
-    public Boolean isValid(Viajes viajes) {
+    public Boolean isValid(Viaje viajes) {
         try {
 
             if (DateUtil.fechaMenor(viajes.getFechahorafinreserva(), viajes.getFechahorainicioreserva())) {
@@ -258,7 +258,7 @@ public class ViajesServices {
      * @param viajes
      * @return
      */
-    public Boolean vehiculoDisponible(Viajes viajes) {
+    public Boolean vehiculoDisponible(Viaje viajes) {
         try {
             //Vehiculos en viajes
 //           Bson filterstart = Filters.and(gt("fechahorainicioreserva",viajes.getFechahorainicioreserva()),
@@ -278,25 +278,71 @@ public class ViajesServices {
 //            Bson filterstart = Filters.gt("fechahorainicioreserva", viajes.getFechahorainicioreserva());
 //            Bson filterend = Filters.gt("fechahorainicioreserva", viajes.getFechahorafinreserva());
 
-            Bson filter0 = Filters.and(
-                    Filters.gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    Filters.gt("fechahorainicioreserva", viajes.getFechahorafinreserva())
-            );
-            Bson filter1 =Filters.lt("fechahorafinreserva", viajes.getFechahorainicioreserva());
-//            Bson filter1 = Filters.and(
-//                    Filters.lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-//                    Filters.gt("fechahorafinreserva", viajes.getFechahorafinreserva()),
-//                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva())
-//            );
-
-//           
-            List<Viajes> list = repository.findBy(and(
-                    eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
-                    or(filter0,filter1))
-            );
-
-            if (!list.isEmpty()) {
+            Integer count = repository.count();
+            if (count.equals(0)) {
                 return true;
+            }
+            //inicio
+            
+             Bson b= Filters.and(
+                    Filters.gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
+                    Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
+                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva()),
+                    Filters.gt("fechahorafinreserva", viajes.getFechahorafinreserva())
+            );
+             
+            Bson c_e_f_g_h_l= Filters.or(
+                    Filters.eq("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
+                    Filters.eq("fechahorainicioreserva", viajes.getFechahorafinreserva()),
+                    Filters.eq("fechahoraifinreserva", viajes.getFechahorainicioreserva()),
+                    Filters.eq("fechahoraifinreserva", viajes.getFechahorafinreserva())
+            );
+            
+            Bson j= Filters.and(
+                    Filters.lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
+                    Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
+                    Filters.gt("fechahoraifinreserva", viajes.getFechahorainicioreserva()),
+                    Filters.eq("fechahoraifinreserva", viajes.getFechahorafinreserva())
+            );
+            
+             Bson d= Filters.and(
+                    Filters.gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
+                    Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
+                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva()),
+                    Filters.lt("fechahorafinreserva", viajes.getFechahorafinreserva())
+            );
+             Bson i= Filters.and(
+                    Filters.lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
+                    Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
+                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva()),
+                    Filters.gt("fechahorafinreserva", viajes.getFechahorafinreserva())
+            );
+             Bson k= Filters.and(
+                    Filters.lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
+                    Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
+                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva()),
+                    Filters.lt("fechahorafinreserva", viajes.getFechahorafinreserva())
+            );
+            
+             
+         
+           Bson f =Filters.and(
+                   eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
+                    or(b,c_e_f_g_h_l,d,i,j,k)
+           );
+            System.out.println("filter "+f.toString()); 
+            
+ 
+            List<Viaje> list = repository.findBy(and(
+                    eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
+                    or(b,c_e_f_g_h_l,d,i,j,k))
+            );
+
+            if (list.isEmpty()) {
+                System.out.println("hola mundo");
+                return true;
+            } else {
+                System.out.println("no esta vacio");
             }
 
         } catch (Exception e) {
@@ -314,8 +360,8 @@ public class ViajesServices {
      * @param viajes
      * @return
      */
-    public List<Viajes> viajesVehiculoChoques(Viajes viajes) {
-        List<Viajes> list = new ArrayList<>();
+    public List<Viaje> viajesVehiculoChoques(Viaje viajes) {
+        List<Viaje> list = new ArrayList<>();
         try {
             //Vehiculos en viajes
             Bson filterstart = Filters.and(gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
@@ -353,7 +399,7 @@ public class ViajesServices {
                     lt("fechahorafinreserva", fechahorafin),
                     lt("fechahorafinreserva", fechahorainicio));
 
-            List<Viajes> list = repository.findBy(and(
+            List<Viaje> list = repository.findBy(and(
                     eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
                     Filters.or(filterstart, filterend)
             )
@@ -377,8 +423,8 @@ public class ViajesServices {
      * @param viajes
      * @return
      */
-    public List<Viajes> viajesVehiculoChoques(Vehiculo vehiculo, Date fechahorainicio, Date fechahorafin) {
-        List<Viajes> list = new ArrayList<>();
+    public List<Viaje> viajesVehiculoChoques(Vehiculo vehiculo, Date fechahorainicio, Date fechahorafin) {
+        List<Viaje> list = new ArrayList<>();
         try {
             Bson filterstart = Filters.and(gt("fechahorainicioreserva", fechahorainicio),
                     gt("fechahorainicioreserva", fechahorafin));
@@ -407,7 +453,7 @@ public class ViajesServices {
      * @param viajes
      * @return
      */
-    public Boolean conductorDisponible(Viajes viajes) {
+    public Boolean conductorDisponible(Viaje viajes) {
         try {
             Bson filterstart = Filters.and(gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
                     gt("fechahorainicioreserva", viajes.getFechahorafinreserva()));
@@ -415,7 +461,7 @@ public class ViajesServices {
                     lt("fechahorafinreserva", viajes.getFechahorafinreserva()),
                     lt("fechahorafinreserva", viajes.getFechahorainicioreserva()));
 
-            List<Viajes> list = repository.findBy(and(
+            List<Viaje> list = repository.findBy(and(
                     eq("conductor.idconductor", viajes.getConductor().getIdconductor()),
                     Filters.or(filterstart, filterend)
             )
@@ -439,8 +485,8 @@ public class ViajesServices {
      * @param viajes
      * @return
      */
-    public List<Viajes> viajesConductorChoques(Viajes viajes) {
-        List<Viajes> list = new ArrayList<>();
+    public List<Viaje> viajesConductorChoques(Viaje viajes) {
+        List<Viaje> list = new ArrayList<>();
         try {
             Bson filterstart = Filters.and(gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
                     gt("fechahorainicioreserva", viajes.getFechahorafinreserva()));
@@ -477,7 +523,7 @@ public class ViajesServices {
                     lt("fechahorafinreserva", fechahorafin),
                     lt("fechahorafinreserva", fechahorainicio));
 
-            List<Viajes> list = repository.findBy(and(
+            List<Viaje> list = repository.findBy(and(
                     eq("conductor.idconductor", conductor.getIdconductor()),
                     Filters.or(filterstart, filterend)
             )
@@ -501,8 +547,8 @@ public class ViajesServices {
      * @param viajes
      * @return
      */
-    public List<Viajes> viajesConductorChoques(Conductor conductor, Date fechahorainicio, Date fechahorafin) {
-        List<Viajes> list = new ArrayList<>();
+    public List<Viaje> viajesConductorChoques(Conductor conductor, Date fechahorainicio, Date fechahorafin) {
+        List<Viaje> list = new ArrayList<>();
         try {
             Bson filterstart = Filters.and(gt("fechahorainicioreserva", fechahorainicio),
                     gt("fechahorainicioreserva", fechahorafin));

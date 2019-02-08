@@ -8,7 +8,7 @@ package com.avbravo.transporteejb.services;
 import com.avbravo.avbravoutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Vehiculo;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
-import com.avbravo.transporteejb.repository.ViajesRepository;
+import com.avbravo.transporteejb.repository.ViajeRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +25,7 @@ public class VehiculoServices {
     @Inject
     VehiculoRepository repository;
       @Inject
-   ViajesRepository viajesRepository;
+   ViajeRepository viajesRepository;
     
     List<Vehiculo> vehiculoList = new ArrayList<>();
 

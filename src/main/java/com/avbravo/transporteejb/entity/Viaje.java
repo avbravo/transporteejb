@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author avbravo
  */
-public class Viajes {
+public class Viaje {
 
     @Id
     private Integer idviaje;

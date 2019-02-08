@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.repository;
 import com.avbravo.ejbjmoordb.mongodb.repository.Repository;
-import com.avbravo.transporteejb.entity.Viajes;
+import com.avbravo.transporteejb.entity.Viaje;
 import com.avbravo.transporteejb.provider.MongoClientTransporteejbProvider;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
@@ -16,7 +16,7 @@ import com.mongodb.MongoClient;
  * @author avbravo
  */
 @Stateless
-public class ViajesRepository extends Repository<Viajes> {
+public class ViajeRepository extends Repository<Viaje> {
 
     @EJB
     MongoClientTransporteejbProvider mongoClientProvider;
@@ -24,8 +24,8 @@ public class ViajesRepository extends Repository<Viajes> {
     protected MongoClient getMongoClient() {
        return mongoClientProvider.getMongoClient();
     }
-    public ViajesRepository(){
-        super(Viajes.class,"transporte","viajes");
+    public ViajeRepository(){
+        super(Viaje.class,"transporte","viajes");
     }
    
 
