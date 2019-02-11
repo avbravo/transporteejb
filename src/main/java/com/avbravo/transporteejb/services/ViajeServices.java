@@ -272,84 +272,7 @@ public class ViajeServices {
     }
 
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="vehiculoDisponible(Viajes viajes)">
-    /**
-     * *
-     * busca si el vehiculo tiene un viaje en esas fechas
-     *
-     * @param viajes
-     * @return
-     */
-    public Boolean vehiculoDisponible2(Viaje viajes) {
-        try {
-            //Vehiculos en viajes
-
-            Integer count = repository.count();
-            if (count.equals(0)) {
-                return true;
-            }
-            //inicio
-            
-             Bson b= Filters.and(
-                    Filters.gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
-                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva()),
-                    Filters.gt("fechahorafinreserva", viajes.getFechahorafinreserva())
-            );
-             
-            Bson c_e_f_g_h_l= Filters.or(
-                    Filters.eq("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    Filters.eq("fechahorainicioreserva", viajes.getFechahorafinreserva()),
-                    Filters.eq("fechahorafinreserva", viajes.getFechahorainicioreserva()),
-                    Filters.eq("fechahorafinreserva", viajes.getFechahorafinreserva())
-            );
-            
-            Bson j= Filters.and(
-                    Filters.lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
-                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva()),
-                    Filters.eq("fechahorafinreserva", viajes.getFechahorafinreserva())
-            );
-            
-             Bson d= Filters.and(
-                    Filters.gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
-                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva()),
-                    Filters.lt("fechahorafinreserva", viajes.getFechahorafinreserva())
-            );
-             Bson i= Filters.and(
-                    Filters.lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
-                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva()),
-                    Filters.gt("fechahorafinreserva", viajes.getFechahorafinreserva())
-            );
-             Bson k= Filters.and(
-                    Filters.lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
-                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva()),
-                    Filters.lt("fechahorafinreserva", viajes.getFechahorafinreserva())
-            );
-            
-             
-
-            
- 
-            List<Viaje> list = repository.findBy(and(
-                    eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
-                    or(b,c_e_f_g_h_l,d,i,j,k))
-            );
-
-            if (list.isEmpty()) {             
-                return true;
-            } 
-
-        } catch (Exception e) {
-            JsfUtil.errorDialog("vehiculoDisponible() ", e.getLocalizedMessage().toString());
-        }
-        return false;
-    }
-
-    // </editor-fold>
+   
     // <editor-fold defaultstate="collapsed" desc="List<Viajes> viajesVehiculoChoques(Viajes viajes)">
     /**
      * *
@@ -361,18 +284,9 @@ public class ViajeServices {
     public List<Viaje> viajesVehiculoChoques(Viaje viajes) {
         List<Viaje> list = new ArrayList<>();
         try {
-            //Vehiculos en viajes
-            Bson filterstart = Filters.and(gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    gt("fechahorainicioreserva", viajes.getFechahorafinreserva()));
-            Bson filterend = Filters.and(lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    lt("fechahorafinreserva", viajes.getFechahorafinreserva()),
-                    lt("fechahorafinreserva", viajes.getFechahorainicioreserva()));
-
-            list = repository.findBy(and(
-                    eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
-                    Filters.or(filterstart, filterend)
-            )
-            );
+            return repository.notAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
+                   "fechahorainicioreserva", viajes.getFechahorainicioreserva(), "fechahorafinreserva", viajes.getFechahorafinreserva());
+            
 
         } catch (Exception e) {
             JsfUtil.errorDialog("viajesVehiculoChoques() ", e.getLocalizedMessage().toString());
@@ -389,23 +303,12 @@ public class ViajeServices {
      * @param viajes
      * @return
      */
-    public Boolean vehiculoDisponible(Vehiculo vehiculo, Date fechahorainicio, Date fechahorafin) {
+    public Boolean vehiculoDisponible(Vehiculo vehiculo, Date fechahorainicioreserva, Date fechahorafinreserva) {
         try {
-            Bson filterstart = Filters.and(gt("fechahorainicioreserva", fechahorainicio),
-                    gt("fechahorainicioreserva", fechahorafin));
-            Bson filterend = Filters.and(lt("fechahorainicioreserva", fechahorainicio),
-                    lt("fechahorafinreserva", fechahorafin),
-                    lt("fechahorafinreserva", fechahorainicio));
-
-            List<Viaje> list = repository.findBy(and(
-                    eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
-                    Filters.or(filterstart, filterend)
-            )
-            );
-
-            if (list.isEmpty()) {
-                return true;
-            }
+           
+              return repository.isAvailableBetweenDateHour(eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
+                   "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
+            
         } catch (Exception e) {
             JsfUtil.errorDialog("vehiculoDisponible() ", e.getLocalizedMessage().toString());
         }
@@ -421,20 +324,12 @@ public class ViajeServices {
      * @param viajes
      * @return
      */
-    public List<Viaje> viajesVehiculoChoques(Vehiculo vehiculo, Date fechahorainicio, Date fechahorafin) {
+    public List<Viaje> viajesVehiculoChoques(Vehiculo vehiculo, Date fechahorainicioreserva, Date fechahorafinreserva) {
         List<Viaje> list = new ArrayList<>();
         try {
-            Bson filterstart = Filters.and(gt("fechahorainicioreserva", fechahorainicio),
-                    gt("fechahorainicioreserva", fechahorafin));
-            Bson filterend = Filters.and(lt("fechahorainicioreserva", fechahorainicio),
-                    lt("fechahorafinreserva", fechahorafin),
-                    lt("fechahorafinreserva", fechahorainicio));
-
-            list = repository.findBy(and(
-                    eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
-                    Filters.or(filterstart, filterend)
-            )
-            );
+             return repository.notAvailableBetweenDateHour(eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
+                   "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
+            
 
         } catch (Exception e) {
             JsfUtil.errorDialog("viajesVehiculoChoques() ", e.getLocalizedMessage().toString());
@@ -443,7 +338,8 @@ public class ViajeServices {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="conductorDisponible(Viajes viajes)">
+    
+     // <editor-fold defaultstate="collapsed" desc="conductorDisponible(Viajes viajes)">
     /**
      * *
      * busca si el conductor tiene un viaje en esas fechas
@@ -453,21 +349,11 @@ public class ViajeServices {
      */
     public Boolean conductorDisponible(Viaje viajes) {
         try {
-            Bson filterstart = Filters.and(gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    gt("fechahorainicioreserva", viajes.getFechahorafinreserva()));
-            Bson filterend = Filters.and(lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    lt("fechahorafinreserva", viajes.getFechahorafinreserva()),
-                    lt("fechahorafinreserva", viajes.getFechahorainicioreserva()));
+            //Conductors en viajes
 
-            List<Viaje> list = repository.findBy(and(
-                    eq("conductor.idconductor", viajes.getConductor().getIdconductor()),
-                    Filters.or(filterstart, filterend)
-            )
-            );
-
-            if (list.isEmpty()) {
-                return true;
-            }
+           return repository.isAvailableBetweenDateHour(eq("conductor.idconductor", viajes.getConductor().getIdconductor()),
+                   "fechahorainicioreserva", viajes.getFechahorainicioreserva(), "fechahorafinreserva", viajes.getFechahorafinreserva());
+            
         } catch (Exception e) {
             JsfUtil.errorDialog("conductorDisponible() ", e.getLocalizedMessage().toString());
         }
@@ -475,10 +361,11 @@ public class ViajeServices {
     }
 
     // </editor-fold>
+   
     // <editor-fold defaultstate="collapsed" desc="List<Viajes> viajesConductorChoques(Viajes viajes)">
     /**
      * *
-     * lista de viajes en que choca ese conductor
+     * devuelve la lista de viajes en que choca el conductor
      *
      * @param viajes
      * @return
@@ -486,25 +373,17 @@ public class ViajeServices {
     public List<Viaje> viajesConductorChoques(Viaje viajes) {
         List<Viaje> list = new ArrayList<>();
         try {
-            Bson filterstart = Filters.and(gt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    gt("fechahorainicioreserva", viajes.getFechahorafinreserva()));
-            Bson filterend = Filters.and(lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
-                    lt("fechahorafinreserva", viajes.getFechahorafinreserva()),
-                    lt("fechahorafinreserva", viajes.getFechahorainicioreserva()));
-
-            list = repository.findBy(and(
-                    eq("conductor.idconductor", viajes.getConductor().getIdconductor()),
-                    Filters.or(filterstart, filterend)
-            )
-            );
+            return repository.notAvailableBetweenDateHour(eq("conductor.idconductor", viajes.getConductor().getIdconductor()),
+                   "fechahorainicioreserva", viajes.getFechahorainicioreserva(), "fechahorafinreserva", viajes.getFechahorafinreserva());
+            
 
         } catch (Exception e) {
             JsfUtil.errorDialog("viajesConductorChoques() ", e.getLocalizedMessage().toString());
         }
         return list;
     }
-    // </editor-fold>
 
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="conductorDisponible(Conductor conductor, Date fechahorainicio, Date fechahorafin)">
     /**
      * *
@@ -513,25 +392,14 @@ public class ViajeServices {
      * @param viajes
      * @return
      */
-    public Boolean conductorDisponible(Conductor conductor, Date fechahorainicio, Date fechahorafin) {
+    public Boolean conductorDisponible(Conductor conductor, Date fechahorainicioreserva, Date fechahorafinreserva) {
         try {
-            Bson filterstart = Filters.and(gt("fechahorainicioreserva", fechahorainicio),
-                    gt("fechahorainicioreserva", fechahorafin));
-            Bson filterend = Filters.and(lt("fechahorainicioreserva", fechahorainicio),
-                    lt("fechahorafinreserva", fechahorafin),
-                    lt("fechahorafinreserva", fechahorainicio));
-
-            List<Viaje> list = repository.findBy(and(
-                    eq("conductor.idconductor", conductor.getIdconductor()),
-                    Filters.or(filterstart, filterend)
-            )
-            );
-
-            if (list.isEmpty()) {
-                return true;
-            }
+           
+              return repository.isAvailableBetweenDateHour(eq("conductor.idconductor", conductor.getIdconductor()),
+                   "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
+            
         } catch (Exception e) {
-            JsfUtil.errorDialog("conductorDisponible()", e.getLocalizedMessage().toString());
+            JsfUtil.errorDialog("conductorDisponible() ", e.getLocalizedMessage().toString());
         }
         return false;
     }
@@ -540,30 +408,23 @@ public class ViajeServices {
     // <editor-fold defaultstate="collapsed" desc="List<Viajes> viajesConductorChoques(Conductor conductor, Date fechahorainicio, Date fechahorafin)">
     /**
      * *
-     * busca si el conductor tiene un viaje en esas fechas
+     * Devuelve la lista de viajes en que choca ese conductor
      *
      * @param viajes
      * @return
      */
-    public List<Viaje> viajesConductorChoques(Conductor conductor, Date fechahorainicio, Date fechahorafin) {
+    public List<Viaje> viajesConductorChoques(Conductor conductor, Date fechahorainicioreserva, Date fechahorafinreserva) {
         List<Viaje> list = new ArrayList<>();
         try {
-            Bson filterstart = Filters.and(gt("fechahorainicioreserva", fechahorainicio),
-                    gt("fechahorainicioreserva", fechahorafin));
-            Bson filterend = Filters.and(lt("fechahorainicioreserva", fechahorainicio),
-                    lt("fechahorafinreserva", fechahorafin),
-                    lt("fechahorafinreserva", fechahorainicio));
-
-            list = repository.findBy(and(
-                    eq("conductor.idconductor", conductor.getIdconductor()),
-                    Filters.or(filterstart, filterend)
-            )
-            );
+             return repository.notAvailableBetweenDateHour(eq("conductor.idconductor", conductor.getIdconductor()),
+                   "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
+            
 
         } catch (Exception e) {
-            JsfUtil.errorDialog("viajesConductorChoques()", e.getLocalizedMessage().toString());
+            JsfUtil.errorDialog("viajesConductorChoques() ", e.getLocalizedMessage().toString());
         }
         return list;
     }
     // </editor-fold>
+  
 }
