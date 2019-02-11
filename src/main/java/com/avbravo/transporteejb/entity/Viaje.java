@@ -39,7 +39,7 @@ public class Viaje {
     private String activo;
 
     private String lugarpartida;
-    private String lugarregreso;
+    private String lugardestino;
     private String realizado;
 
     public String getRealizado() {
@@ -61,14 +61,15 @@ public class Viaje {
         this.lugarpartida = lugarpartida;
     }
 
-    public String getLugarregreso() {
-        return lugarregreso;
+    public String getLugardestino() {
+        return lugardestino;
     }
 
-    public void setLugarregreso(String lugarregreso) {
-        this.lugarregreso = lugarregreso;
+    public void setLugardestino(String lugardestino) {
+        this.lugardestino = lugardestino;
     }
 
+   
     public Integer getIdviaje() {
         return idviaje;
     }

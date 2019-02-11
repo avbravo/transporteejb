@@ -261,22 +261,28 @@ public class ViajeServices {
     public Boolean vehiculoDisponible(Viaje viajes) {
         try {
             //Vehiculos en viajes
-//           Bson filterstart = Filters.and(gt("fechahorainicioreserva",viajes.getFechahorainicioreserva()),
-//                   gt("fechahorainicioreserva",viajes.getFechahorafinreserva()));
-//           Bson filterend = Filters.and(lt("fechahorainicioreserva",viajes.getFechahorainicioreserva()),
-//                   lt("fechahorafinreserva",viajes.getFechahorafinreserva()),
-//                   lt("fechahorafinreserva",viajes.getFechahorainicioreserva()));
-//           
-//           Bson filterstart = Filters.gt("fechahorainicioreserva",viajes.getFechahorafinreserva());
-//           Bson filterend = Filters.lt("fechahorafinreserva", viajes.getFechahorainicioreserva());
-//           
-//          List<Viajes> list = repository.findBy(and(
-//                   eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
-//                  Filters.or( filterstart,filterend)
-//            )
-//            );
-//            Bson filterstart = Filters.gt("fechahorainicioreserva", viajes.getFechahorainicioreserva());
-//            Bson filterend = Filters.gt("fechahorainicioreserva", viajes.getFechahorafinreserva());
+
+           return repository.isAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
+                   "fechahorainicioreserva", viajes.getFechahorainicioreserva(), "fechahorafinreserva", viajes.getFechahorafinreserva());
+            
+        } catch (Exception e) {
+            JsfUtil.errorDialog("vehiculoDisponible() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
+
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="vehiculoDisponible(Viajes viajes)">
+    /**
+     * *
+     * busca si el vehiculo tiene un viaje en esas fechas
+     *
+     * @param viajes
+     * @return
+     */
+    public Boolean vehiculoDisponible2(Viaje viajes) {
+        try {
+            //Vehiculos en viajes
 
             Integer count = repository.count();
             if (count.equals(0)) {
@@ -294,15 +300,15 @@ public class ViajeServices {
             Bson c_e_f_g_h_l= Filters.or(
                     Filters.eq("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
                     Filters.eq("fechahorainicioreserva", viajes.getFechahorafinreserva()),
-                    Filters.eq("fechahoraifinreserva", viajes.getFechahorainicioreserva()),
-                    Filters.eq("fechahoraifinreserva", viajes.getFechahorafinreserva())
+                    Filters.eq("fechahorafinreserva", viajes.getFechahorainicioreserva()),
+                    Filters.eq("fechahorafinreserva", viajes.getFechahorafinreserva())
             );
             
             Bson j= Filters.and(
                     Filters.lt("fechahorainicioreserva", viajes.getFechahorainicioreserva()),
                     Filters.lt("fechahorainicioreserva", viajes.getFechahorafinreserva()),
-                    Filters.gt("fechahoraifinreserva", viajes.getFechahorainicioreserva()),
-                    Filters.eq("fechahoraifinreserva", viajes.getFechahorafinreserva())
+                    Filters.gt("fechahorafinreserva", viajes.getFechahorainicioreserva()),
+                    Filters.eq("fechahorafinreserva", viajes.getFechahorafinreserva())
             );
             
              Bson d= Filters.and(
@@ -325,12 +331,7 @@ public class ViajeServices {
             );
             
              
-         
-           Bson f =Filters.and(
-                   eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
-                    or(b,c_e_f_g_h_l,d,i,j,k)
-           );
-            System.out.println("filter "+f.toString()); 
+
             
  
             List<Viaje> list = repository.findBy(and(
@@ -338,12 +339,9 @@ public class ViajeServices {
                     or(b,c_e_f_g_h_l,d,i,j,k))
             );
 
-            if (list.isEmpty()) {
-                System.out.println("hola mundo");
+            if (list.isEmpty()) {             
                 return true;
-            } else {
-                System.out.println("no esta vacio");
-            }
+            } 
 
         } catch (Exception e) {
             JsfUtil.errorDialog("vehiculoDisponible() ", e.getLocalizedMessage().toString());
