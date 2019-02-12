@@ -241,6 +241,18 @@ public class ViajeServices {
                 JsfUtil.warningDialog("Advertencia", "Costo de combustible debe ser mayor que cero");
                 return false;
             }
+            if (viajes.getVehiculo().getActivo().equals("no")) {
+                JsfUtil.warningDialog("Advertencia", "El vehiculo no esta activo");
+                return false;
+            }
+            if (viajes.getVehiculo().getEnreparacion().equals("no")) {
+                JsfUtil.warningDialog("Advertencia", "El vehiculo esta en reparacion");
+                return false;
+            }
+            if (viajes.getConductor().getActivo().equals("no")) {
+                JsfUtil.warningDialog("Advertencia", "El Conductor no esta activo");
+                return false;
+            }
 
             return true;
         } catch (Exception e) {
