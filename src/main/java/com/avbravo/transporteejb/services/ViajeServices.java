@@ -68,10 +68,10 @@ public class ViajeServices {
     }
 
     // <editor-fold defaultstate="collapsed" desc="isDeleted(Viajes viajes)">
-    public Boolean isDeleted(Viaje viajes) {
+    public Boolean isDeleted(Viaje viaje) {
         Boolean found = false;
         try {
-            Document doc = new Document("viajes.idviaje", viajes.getIdviaje());
+            Document doc = new Document("viajes.idviaje", viaje.getIdviaje());
             Integer count = solicitudRepository.count(doc);
             if (count > 0) {
                 return false;
@@ -270,12 +270,12 @@ public class ViajeServices {
      * @param viajes
      * @return
      */
-    public Boolean vehiculoDisponible(Viaje viajes) {
+    public Boolean vehiculoDisponible(Viaje viaje) {
         try {
             //Vehiculos en viajes
 
-           return repository.isAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
-                   "fechahorainicioreserva", viajes.getFechahorainicioreserva(), "fechahorafinreserva", viajes.getFechahorafinreserva());
+           return repository.isAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viaje.getVehiculo().getIdvehiculo()),
+                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
             
         } catch (Exception e) {
             JsfUtil.errorDialog("vehiculoDisponible() ", e.getLocalizedMessage().toString());
@@ -293,11 +293,11 @@ public class ViajeServices {
      * @param viajes
      * @return
      */
-    public List<Viaje> viajesVehiculoChoques(Viaje viajes) {
+    public List<Viaje> viajesVehiculoChoques(Viaje viaje) {
         List<Viaje> list = new ArrayList<>();
         try {
-            return repository.notAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viajes.getVehiculo().getIdvehiculo()),
-                   "fechahorainicioreserva", viajes.getFechahorainicioreserva(), "fechahorafinreserva", viajes.getFechahorafinreserva());
+            return repository.notAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viaje.getVehiculo().getIdvehiculo()),
+                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
             
 
         } catch (Exception e) {
@@ -359,12 +359,12 @@ public class ViajeServices {
      * @param viajes
      * @return
      */
-    public Boolean conductorDisponible(Viaje viajes) {
+    public Boolean conductorDisponible(Viaje viaje) {
         try {
             //Conductors en viajes
 
-           return repository.isAvailableBetweenDateHour(eq("conductor.idconductor", viajes.getConductor().getIdconductor()),
-                   "fechahorainicioreserva", viajes.getFechahorainicioreserva(), "fechahorafinreserva", viajes.getFechahorafinreserva());
+           return repository.isAvailableBetweenDateHour(eq("conductor.idconductor", viaje.getConductor().getIdconductor()),
+                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
             
         } catch (Exception e) {
             JsfUtil.errorDialog("conductorDisponible() ", e.getLocalizedMessage().toString());
@@ -382,11 +382,11 @@ public class ViajeServices {
      * @param viajes
      * @return
      */
-    public List<Viaje> viajesConductorChoques(Viaje viajes) {
+    public List<Viaje> viajesConductorChoques(Viaje viaje) {
         List<Viaje> list = new ArrayList<>();
         try {
-            return repository.notAvailableBetweenDateHour(eq("conductor.idconductor", viajes.getConductor().getIdconductor()),
-                   "fechahorainicioreserva", viajes.getFechahorainicioreserva(), "fechahorafinreserva", viajes.getFechahorafinreserva());
+            return repository.notAvailableBetweenDateHour(eq("conductor.idconductor", viaje.getConductor().getIdconductor()),
+                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
             
 
         } catch (Exception e) {
