@@ -247,7 +247,7 @@ public class ViajeServices {
                 JsfUtil.warningDialog("Advertencia", "El vehiculo no esta activo");
                 return false;
             }
-            if (viajes.getVehiculo().getEnreparacion().equals("no")) {
+            if (viajes.getVehiculo().getEnreparacion().equals("si")) {
                 JsfUtil.warningDialog("Advertencia", "El vehiculo esta en reparacion");
                 return false;
             }
