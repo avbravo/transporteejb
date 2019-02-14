@@ -14,11 +14,8 @@ import com.avbravo.transporteejb.entity.Viaje;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.ViajeRepository;
 import com.mongodb.client.model.Filters;
-import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.gt;
-import static com.mongodb.client.model.Filters.lt;
-import static com.mongodb.client.model.Filters.or;
+import static com.mongodb.client.model.Filters.ne;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -307,6 +304,13 @@ public class ViajeServices {
         return false;
     }
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="isValidDateEdit(Viaje viajes)">
+    
+    
+    
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="vehiculoDisponible(Viajes viajes)">
     /**
@@ -318,11 +322,31 @@ public class ViajeServices {
      */
     public Boolean vehiculoDisponible(Viaje viaje) {
         try {
-            //Vehiculos en viajes
   Bson filter= Filters.and(eq("vehiculo.idvehiculo",viaje.getVehiculo().getIdvehiculo()),eq("activo","si"));
-//           return repository.isAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viaje.getVehiculo().getIdvehiculo()),
-//                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
-//            
+  
+           return repository.isAvailableBetweenDateHour(filter,
+                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
+            
+        } catch (Exception e) {
+            JsfUtil.errorDialog("vehiculoDisponible() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
+
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="vehiculoDisponibleExcluyendoMismoViaje(Viajes viajes)">
+    /**
+     * *
+     * busca si el vehiculo tiene un viaje en todas las fechas excluyendo el mismo viaje
+     * para permitir la actualizacion
+     *
+     * @param viajes
+     * @return
+     */
+    public Boolean vehiculoDisponibleExcluyendoMismoViaje(Viaje viaje) {
+        try {
+  Bson filter= Filters.and(eq("vehiculo.idvehiculo",viaje.getVehiculo().getIdvehiculo()),eq("activo","si"),ne("idviaje",viaje.getIdviaje()));
+  
            return repository.isAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
             
@@ -423,9 +447,28 @@ public class ViajeServices {
         try {
             //Conductors en viajes
   Bson filter= Filters.and(eq("conductor.idconductor",viaje.getConductor().getIdconductor()),eq("activo","si"));
-//           return repository.isAvailableBetweenDateHour(eq("conductor.idconductor", viaje.getConductor().getIdconductor()),
-//                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
-//            
+           return repository.isAvailableBetweenDateHour(filter,
+                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
+            
+        } catch (Exception e) {
+            JsfUtil.errorDialog("conductorDisponible() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
+
+    // </editor-fold>
+     // <editor-fold defaultstate="collapsed" desc="conductorDisponibleExcluyendoMismoViaje(Viajes viajes)">
+    /**
+     * *
+     * busca si el conductor tiene un viaje en esas fechas
+     *
+     * @param viajes
+     * @return
+     */
+    public Boolean conductorDisponibleExcluyendoMismoViaje(Viaje viaje) {
+        try {
+            //Conductors en viajes
+  Bson filter= Filters.and(eq("conductor.idconductor",viaje.getConductor().getIdconductor()),eq("activo","si"),ne("idviaje",viaje.getIdviaje()));
            return repository.isAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
             
