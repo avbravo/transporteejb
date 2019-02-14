@@ -319,8 +319,11 @@ public class ViajeServices {
     public Boolean vehiculoDisponible(Viaje viaje) {
         try {
             //Vehiculos en viajes
-
-           return repository.isAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viaje.getVehiculo().getIdvehiculo()),
+  Bson filter= Filters.and(eq("vehiculo.idvehiculo",viaje.getVehiculo().getIdvehiculo()),eq("activo","si"));
+//           return repository.isAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viaje.getVehiculo().getIdvehiculo()),
+//                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
+//            
+           return repository.isAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
             
         } catch (Exception e) {
@@ -342,7 +345,11 @@ public class ViajeServices {
     public List<Viaje> viajesVehiculoChoques(Viaje viaje) {
         List<Viaje> list = new ArrayList<>();
         try {
-            return repository.notAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viaje.getVehiculo().getIdvehiculo()),
+              Bson filter= Filters.and(eq("vehiculo.idvehiculo",viaje.getVehiculo().getIdvehiculo()),eq("activo","si"));
+//            return repository.notAvailableBetweenDateHour(eq("vehiculo.idvehiculo", viaje.getVehiculo().getIdvehiculo()),
+//                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
+//            
+            return repository.notAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
             
 
@@ -363,8 +370,11 @@ public class ViajeServices {
      */
     public Boolean vehiculoDisponible(Vehiculo vehiculo, Date fechahorainicioreserva, Date fechahorafinreserva) {
         try {
-           
-              return repository.isAvailableBetweenDateHour(eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
+           Bson filter= Filters.and(eq("vehiculo.idvehiculo",vehiculo.getIdvehiculo()),eq("activo","si"));
+//              return repository.isAvailableBetweenDateHour(eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
+//                   "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
+//            
+              return repository.isAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
             
         } catch (Exception e) {
@@ -385,7 +395,11 @@ public class ViajeServices {
     public List<Viaje> viajesVehiculoChoques(Vehiculo vehiculo, Date fechahorainicioreserva, Date fechahorafinreserva) {
         List<Viaje> list = new ArrayList<>();
         try {
-             return repository.notAvailableBetweenDateHour(eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
+            
+//             return repository.notAvailableBetweenDateHour(eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
+//                   "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
+             Bson filter= Filters.and(eq("vehiculo.idvehiculo",vehiculo.getIdvehiculo()),eq("activo","si"));
+             return repository.notAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
             
 
@@ -408,8 +422,11 @@ public class ViajeServices {
     public Boolean conductorDisponible(Viaje viaje) {
         try {
             //Conductors en viajes
-
-           return repository.isAvailableBetweenDateHour(eq("conductor.idconductor", viaje.getConductor().getIdconductor()),
+  Bson filter= Filters.and(eq("conductor.idconductor",viaje.getConductor().getIdconductor()),eq("activo","si"));
+//           return repository.isAvailableBetweenDateHour(eq("conductor.idconductor", viaje.getConductor().getIdconductor()),
+//                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
+//            
+           return repository.isAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
             
         } catch (Exception e) {
@@ -431,7 +448,11 @@ public class ViajeServices {
     public List<Viaje> viajesConductorChoques(Viaje viaje) {
         List<Viaje> list = new ArrayList<>();
         try {
-            return repository.notAvailableBetweenDateHour(eq("conductor.idconductor", viaje.getConductor().getIdconductor()),
+             Bson filter= Filters.and(eq("conductor.idconductor",viaje.getConductor().getIdconductor()),eq("activo","si"));
+//            return repository.notAvailableBetweenDateHour(eq("conductor.idconductor", viaje.getConductor().getIdconductor()),
+//                   "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
+//            
+            return repository.notAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
             
 
