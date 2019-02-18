@@ -408,6 +408,28 @@ public class ViajeServices {
     }
 
     // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="vehiculoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo, Date fechahorainicioreserva, Date fechahorafinreserva,Integer idviaje)">
+    /**
+     * *
+     * busca si el vehiculo tiene un viaje en esas fechas
+     *
+     * @param viajes
+     * @return
+     */
+    public Boolean vehiculoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo, Date fechahorainicioreserva, Date fechahorafinreserva,Integer idviaje) {
+        try {
+           Bson filter= Filters.and(eq("vehiculo.idvehiculo",vehiculo.getIdvehiculo()),eq("activo","si"),ne("idviaje",idviaje));
+     
+              return repository.isAvailableBetweenDateHour(filter,
+                   "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
+            
+        } catch (Exception e) {
+            JsfUtil.errorDialog("vehiculoDisponible() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
+
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="List<Viajes> viajesVehiculoChoques(Vehiculo vehiculo, Date fechahorainicio, Date fechahorafin)">
     /**
      * *
@@ -518,6 +540,27 @@ public class ViajeServices {
         try {
            
               return repository.isAvailableBetweenDateHour(eq("conductor.idconductor", conductor.getIdconductor()),
+                   "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
+            
+        } catch (Exception e) {
+            JsfUtil.errorDialog("conductorDisponible() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
+
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="conductorDisponibleExcluyendoMismoViaje(Conductor conductor, Date fechahorainicio, Date fechahorafin)">
+    /**
+     * *
+     * busca si el conductor tiene un viaje en esas fechas
+     *
+     * @param viajes
+     * @return
+     */
+    public Boolean conductorDisponibleExcluyendoMismoViaje(Conductor conductor, Date fechahorainicioreserva, Date fechahorafinreserva, Integer idviaje) {
+        try {
+           Bson filter= Filters.and(eq("conductor.idconductor",conductor.getIdconductor()),eq("activo","si"),ne("idviaje",idviaje));
+              return repository.isAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
             
         } catch (Exception e) {
