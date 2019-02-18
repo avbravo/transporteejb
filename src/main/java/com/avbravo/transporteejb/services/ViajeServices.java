@@ -395,9 +395,7 @@ public class ViajeServices {
     public Boolean vehiculoDisponible(Vehiculo vehiculo, Date fechahorainicioreserva, Date fechahorafinreserva) {
         try {
            Bson filter= Filters.and(eq("vehiculo.idvehiculo",vehiculo.getIdvehiculo()),eq("activo","si"));
-//              return repository.isAvailableBetweenDateHour(eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
-//                   "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
-//            
+//           
               return repository.isAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
             
