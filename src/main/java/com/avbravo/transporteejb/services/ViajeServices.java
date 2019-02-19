@@ -261,42 +261,38 @@ public class ViajeServices {
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="isValidDate()">
-    public Boolean isValidDate(Viaje viajes) {
+    public Boolean isValidDate(Viaje viaje) {
         try {
 
-            if (DateUtil.fechaMenor(viajes.getFechahorafinreserva(), viajes.getFechahorainicioreserva())) {
+            if (DateUtil.fechaMenor(viaje.getFechahorafinreserva(), viaje.getFechahorainicioreserva())) {
 
                 JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
                 return false;
             }
 
-            if (DateUtil.fechaMenor(viajes.getFechahorafinreserva(), viajes.getFechahorainicioreserva())) {
+            if (DateUtil.fechaMenor(viaje.getFechahorafinreserva(), viaje.getFechahorainicioreserva())) {
 
                 JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
                 return false;
             }
-            if (DateUtil.fechaIgual(viajes.getFechahorafinreserva(), viajes.getFechahorainicioreserva())) {
+            if (DateUtil.fechaIgual(viaje.getFechahorafinreserva(), viaje.getFechahorainicioreserva())) {
 
                 JsfUtil.warningDialog("Advertencia", "Fecha de regreso es igual a la  fecha de partida");
                 return false;
             }
 
-            if (DateUtil.getHoraDeUnaFecha(viajes.getFechahorainicioreserva()) == 0
-                    && DateUtil.getMinutosDeUnaFecha(viajes.getFechahorainicioreserva()) == 0) {
+            if (DateUtil.getHoraDeUnaFecha(viaje.getFechahorainicioreserva()) == 0
+                    && DateUtil.getMinutosDeUnaFecha(viaje.getFechahorainicioreserva()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
                 return false;
             }
 
-            if (DateUtil.getHoraDeUnaFecha(viajes.getFechahorafinreserva()) == 0
-                    && DateUtil.getMinutosDeUnaFecha(viajes.getFechahorafinreserva()) == 0) {
+            if (DateUtil.getHoraDeUnaFecha(viaje.getFechahorafinreserva()) == 0
+                    && DateUtil.getMinutosDeUnaFecha(viaje.getFechahorafinreserva()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
                 return false;
             }
             
-            
-
-           
-
             return true;
         } catch (Exception e) {
             JsfUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
@@ -440,8 +436,6 @@ public class ViajeServices {
         List<Viaje> list = new ArrayList<>();
         try {
             
-//             return repository.notAvailableBetweenDateHour(eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()),
-//                   "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
              Bson filter= Filters.and(eq("vehiculo.idvehiculo",vehiculo.getIdvehiculo()),eq("activo","si"));
              return repository.notAvailableBetweenDateHour(filter,
                    "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);

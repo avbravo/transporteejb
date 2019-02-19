@@ -10,6 +10,9 @@ import com.avbravo.transporteejb.provider.MongoClientTransporteejbProvider;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
 import com.mongodb.MongoClient;
+import java.util.List;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -26,6 +29,10 @@ public class ViajeRepository extends Repository<Viaje> {
     }
     public ViajeRepository(){
         super(Viaje.class,"transporte","viajes");
+    }
+
+    public List<Viaje> findPagination(Bson eq, boolean b, Integer page, Integer rowPage, Document document) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
 
