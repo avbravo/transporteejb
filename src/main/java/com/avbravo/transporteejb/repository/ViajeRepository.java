@@ -28,7 +28,7 @@ public class ViajeRepository extends Repository<Viaje> {
        return mongoClientProvider.getMongoClient();
     }
     public ViajeRepository(){
-        super(Viaje.class,"transporte","viajes");
+        super(Viaje.class,"transporte","viaje");
     }
 
     public List<Viaje> findPagination(Bson eq, boolean b, Integer page, Integer rowPage, Document document) {
