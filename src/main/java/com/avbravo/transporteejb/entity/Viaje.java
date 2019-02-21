@@ -42,6 +42,9 @@ public class Viaje {
     private String lugardestino;
     private String realizado;
 
+    @Embedded
+    List<UserInfo> userInfo;
+
     public String getRealizado() {
         return realizado;
     }
@@ -49,9 +52,6 @@ public class Viaje {
     public void setRealizado(String realizado) {
         this.realizado = realizado;
     }
-
-    @Embedded
-    List<UserInfo> userInfo;
 
     public String getLugarpartida() {
         return lugarpartida;
@@ -69,7 +69,6 @@ public class Viaje {
         this.lugardestino = lugardestino;
     }
 
-   
     public Integer getIdviaje() {
         return idviaje;
     }
