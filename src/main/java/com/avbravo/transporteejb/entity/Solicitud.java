@@ -90,10 +90,10 @@ public class Solicitud {
     private List<Unidad> unidad;
     private String activo;
 
-    @Referenced(documment = "Viajes",
+    @Referenced(documment = "Viaje",
             field = "idviaje", javatype = "Integer", lazy = false,
-            repository = "com.avbravo.transporteejb.repository.ViajesRepository")
-    private List<Viaje> viajes;
+            repository = "com.avbravo.transporteejb.repository.ViajeRepository")
+    private List<Viaje> viaje;
 
   
     
@@ -114,17 +114,18 @@ public class Solicitud {
         this.solicitudpadre = solicitudpadre;
     }
 
-    
-    
-    
-    public List<Viaje> getViajes() {
-        return viajes;
+    public List<Viaje> getViaje() {
+        return viaje;
     }
 
-    public void setViajes(List<Viaje> viajes) {
-        this.viajes = viajes;
+    public void setViaje(List<Viaje> viaje) {
+        this.viaje = viaje;
     }
 
+    
+    
+    
+   
     public Semestre getSemestre() {
         return semestre;
     }
