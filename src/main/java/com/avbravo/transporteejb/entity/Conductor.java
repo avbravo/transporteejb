@@ -7,6 +7,7 @@ package com.avbravo.transporteejb.entity;
 
 import com.avbravo.ejbjmoordb.anotations.Embedded;
 import com.avbravo.ejbjmoordb.anotations.Id;
+import com.avbravo.ejbjmoordb.anotations.Ignore;
 import com.avbravo.ejbjmoordb.pojos.UserInfo;
 import java.util.List;
 
@@ -26,10 +27,49 @@ public class Conductor {
     private String activo;
     private String escontrol;
 
-    
-    @Embedded
+   @Embedded
     List<UserInfo> userInfo;
 
+    @Ignore
+    private Double totalkm;
+    @Ignore
+    Double totalconsumo;
+    @Ignore
+    Integer totalviajes;
+
+    public Conductor() {
+    }
+
+    public Double getTotalkm() {
+        return totalkm;
+    }
+
+    public void setTotalkm(Double totalkm) {
+        this.totalkm = totalkm;
+    }
+
+    public Double getTotalconsumo() {
+        return totalconsumo;
+    }
+
+    public void setTotalconsumo(Double totalconsumo) {
+        this.totalconsumo = totalconsumo;
+    }
+
+    public Integer getTotalviajes() {
+        return totalviajes;
+    }
+
+    public void setTotalviajes(Integer totalviajes) {
+        this.totalviajes = totalviajes;
+    }
+    
+    
+    
+    
+    
+    
+   
     public Integer getIdconductor() {
         return idconductor;
     }
