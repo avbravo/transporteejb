@@ -7,21 +7,20 @@ package com.avbravo.transporteejb.entity;
 
 import com.avbravo.ejbjmoordb.anotations.Embedded;
 import com.avbravo.ejbjmoordb.anotations.Id;
+import com.avbravo.ejbjmoordb.anotations.Ignore;
 import com.avbravo.ejbjmoordb.anotations.Referenced;
 import com.avbravo.ejbjmoordb.pojos.UserInfo;
 import java.util.List;
-
 
 /**
  *
  * @author avbravo
  */
-
 public class Vehiculo {
 
     @Id
     private Integer idvehiculo;
-    
+
     private String placa;
     private String marca;
     private String modelo;
@@ -41,7 +40,49 @@ public class Vehiculo {
     private String activo;
     @Embedded
     List<UserInfo> userInfo;
+    @Ignore
+    private Double totalkm;
+    @Ignore
+    Double totalconsumo;
+    @Ignore
+    Integer totalviajes;
 
+    public Vehiculo() {
+    }
+
+    public Integer getTotalviajes() {
+        return totalviajes;
+    }
+
+    public void setTotalviajes(Integer totalviajes) {
+        this.totalviajes = totalviajes;
+    }
+
+    
+    
+    
+    
+    public Double getTotalkm() {
+        return totalkm;
+    }
+
+    public void setTotalkm(Double totalkm) {
+        this.totalkm = totalkm;
+    }
+
+    public Double getTotalconsumo() {
+        return totalconsumo;
+    }
+
+    public void setTotalconsumo(Double totalconsumo) {
+        this.totalconsumo = totalconsumo;
+    }
+
+    
+    
+    
+    
+    
     public Integer getIdvehiculo() {
         return idvehiculo;
     }
@@ -65,8 +106,6 @@ public class Vehiculo {
     public void setEnreparacion(String enreparacion) {
         this.enreparacion = enreparacion;
     }
-
-  
 
     public String getMarca() {
         return marca;
@@ -148,6 +187,4 @@ public class Vehiculo {
         this.userInfo = userInfo;
     }
 
-    
-    
 }
