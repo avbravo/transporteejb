@@ -34,7 +34,7 @@
       <dependency>
             <groupId>com.github.avbravo</groupId>
             <artifactId>avbravoutils</artifactId>
-            <version>0.38.1</version>
+            <version>0.38.2</version>
              </dependency>
     </dependencies>
 
