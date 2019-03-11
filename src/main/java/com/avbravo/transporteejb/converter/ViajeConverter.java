@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.converter;
 
-import com.avbravo.avbravoutils.JsfUtil;
+import com.avbravo.jmoordbutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Viaje;
 import com.avbravo.transporteejb.repository.ViajeRepository;
 import java.util.Optional;

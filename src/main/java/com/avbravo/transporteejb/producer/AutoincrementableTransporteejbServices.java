@@ -5,8 +5,8 @@
  */
 package com.avbravo.transporteejb.producer;
 
-import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.ejbjmoordb.pojos.Autoincrementable;
+import com.avbravo.jmoordbutils.JsfUtil; 
+import com.avbravo.jmoordb.pojos.Autoincrementable;
 import com.avbravo.transporteejb.producer.AutoincrementableTransporteejbRepository;
 import java.util.Optional;
 import javax.ejb.Stateless;

@@ -9,7 +9,7 @@ package com.avbravo.transporteejb.provider;
  *
  * @author avbravo
  */
-import com.avbravo.avbravoutils.JsfUtil;
+import com.avbravo.jmoordbutils.JsfUtil;
 import com.mongodb.MongoClient;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;

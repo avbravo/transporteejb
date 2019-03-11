@@ -5,10 +5,10 @@
  */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.avbravoutils.DateUtil;
-import com.avbravo.avbravoutils.JsfUtil;
-import static com.avbravo.avbravoutils.JsfUtil.nameOfClass;
-import static com.avbravo.avbravoutils.JsfUtil.nameOfMethod;
+import com.avbravo.jmoordbutils.DateUtil;
+import com.avbravo.jmoordbutils.JsfUtil;
+import static com.avbravo.jmoordbutils.JsfUtil.nameOfClass;
+import static com.avbravo.jmoordbutils.JsfUtil.nameOfMethod;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
@@ -208,14 +208,14 @@ public class SolicitudServices {
                 return false;
             }
 
-            if (DateUtil.getHoraDeUnaFecha(solicitud.getFechahorapartida()) == 0
-                    && DateUtil.getMinutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
+            if (DateUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
+                    && DateUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
                 return false;
             }
 
-            if (DateUtil.getHoraDeUnaFecha(solicitud.getFechahoraregreso()) == 0
-                    && DateUtil.getMinutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
+            if (DateUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
+                    && DateUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
                 return false;
             }
@@ -282,12 +282,12 @@ public class SolicitudServices {
     public Boolean esMismoDiaSolicitud(Solicitud solicitud) {
         try {
 
-            Integer dia = DateUtil.getDiaDeUnaFecha(solicitud.getFechahorapartida());
-            Integer mes = DateUtil.getDiaDeUnaFecha(solicitud.getFechahorapartida());
-            Integer anio = DateUtil.getDiaDeUnaFecha(solicitud.getFechahorapartida());
-            Integer diaf = DateUtil.getDiaDeUnaFecha(solicitud.getFechahoraregreso());
-            Integer mesf = DateUtil.getDiaDeUnaFecha(solicitud.getFechahoraregreso());
-            Integer aniof = DateUtil.getDiaDeUnaFecha(solicitud.getFechahoraregreso());
+            Integer dia = DateUtil.diaDeUnaFecha(solicitud.getFechahorapartida());
+            Integer mes = DateUtil.diaDeUnaFecha(solicitud.getFechahorapartida());
+            Integer anio = DateUtil.diaDeUnaFecha(solicitud.getFechahorapartida());
+            Integer diaf = DateUtil.diaDeUnaFecha(solicitud.getFechahoraregreso());
+            Integer mesf = DateUtil.diaDeUnaFecha(solicitud.getFechahoraregreso());
+            Integer aniof = DateUtil.diaDeUnaFecha(solicitud.getFechahoraregreso());
 // ES EN LA MISMA FECHA
 
             if (anio == aniof && mes == mesf && dia == diaf) {

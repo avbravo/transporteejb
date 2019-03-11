@@ -5,8 +5,8 @@
  */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.avbravoutils.DateUtil;
-import com.avbravo.avbravoutils.JsfUtil;
+import com.avbravo.jmoordbutils.DateUtil;
+import com.avbravo.jmoordbutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Conductor;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Vehiculo;
@@ -217,14 +217,14 @@ public class ViajeServices {
                 return false;
             }
 
-            if (DateUtil.getHoraDeUnaFecha(viajes.getFechahorainicioreserva()) == 0
-                    && DateUtil.getMinutosDeUnaFecha(viajes.getFechahorainicioreserva()) == 0) {
+            if (DateUtil.horaDeUnaFecha(viajes.getFechahorainicioreserva()) == 0
+                    && DateUtil.minutosDeUnaFecha(viajes.getFechahorainicioreserva()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
                 return false;
             }
 
-            if (DateUtil.getHoraDeUnaFecha(viajes.getFechahorafinreserva()) == 0
-                    && DateUtil.getMinutosDeUnaFecha(viajes.getFechahorafinreserva()) == 0) {
+            if (DateUtil.horaDeUnaFecha(viajes.getFechahorafinreserva()) == 0
+                    && DateUtil.minutosDeUnaFecha(viajes.getFechahorafinreserva()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
                 return false;
             }
@@ -281,14 +281,14 @@ public class ViajeServices {
                 return false;
             }
 
-            if (DateUtil.getHoraDeUnaFecha(viaje.getFechahorainicioreserva()) == 0
-                    && DateUtil.getMinutosDeUnaFecha(viaje.getFechahorainicioreserva()) == 0) {
+            if (DateUtil.horaDeUnaFecha(viaje.getFechahorainicioreserva()) == 0
+                    && DateUtil.minutosDeUnaFecha(viaje.getFechahorainicioreserva()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
                 return false;
             }
 
-            if (DateUtil.getHoraDeUnaFecha(viaje.getFechahorafinreserva()) == 0
-                    && DateUtil.getMinutosDeUnaFecha(viaje.getFechahorafinreserva()) == 0) {
+            if (DateUtil.horaDeUnaFecha(viaje.getFechahorafinreserva()) == 0
+                    && DateUtil.minutosDeUnaFecha(viaje.getFechahorafinreserva()) == 0) {
                 JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
                 return false;
             }

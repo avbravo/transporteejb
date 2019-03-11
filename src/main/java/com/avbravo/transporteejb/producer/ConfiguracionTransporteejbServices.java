@@ -6,10 +6,10 @@
 package com.avbravo.transporteejb.producer;
 
 import com.avbravo.transporteejb.producer.AutoincrementableTransporteejbServices;
-import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.ejbjmoordb.pojos.Configuracion;
-import com.avbravo.ejbjmoordb.services.RevisionHistoryServices;
-import com.avbravo.ejbjmoordb.services.UserInfoServices;
+import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.pojos.Configuracion;
+import com.avbravo.jmoordb.services.RevisionHistoryServices;
+import com.avbravo.jmoordb.services.UserInfoServices;
 import com.avbravo.transporteejb.producer.AutoincrementableTransporteejbRepository;
 import com.avbravo.transporteejb.producer.ConfiguracionTransporteejbRepository;
 import com.avbravo.transporteejb.producer.RevisionHistoryTransporteejbRepository;

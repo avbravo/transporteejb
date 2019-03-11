@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.repository;
 
-import com.avbravo.ejbjmoordb.mongodb.repository.Repository;
+import com.avbravo.jmoordb.mongodb.repository.Repository;
 import com.avbravo.transporteejb.entity.Unidad;
 import com.avbravo.transporteejb.provider.MongoClientTransporteejbProvider;
 import javax.ejb.Stateless;

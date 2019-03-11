@@ -1,8 +1,8 @@
 package com.avbravo.transporteejb.entity;
 
-import com.avbravo.ejbjmoordb.anotations.Embedded;
-import com.avbravo.ejbjmoordb.anotations.Id;
-import com.avbravo.ejbjmoordb.pojos.UserInfo;
+import com.avbravo.jmoordb.anotations.Embedded;
+import com.avbravo.jmoordb.anotations.Id;
+import com.avbravo.jmoordb.pojos.UserInfo;
 import java.util.Date;
 import java.util.List;
 

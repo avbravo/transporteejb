@@ -5,7 +5,7 @@
  */
 package com.avbravo.transporteejb.converter;
 
-import com.avbravo.avbravoutils.JsfUtil;
+import com.avbravo.jmoordbutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Tipogira;
 import com.avbravo.transporteejb.repository.TipogiraRepository;
 import java.util.Optional;

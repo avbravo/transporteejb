@@ -6,8 +6,8 @@
 package com.avbravo.transporteejb.producer;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
-import com.avbravo.ejbjmoordb.mongodb.repository.Repository;
-import com.avbravo.ejbjmoordb.pojos.Autoincrementable;
+import com.avbravo.jmoordb.mongodb.repository.Repository;
+import com.avbravo.jmoordb.pojos.Autoincrementable;
 import com.avbravo.transporteejb.provider.MongoClientTransporteejbProvider;
 
 

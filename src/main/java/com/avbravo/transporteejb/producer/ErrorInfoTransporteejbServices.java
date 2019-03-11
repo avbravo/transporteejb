@@ -5,8 +5,8 @@
  */
 package com.avbravo.transporteejb.producer;
 
-import com.avbravo.avbravoutils.JsfUtil;
-import com.avbravo.ejbjmoordb.pojos.ErrorInfo;
+import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.pojos.ErrorInfo;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 

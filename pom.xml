@@ -29,13 +29,13 @@
         </dependency>
 <dependency>
             <groupId>com.github.avbravo</groupId>
-            <artifactId>ejbjmoordb</artifactId>
-            <version>0.21.2</version>
+            <artifactId>jmoordb</artifactId>
+            <version>0.22</version>
         </dependency>
     <dependency>
             <groupId>com.github.avbravo</groupId>
-            <artifactId>avbravoutils</artifactId>
-            <version>0.39.3</version>
+            <artifactId>jmoordbutils</artifactId>
+            <version>0.1</version>
              </dependency>
     </dependencies>
 
