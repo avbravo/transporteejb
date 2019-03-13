@@ -33,10 +33,10 @@
             <version>0.22</version>
         </dependency>
     <dependency>
-            <groupId>com.github.avbravo</groupId>
-            <artifactId>jmoordbutils</artifactId>
-            <version>0.2</version>
-             </dependency>
+	    <groupId>com.github.avbravo</groupId>
+	    <artifactId>jmoordbutils</artifactId>
+	    <version>0.2.1</version>
+    </dependency>
     </dependencies>
 
     <build>
