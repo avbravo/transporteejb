@@ -20,7 +20,11 @@
             <artifactId>commonejb</artifactId>
             <version>0.3</version>
         </dependency>
-      
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jmoordbjsf</artifactId>
+            <version>0.2.4</version>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
