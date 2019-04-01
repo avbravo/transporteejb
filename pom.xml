@@ -18,7 +18,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>commonejb</artifactId>
-            <version>0.3</version>
+            <version>0.4</version>
         </dependency>
        
         <dependency>
@@ -30,12 +30,12 @@
         <dependency>
             <groupId>com.github.avbravo</groupId>
             <artifactId>jmoordb</artifactId>
-            <version>0.22</version>
+            <version>0.26</version>
         </dependency>
         <dependency>
             <groupId>com.github.avbravo</groupId>
             <artifactId>jmoordbutils</artifactId>
-            <version>0.2.1</version>
+            <version>0.3.1</version>
         </dependency>
     </dependencies>
 

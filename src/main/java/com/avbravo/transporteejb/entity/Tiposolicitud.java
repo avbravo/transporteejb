@@ -9,8 +9,6 @@ import com.avbravo.jmoordb.anotations.Embedded;
 import com.avbravo.jmoordb.anotations.Id;
 import com.avbravo.jmoordb.pojos.UserInfo;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  *

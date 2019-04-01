@@ -7,10 +7,7 @@ package com.avbravo.transporteejb.repository;
 
 import com.avbravo.jmoordb.mongodb.repository.Repository;
 import com.avbravo.transporteejb.entity.Estatus;
-import com.avbravo.transporteejb.provider.MongoClientTransporteejbProvider;
 import javax.ejb.Stateless;
-import javax.ejb.EJB;
-import com.mongodb.MongoClient;
 
 /**
  *
@@ -19,12 +16,6 @@ import com.mongodb.MongoClient;
 @Stateless
 public class EstatusRepository extends Repository<Estatus> {
 
-    @EJB
-    MongoClientTransporteejbProvider mongoClientProvider;
-    @Override
-    protected MongoClient getMongoClient() {
-       return mongoClientProvider.getMongoClient();
-    }
     public EstatusRepository(){
         super(Estatus.class,"transporte","estatus");
     }
