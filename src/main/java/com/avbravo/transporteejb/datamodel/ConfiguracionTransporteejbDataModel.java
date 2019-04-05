@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.datamodel;
 
-import com.avbravo.jmoordb.pojos.Configuracion;
+import com.avbravo.jmoordb.mongodb.history.entity.Configuracion;
 import java.util.List;
 import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel;

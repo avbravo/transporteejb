@@ -16,7 +16,7 @@ import javax.ejb.Stateless;
 public class RolRepository extends Repository<Rol> {
 
     public RolRepository(){
-        super(Rol.class,"transporte","rol");
+        super(Rol.class);
     }
    
 

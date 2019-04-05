@@ -4,7 +4,7 @@
 
     <groupId>com.avbravo</groupId>
     <artifactId>transporteejb</artifactId>
-    <version>19.2.4</version>
+    <version>19.2.5</version>
     <packaging>ejb</packaging>
 
     <name>transporteejb</name>
@@ -20,7 +20,7 @@
             <artifactId>commonejb</artifactId>
             <version>0.4</version>
         </dependency>
-       
+      
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>com.github.avbravo</groupId>
             <artifactId>jmoordb</artifactId>
-            <version>0.26</version>
+            <version>0.26.2</version>
         </dependency>
         <dependency>
             <groupId>com.github.avbravo</groupId>
