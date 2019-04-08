@@ -17,7 +17,8 @@ import javax.ejb.Stateless;
 public class UsuarioRepository extends Repository<Usuario> {
 
        public UsuarioRepository(){
-        super(Usuario.class,"transporte","usuario");
+//        super(Usuario.class,"transporte","usuario");
+        super(Usuario.class);
     }
    
 
