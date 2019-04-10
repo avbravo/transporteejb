@@ -18,7 +18,7 @@ public class TipogiraRepository extends Repository<Tipogira> {
 
    
     public TipogiraRepository(){
-        super(Tipogira.class,"transporte","tipogira");
+        super(Tipogira.class);
     }
   
 }

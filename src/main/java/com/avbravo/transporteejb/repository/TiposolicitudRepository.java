@@ -18,7 +18,7 @@ public class TiposolicitudRepository extends Repository<Tiposolicitud> {
 
    
     public TiposolicitudRepository(){
-        super(Tiposolicitud.class,"transporte","tiposolicitud");
+        super(Tiposolicitud.class);
     }
    
 }

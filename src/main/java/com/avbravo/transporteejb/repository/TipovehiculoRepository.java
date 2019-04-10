@@ -17,7 +17,7 @@ public class TipovehiculoRepository extends Repository<Tipovehiculo> {
 
    
     public TipovehiculoRepository(){
-        super(Tipovehiculo.class,"transporte","tipovehiculo");
+        super(Tipovehiculo.class);
     }
    
 

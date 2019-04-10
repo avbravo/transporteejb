@@ -17,7 +17,7 @@ public class SolicitudRepository extends Repository<Solicitud> {
 
    
     public SolicitudRepository(){
-        super(Solicitud.class,"transporte","solicitud");
+        super(Solicitud.class);
     }
     
 

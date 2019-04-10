@@ -17,7 +17,7 @@ import javax.ejb.Stateless;
 public class ConductorRepository extends Repository<Conductor> {
 
     public ConductorRepository(){
-        super(Conductor.class,"transporte","conductor");
+        super(Conductor.class);
     }
    
 

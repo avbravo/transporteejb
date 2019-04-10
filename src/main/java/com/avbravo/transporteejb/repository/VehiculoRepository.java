@@ -16,7 +16,7 @@ import javax.ejb.Stateless;
 public class VehiculoRepository extends Repository<Vehiculo> {
 
     public VehiculoRepository(){
-        super(Vehiculo.class,"transporte","vehiculo");
+        super(Vehiculo.class);
     }
     
 }

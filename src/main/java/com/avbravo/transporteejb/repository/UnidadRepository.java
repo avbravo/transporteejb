@@ -18,7 +18,7 @@ public class UnidadRepository extends Repository<Unidad> {
 
  
     public UnidadRepository(){
-        super(Unidad.class,"transporte","unidad");
+        super(Unidad.class);
     }
    
 

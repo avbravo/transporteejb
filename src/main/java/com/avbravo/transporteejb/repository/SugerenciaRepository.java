@@ -18,7 +18,7 @@ public class SugerenciaRepository extends Repository<Sugerencia> {
 
   
     public SugerenciaRepository(){
-        super(Sugerencia.class,"transporte","sugerencia");
+        super(Sugerencia.class);
     }
    
 
