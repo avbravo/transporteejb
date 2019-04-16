@@ -9,6 +9,7 @@ import com.avbravo.jmoordb.anotations.Embedded;
 import com.avbravo.jmoordb.anotations.Id;
 import com.avbravo.jmoordb.anotations.Ignore;
 import com.avbravo.jmoordb.anotations.Referenced;
+import com.avbravo.jmoordb.anotations.Secondary;
 import com.avbravo.jmoordb.pojos.UserInfo;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Vehiculo {
 
     @Id
     private Integer idvehiculo;
-
+   @Secondary
     private String placa;
     private String marca;
     private String modelo;

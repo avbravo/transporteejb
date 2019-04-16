@@ -8,6 +8,7 @@ package com.avbravo.transporteejb.entity;
 import com.avbravo.jmoordb.anotations.Embedded;
 import com.avbravo.jmoordb.anotations.Id;
 import com.avbravo.jmoordb.anotations.Ignore;
+import com.avbravo.jmoordb.anotations.Secondary;
 import com.avbravo.jmoordb.pojos.UserInfo;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class Conductor {
 
     @Id
     private Integer idconductor;
+    @Secondary
     private String cedula;
     private String nombre;
     private String celular;
