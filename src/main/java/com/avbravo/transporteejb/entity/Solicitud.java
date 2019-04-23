@@ -11,6 +11,7 @@ import com.avbravo.commonejb.entity.Semestre;
 import com.avbravo.jmoordb.anotations.Embedded;
 import com.avbravo.jmoordb.anotations.Id;
 import com.avbravo.jmoordb.anotations.Referenced;
+import com.avbravo.jmoordb.anotations.Secondary;
 import com.avbravo.jmoordb.pojos.UserInfo;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Solicitud {
     @Id
     private Integer idsolicitud;
     private String periodoacademico;
+    @Secondary
     private Date fecha;
     private List<String> numerogrupo;
     private Integer numerodevehiculos;
