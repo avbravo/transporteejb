@@ -189,15 +189,16 @@ public class SolicitudServices {
     // <editor-fold defaultstate="collapsed" desc="isValid()">
     public Boolean isValid(Solicitud solicitud) {
         try {
+            if(solicitud.getFechahorapartida()==null){
+                   JsfUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
+                return false; 
+            }
 
             if(solicitud.getFechahoraregreso()==null){
                    JsfUtil.warningDialog("Advertencia", "Fecha de regreso no seleccionada");
                 return false; 
             }
-            if(solicitud.getFechahorapartida()==null){
-                   JsfUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
-                return false; 
-            }
+            
             if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
                 JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
