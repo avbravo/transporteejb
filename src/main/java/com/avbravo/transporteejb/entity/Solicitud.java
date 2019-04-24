@@ -29,6 +29,7 @@ public class Solicitud {
     private Date fecha;
     private List<String> numerogrupo;
     private Integer numerodevehiculos;
+    private List<String> rangoagenda;
 
     @Referenced(documment = "Facultad",
             field = "idfacultad", javatype = "Integer", lazy = false,
@@ -124,8 +125,15 @@ public class Solicitud {
         this.viaje = viaje;
     }
 
-    
-    
+    public List<String> getRangoagenda() {
+        return rangoagenda;
+    }
+
+    public void setRangoagenda(List<String> rangoagenda) {
+        this.rangoagenda = rangoagenda;
+    }
+
+  
     
    
     public Semestre getSemestre() {
