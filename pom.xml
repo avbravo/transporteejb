@@ -20,6 +20,7 @@
             <artifactId>commonejb</artifactId>
             <version>0.4.1</version>
         </dependency>
+    
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -34,7 +35,7 @@
         <dependency>
             <groupId>com.github.avbravo</groupId>
             <artifactId>jmoordbutils</artifactId>
-            <version>0.3.1</version>
+            <version>0.3.3</version>
         </dependency>
     </dependencies>
 
