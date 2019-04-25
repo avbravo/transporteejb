@@ -249,6 +249,11 @@ public class SolicitudServices {
                 return false;
             }
 
+            
+             if (DateUtil.fechaMenor(solicitud.getFechahorapartida(), DateUtil.fechaActual())) {
+                JsfUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
+                return false;
+            }
             return true;
         } catch (Exception e) {
             JsfUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
