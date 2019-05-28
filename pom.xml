@@ -32,6 +32,12 @@
             <artifactId>jmoordb</artifactId>
             <version>0.26.4</version>
         </dependency>-->
+        
+        <dependency>
+            <groupId>com.github.avbravo</groupId>
+            <artifactId>jmoordb</artifactId>
+            <version>0.30</version>
+ </dependency>
   <dependency>
             <groupId>com.github.avbravo</groupId>
             <artifactId>jmoordbutils</artifactId>
