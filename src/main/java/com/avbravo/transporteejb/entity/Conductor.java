@@ -39,9 +39,13 @@ public class Conductor {
     @Ignore
     Integer totalviajes;
 
+    
+    
     public Conductor() {
     }
 
+    
+    
     public Double getTotalkm() {
         return totalkm;
     }
