@@ -7,15 +7,15 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.jmoordbutils.DateUtil;
 import com.avbravo.jmoordbutils.JsfUtil;
-import static com.avbravo.jmoordbutils.JsfUtil.nameOfClass;
-import static com.avbravo.jmoordbutils.JsfUtil.nameOfMethod;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
 import com.avbravo.transporteejb.repository.ViajeRepository;
 import com.mongodb.client.model.Filters;
+import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.ejb.Stateless;
@@ -316,5 +316,30 @@ public class SolicitudServices {
         }
         return false;
     }
+    // </editor-fold>
+    
+    
+    // <editor-fold defaultstate="collapsed" desc="vehiculoDisponible(Vehiculo vehiculo, Date fechahorainicio, Date fechahorafin)">
+    /**
+     * *
+     * busca si el vehiculo tiene un viaje en esas fechas
+     *
+     * @param viajes
+     * @return
+     */
+    public Boolean solicitudDisponible(Solicitud solicitud, Date fechahorapartida, Date fechahoraregreso) {
+        try {
+            
+                        Bson filter = Filters.and(eq("usuario.1.username", solicitud.getUsuario().get(1).getUsername()), eq("activo", "si"));
+//           
+            return repository.isAvailableBetweenDateHour(filter,
+                    "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
+
+        } catch (Exception e) {
+            JsfUtil.errorDialog("solicitudDisponible() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
+
     // </editor-fold>
 }
