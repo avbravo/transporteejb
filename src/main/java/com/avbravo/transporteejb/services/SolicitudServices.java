@@ -242,7 +242,7 @@ public class SolicitudServices {
                 JsfUtil.warningDialog("Advertencia", "Numero de vehiculos debe ser mayor que cero");
                 return false;
             }
-            Integer totalvehiculos = vehiculoRepository.count(new Document("activo", "si"));
+            Integer totalvehiculos = vehiculoRepository.count(new Document("activo", "si").append("enreparacion", "no"));
 
             if (solicitud.getNumerodevehiculos() >= totalvehiculos) {
                 JsfUtil.warningDialog("Advertencia", "Numero de vehiculos es mayor que la cantidad de vehiculos disponibles");
@@ -261,6 +261,70 @@ public class SolicitudServices {
         return false;
     }
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="isValidDates()">
+    public Boolean isValidDates(Solicitud solicitud) {
+        try {
+            if(solicitud.getFechahorapartida()==null){
+                   JsfUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
+                return false; 
+            }
+
+            if(solicitud.getFechahoraregreso()==null){
+                   JsfUtil.warningDialog("Advertencia", "Fecha de regreso no seleccionada");
+                return false; 
+            }
+            if(solicitud.getRangoagenda()==null || solicitud.getRangoagenda().isEmpty()){
+                   JsfUtil.warningDialog("Advertencia", "Por favor indique el rango para la agenad");
+                return false; 
+            }
+            
+            if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+
+                JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                return false;
+            }
+
+           
+            if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+
+                JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                return false;
+            }
+            if (DateUtil.fechaIgual(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+
+                JsfUtil.warningDialog("Advertencia", "Fecha de regreso es igual que la fecha de partida");
+                return false;
+            }
+
+            if (DateUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
+                    && DateUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
+                JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
+                return false;
+            }
+
+            if (DateUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
+                    && DateUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
+                JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
+                return false;
+            }
+
+         
+            
+             if (DateUtil.fechaMenor(solicitud.getFechahorapartida(), DateUtil.fechaActual())) {
+                JsfUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            JsfUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
+    // </editor-fold>
+    
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="copiarDesde(Solicitud fuente, Solicitud destino)">
 
