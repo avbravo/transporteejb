@@ -274,11 +274,7 @@ public class SolicitudServices {
                    JsfUtil.warningDialog("Advertencia", "Fecha de regreso no seleccionada");
                 return false; 
             }
-            if(solicitud.getRangoagenda()==null || solicitud.getRangoagenda().isEmpty()){
-                   JsfUtil.warningDialog("Advertencia", "Por favor indique el rango para la agenad");
-                return false; 
-            }
-            
+         
             if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
                 JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
