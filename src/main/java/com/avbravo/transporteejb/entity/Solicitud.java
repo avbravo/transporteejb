@@ -31,33 +31,33 @@ public class Solicitud {
     private Integer numerodevehiculos;
     private List<String> rangoagenda;
 
-    @Referenced(documment = "Facultad",
+    @Referenced(collection = "Facultad",
             field = "idfacultad", javatype = "Integer", lazy = false,
             repository = "com.avbravo.commonejb.repository.FacultadRepository")
     private List<Facultad> facultad;
-    @Referenced(documment = "Carrera",
+    @Referenced(collection = "Carrera",
             field = "idcarrera", javatype = "Integer", lazy = false,
             repository = "com.avbravo.commonejb.repository.CarreraRepository")
     private List<Carrera> carrera;
 
-    @Referenced(documment = "Semestre",
+    @Referenced(collection = "Semestre",
             field = "idsemestre", javatype = "String", lazy = false,
             repository = "com.avbravo.commonejb.repository.SemestreRepository")
     private Semestre semestre;
 
-    @Referenced(documment = "Tipovehiculo",
+    @Referenced(collection = "Tipovehiculo",
             field = "idtipovehiculo", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.TipovehiculoRepository")
     private List<Tipovehiculo> tipovehiculo;
 
-    @Referenced(documment = "Tipogira",
+    @Referenced(collection = "Tipogira",
             field = "idtipogira", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.TipogiraRepository")
     private Tipogira tipogira;
 
     private String mision;
 
-    @Referenced(documment = "Usuario",
+    @Referenced(collection = "Usuario",
             field = "username", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.UsuarioRepository")
     List<Usuario> usuario;
@@ -74,7 +74,7 @@ public class Solicitud {
     private List<String> recursossolicitados;
     private String observaciones;
 
-    @Referenced(documment = "Estatus",
+    @Referenced(collection = "Estatus",
             field = "idestatus", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.EstatusRepository")
     Estatus estatus;
@@ -82,18 +82,18 @@ public class Solicitud {
     private Date fechaestatus;
 
     private Integer pasajeros;
-    @Referenced(documment = "Tiposolicitud",
+    @Referenced(collection = "Tiposolicitud",
             field = "idtiposolicitud", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.TiposolicitudRepository")
     Tiposolicitud tiposolicitud;
 
-    @Referenced(documment = "Unidad",
+    @Referenced(collection = "Unidad",
             field = "idunidad", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.UnidadRepository")
     private List<Unidad> unidad;
     private String activo;
 
-    @Referenced(documment = "Viaje",
+    @Referenced(collection = "Viaje",
             field = "idviaje", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.ViajeRepository")
     private List<Viaje> viaje;

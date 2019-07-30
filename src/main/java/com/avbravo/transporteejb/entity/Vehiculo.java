@@ -27,7 +27,7 @@ public class Vehiculo {
     private String modelo;
     private Integer anio;
 
-    @Referenced(documment = "Tipovehiculo",
+    @Referenced(collection = "Tipovehiculo",
             field = "idtipovehiculo", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.TipovehiculoRepository")
     Tipovehiculo tipovehiculo;

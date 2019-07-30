@@ -16,11 +16,11 @@ public class Usuario {
     private String celular;
     private String cargo;
     private String email;
-    @Referenced(documment = "Rol",
+    @Referenced(collection= "Rol",
             field = "idrol", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.RolRepository")
     private List<Rol> rol;
-    @Referenced(documment = "Unidad",
+    @Referenced(collection = "Unidad",
             field = "idunidad", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.UnidadRepository")
     private Unidad unidad;

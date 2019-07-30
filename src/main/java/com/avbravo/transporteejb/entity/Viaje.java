@@ -20,11 +20,11 @@ public class Viaje {
 
     @Id
     private Integer idviaje;
-    @Referenced(documment = "Vehiculo",
+    @Referenced(collection = "Vehiculo",
             field = "idvehiculo", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.VehiculoRepository")
     private Vehiculo vehiculo;
-    @Referenced(documment = "Conductor",
+    @Referenced(collection = "Conductor",
             field = "idconductor", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.ConductorRepository")
     private Conductor conductor;
