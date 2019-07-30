@@ -8,7 +8,8 @@ package com.avbravo.transporteejb.services;
 import com.avbravo.jmoordbutils.JsfUtil;
 
 import com.avbravo.transporteejb.entity.Estatus;
-import com.avbravo.transporteejb.repository.EstatusRepository;
+import com.avbravo.transporteejb.entity.EstatusViaje;
+import com.avbravo.transporteejb.repository.EstatusViajeRepository;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +23,16 @@ import org.bson.Document;
  * @authoravbravo
  */
 @Stateless
-public class EstatusServices {
+public class EstatusViajeServices {
 
     @Inject
-    EstatusRepository repository;
+    EstatusViajeRepository repository;
  @Inject
    SolicitudRepository solicitudRepository;
-    List<Estatus> estatusList = new ArrayList<>();
+    List<EstatusViaje> estatusViajeList = new ArrayList<>();
 
-    public List<Estatus> complete(String query) {
-        List<Estatus> suggestions = new ArrayList<>();
+    public List<EstatusViaje> complete(String query) {
+        List<EstatusViaje> suggestions = new ArrayList<>();
            try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
@@ -41,26 +42,26 @@ public class EstatusServices {
         return suggestions;
     }
 
-    public List<Estatus> getEstatusList() {
+    public List<EstatusViaje> getEstatusList() {
         try {
-            estatusList = repository.findAll(new Document("idestatus", 1));
+            estatusViajeList = repository.findAll(new Document("idestatusviaje", 1));
         } catch (Exception e) {
             JsfUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
         }
 
-        return estatusList;
+        return estatusViajeList;
     }
 
-    public void setEstatusList(List<Estatus> estatusList) {
-        this.estatusList = estatusList;
+    public void setEstatusViajeList(List<EstatusViaje> estatusViajeList) {
+        this.estatusViajeList = estatusViajeList;
     }
     
         // <editor-fold defaultstate="collapsed" desc="isDeleted(Estatus estatus)">
   
-    public Boolean isDeleted(Estatus estatus){
+    public Boolean isDeleted(EstatusViaje estatusViaje){
         Boolean found=false;
         try {
-            Document doc = new Document("estatus.idestatus",estatus.getIdestatus());
+            Document doc = new Document("estatusviaje.idestatusviaje",estatusViaje.getIdestatusviaje());
             Integer count = solicitudRepository.count(doc);
             if (count > 0){
                 return false;
@@ -75,12 +76,12 @@ public class EstatusServices {
     
     // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
 
-    public Estatus findById(String id){
-           Estatus estatus = new Estatus();
+    public EstatusViaje findById(String id){
+           EstatusViaje estatusViaje = new EstatusViaje();
         try {
          
-            estatus.setIdestatus(id);
-            Optional<Estatus> optional = repository.findById(estatus);
+            estatusViaje.setIdestatusviaje(id);
+            Optional<EstatusViaje> optional = repository.findById(estatusViaje);
             if (optional.isPresent()) {
                return optional.get();
             } 
@@ -88,7 +89,7 @@ public class EstatusServices {
              JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
-      return estatus;
+      return estatusViaje;
     }
     // </editor-fold>
 

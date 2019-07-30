@@ -97,11 +97,17 @@ public class Solicitud {
             field = "idviaje", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.ViajeRepository")
     private List<Viaje> viaje;
+    
+    @Referenced(collection = "EstatusViaje",
+            field = "idestatusviaje", javatype = "String", lazy = false,
+            repository = "com.avbravo.transporteejb.repository.EstatusViajeRepository")
+    private EstatusViaje estatusViaje;
 
   
     
     private Integer solicitudpadre;
 
+    private String tipoviaje;
    
     @Embedded
     List<UserInfo> userInfo;
