@@ -107,7 +107,7 @@ public class Solicitud {
     
     private Integer solicitudpadre;
 
-    private String tipoviaje;
+
    
     @Embedded
     List<UserInfo> userInfo;
@@ -358,4 +358,15 @@ public class Solicitud {
         this.lugarllegada = lugarllegada;
     }
 
+    public EstatusViaje getEstatusViaje() {
+        return estatusViaje;
+    }
+
+    public void setEstatusViaje(EstatusViaje estatusViaje) {
+        this.estatusViaje = estatusViaje;
+    }
+
+    
+    
+    
 }
