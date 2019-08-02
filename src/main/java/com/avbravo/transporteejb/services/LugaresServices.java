@@ -54,7 +54,7 @@ public class LugaresServices {
           
           suggestions=repository.complete(query);
           if(suggestions == null || suggestions.isEmpty()){
-              if(query.endsWith(" ")){
+              if (JsfUtil.totalEspaciosAlfinalCadena(query)>=2){
                   Lugares lugares = new Lugares();
                   lugares.setActivo("si");
                   lugares.setIdlugares(query.trim());
