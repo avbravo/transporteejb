@@ -60,6 +60,7 @@ public class LugaresServices {
                   lugares.setIdlugares(query.trim());
                    Usuario jmoordb_user = (Usuario) JmoordbContext.get("jmoordb_user");
                   lugares = repository.addUserInfoForSaveMethod(lugares, jmoordb_user.getUsername(), "create from autocomplete");
+                  repository.save(lugares);
               }
                suggestions= completeWithInsert(query.trim());
           }
