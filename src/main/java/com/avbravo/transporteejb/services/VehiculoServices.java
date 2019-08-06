@@ -6,6 +6,7 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.transporteejb.entity.Tipovehiculo;
 import com.avbravo.transporteejb.entity.Vehiculo;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
 import com.avbravo.transporteejb.repository.ViajeRepository;
@@ -90,4 +91,24 @@ public class VehiculoServices {
       return vehiculo;
     }
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Integer cantidadBusesPorTipo(Tipovehiculo tipovehiculo)">
+    /**
+     * Devuelve la cantidad de vehiculos por tipo
+     * @param tipovehiculo
+     * @return 
+     */
+    
+   public Integer cantidadVehiculosPorTipo(Tipovehiculo tipovehiculo){
+        Integer cantidad=0;
+        try {
+            
+         cantidad=   repository.count(new Document("tipovehiculo.idtipovehiculo",tipovehiculo.getIdtipovehiculo()));
+        } catch (Exception e) {
+           JsfUtil.errorMessage("cantidadVehiculosPorTipo() " + e.getLocalizedMessage());
+        }
+       
+        return cantidad;
+    }
+    // </editor-fold> 
 }
