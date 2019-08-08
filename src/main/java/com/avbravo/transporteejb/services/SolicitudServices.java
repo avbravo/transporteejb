@@ -343,6 +343,8 @@ public class SolicitudServices {
             solicitud.setTipovehiculo(solicitudCopiar.getTipovehiculo());
             solicitud.setTiposolicitud(solicitudCopiar.getTiposolicitud());
             solicitud.setRecursossolicitados(solicitudCopiar.getRecursossolicitados());
+            solicitud.setFechahorapartida(solicitudCopiar.getFechahorapartida());
+            solicitud.setFechahoraregreso(solicitudCopiar.getFechahoraregreso());
 
         } catch (Exception ex) {
             JsfUtil.errorDialog("copiarDesde() ", ex.getLocalizedMessage().toString());
