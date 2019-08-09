@@ -115,6 +115,16 @@ public class Solicitud {
     public Solicitud() {
     }
 
+    public String getVistoBueno() {
+        return vistoBueno;
+    }
+
+    public void setVistoBueno(String vistoBueno) {
+        this.vistoBueno = vistoBueno;
+    }
+
+    
+    
     public Integer getSolicitudpadre() {
         return solicitudpadre;
     }
