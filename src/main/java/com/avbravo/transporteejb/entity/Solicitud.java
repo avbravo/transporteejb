@@ -97,34 +97,32 @@ public class Solicitud {
             field = "idviaje", javatype = "Integer", lazy = false,
             repository = "com.avbravo.transporteejb.repository.ViajeRepository")
     private List<Viaje> viaje;
-    
+
     @Referenced(collection = "EstatusViaje",
             field = "idestatusviaje", javatype = "String", lazy = false,
             repository = "com.avbravo.transporteejb.repository.EstatusViajeRepository")
     private EstatusViaje estatusViaje;
 
-  
-    
     private Integer solicitudpadre;
-    private String vistoBueno;
+    @Embedded
+    private VistoBueno vistoBueno;
 
-   
     @Embedded
     List<UserInfo> userInfo;
 
     public Solicitud() {
     }
 
-    public String getVistoBueno() {
+    public VistoBueno getVistoBueno() {
         return vistoBueno;
     }
 
-    public void setVistoBueno(String vistoBueno) {
+    public void setVistoBueno(VistoBueno vistoBueno) {
         this.vistoBueno = vistoBueno;
     }
 
-    
-    
+   
+
     public Integer getSolicitudpadre() {
         return solicitudpadre;
     }
@@ -149,9 +147,6 @@ public class Solicitud {
         this.rangoagenda = rangoagenda;
     }
 
-  
-    
-   
     public Semestre getSemestre() {
         return semestre;
     }
@@ -376,7 +371,4 @@ public class Solicitud {
         this.estatusViaje = estatusViaje;
     }
 
-    
-    
-    
 }
