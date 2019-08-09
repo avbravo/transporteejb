@@ -6,6 +6,7 @@
 package com.avbravo.transporteejb.entity;
 
 import com.avbravo.jmoordb.anotations.Id;
+import java.util.Date;
 
 /**
  *
@@ -16,6 +17,7 @@ public class VistoBueno {
     private String idvistobueno;
     private Usuario usuario;
     private String aprobado;
+    private Date fecha;
 
     public VistoBueno() {
     }
