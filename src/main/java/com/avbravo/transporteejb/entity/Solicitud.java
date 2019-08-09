@@ -106,7 +106,7 @@ public class Solicitud {
   
     
     private Integer solicitudpadre;
-
+    private String vistoBueno;
 
    
     @Embedded
