@@ -175,4 +175,32 @@ public class UsuarioServices {
         return l;
     }
     // </editor-fold>  
+    
+    // <editor-fold defaultstate="collapsed" desc="Boolean esElCoordinadorQuienSolicita(List<Usuario> usuarioList, Usuario usuario)">
+    /**
+     * Verifica si el coordinador es quien realiza la solicitud
+     * para evitar enviarle notificaciones a el mismo
+     * @param usuarioList
+     * @param usuario
+     * @return 
+     */
+    public Boolean esElCoordinadorQuienSolicita(List<Usuario> usuarioList, Usuario usuario){
+          Boolean esElCoordinadorQuienSolicita =false;
+        try {
+           
+                for(Usuario u:usuarioList){
+                    if(u.getUsername().equals(usuario.getUsername())){
+                      esElCoordinadorQuienSolicita= true;
+                        break;
+                    }
+                }
+             
+        } catch (Exception e) {
+              JsfUtil.errorMessage("esElCoordinadorQuienSolicita() " + e.getLocalizedMessage());
+        }
+        return esElCoordinadorQuienSolicita;
+    }
+    // </editor-fold>  
+    
+    
 }
