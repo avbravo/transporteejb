@@ -142,4 +142,24 @@ public class VistoBuenoServices {
         return vistoBueno;
     }
     // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="VistoBueno aprobar(Usuario usuario, String aprobado) ">
+    /**
+     * Devuelve el entity Visto Bueno con el estatus asignado y el usuario
+     * @param usuario
+     * @return 
+     */
+    public VistoBueno aprobar(Usuario usuario, String aprobado) {
+        VistoBueno vistoBueno = new VistoBueno();
+        try {
+
+            vistoBueno.setIdvistobueno(JsfUtil.generateUniqueID());
+            vistoBueno.setAprobado(aprobado);
+            vistoBueno.setUsuario(usuario);
+        } catch (Exception e) {
+            JsfUtil.errorMessage("aprobar() " + e.getLocalizedMessage());
+        }
+
+        return vistoBueno;
+    }
+    // </editor-fold>
 }
