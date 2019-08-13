@@ -6,6 +6,7 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.entity.VistoBueno;
 import com.avbravo.transporteejb.repository.VistoBuenoRepository;
 import com.avbravo.transporteejb.repository.UsuarioRepository;
@@ -114,6 +115,26 @@ public class VistoBuenoServices {
             vistoBueno.setIdvistobueno(JsfUtil.generateUniqueID());
             vistoBueno.setAprobado("no");
             vistoBueno.setUsuario(null);
+        } catch (Exception e) {
+            JsfUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
+        }
+
+        return vistoBueno;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="VistoBueno inicializarAprobado(Usuario usuario)">
+    /**
+     * Inicializa un usuario aprobado
+     * @param usuario
+     * @return 
+     */
+    public VistoBueno inicializarAprobado(Usuario usuario) {
+        VistoBueno vistoBueno = new VistoBueno();
+        try {
+
+            vistoBueno.setIdvistobueno(JsfUtil.generateUniqueID());
+            vistoBueno.setAprobado("si");
+            vistoBueno.setUsuario(usuario);
         } catch (Exception e) {
             JsfUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
         }
