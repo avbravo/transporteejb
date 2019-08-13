@@ -103,23 +103,23 @@ public class UsuarioServices {
      */
     public List<Usuario> usuariosParaNotificar() {
         List<Usuario> list = new ArrayList<>();
-
         try {
-
             Usuario jmoordb_user = (Usuario) JmoordbContext.get("jmoordb_user");
             Bson filter = or(eq("rol.idrol", "ADMINISTRADOR"), eq("rol.idrol", "SECRETARIO ADMINISTRATIVO"), eq("rol.idrol", "SECRETARIA"));
-   
+
             list = repository.filters(filter);
-          
+
         } catch (Exception e) {
-          JsfUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
         }
         return list;
     }
+
     // </editor-fold>  
     // <editor-fold defaultstate="collapsed" desc="List<Usuario> usuariosParaNotificar(List<Facultad> facultadList)">
     /*
-    Obtiene la lista de usuarios validos y verifica que el coordinador pertenezca a la facultad
+    Obtiene la lista de usuarios(admiminstrador, secretario administativo, secretaria, coordinadores
+    validos y verifica que el coordinador pertenezca a la facultad
      */
     public List<Usuario> usuariosParaNotificar(List<Facultad> facultadList) {
         List<Usuario> l = new ArrayList<>();
@@ -170,37 +170,60 @@ public class UsuarioServices {
 
             }
         } catch (Exception e) {
-          JsfUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
         }
         return l;
     }
     // </editor-fold>  
-    
+
     // <editor-fold defaultstate="collapsed" desc="Boolean esElCoordinadorQuienSolicita(List<Usuario> usuarioList, Usuario usuario)">
     /**
-     * Verifica si el coordinador es quien realiza la solicitud
-     * para evitar enviarle notificaciones a el mismo
+     * Verifica si el coordinador es quien realiza la solicitud para evitar
+     * enviarle notificaciones a el mismo
+     *
      * @param usuarioList
      * @param usuario
-     * @return 
+     * @return
      */
-    public Boolean esElCoordinadorQuienSolicita(List<Usuario> usuarioList, Usuario usuario){
-          Boolean esElCoordinadorQuienSolicita =false;
+    public Boolean esElCoordinadorQuienSolicita(List<Usuario> usuarioList, Usuario usuario) {
+        Boolean esElCoordinadorQuienSolicita = false;
         try {
-           
-                for(Usuario u:usuarioList){
-                    if(u.getUsername().equals(usuario.getUsername())){
-                      esElCoordinadorQuienSolicita= true;
-                        break;
-                    }
+
+            for (Usuario u : usuarioList) {
+                if (u.getUsername().equals(usuario.getUsername())) {
+                    esElCoordinadorQuienSolicita = true;
+                    break;
                 }
-             
+            }
+
         } catch (Exception e) {
-              JsfUtil.errorMessage("esElCoordinadorQuienSolicita() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("esElCoordinadorQuienSolicita() " + e.getLocalizedMessage());
         }
         return esElCoordinadorQuienSolicita;
     }
     // </editor-fold>  
-    
-    
+
+    // <editor-fold defaultstate="collapsed" desc="List<Usuario> removerCoordinadorLista(List<Usuario> usuarioList, Usuario usuario)">
+    /**
+     *
+     * @param usuarioList
+     * @param usuario
+     * @return
+     */
+    public List<Usuario> removerCoordinadorLista(List<Usuario> usuarioList, Usuario usuario) {
+        List<Usuario> list = new ArrayList<>();
+        try {
+            list = usuarioList;
+            for (Usuario u : usuarioList) {
+                if (u.getUsername().equals(usuario.getUsername())) {
+                    usuarioList.remove(u);
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            JsfUtil.errorMessage("removerCoordinadorLista() " + e.getLocalizedMessage());
+        }
+        return list;
+    }
+    // </editor-fold>  
 }
