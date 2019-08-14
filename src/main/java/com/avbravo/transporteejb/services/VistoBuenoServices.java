@@ -5,6 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
+import com.avbravo.jmoordbutils.DateUtil;
 import com.avbravo.jmoordbutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.entity.VistoBueno;
@@ -107,14 +108,21 @@ public class VistoBuenoServices {
         return vistoBueno;
     }
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="VistoBueno inicializar()">
-    public VistoBueno inicializar() {
+    // <editor-fold defaultstate="collapsed" desc="VistoBueno inicializarPendiente(Usuario usuario)">
+    /**
+     * Inicializa en pendiente la solicitud
+     * @param usuario
+     * @return 
+     */
+    public VistoBueno inicializarPendiente(Usuario usuario) {
         VistoBueno vistoBueno = new VistoBueno();
         try {
 
             vistoBueno.setIdvistobueno(JsfUtil.generateUniqueID());
-            vistoBueno.setAprobado("no");
-            vistoBueno.setUsuario(null);
+            vistoBueno.setAprobado("pe");
+            vistoBueno.setUsuario(usuario);
+            vistoBueno.setFecha(DateUtil.getFechaActual());
+            
         } catch (Exception e) {
             JsfUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
         }
