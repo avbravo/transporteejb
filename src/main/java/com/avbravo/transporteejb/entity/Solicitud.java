@@ -105,7 +105,7 @@ public class Solicitud {
 
     private Integer solicitudpadre;
     @Embedded
-    private VistoBueno vistoBueno;
+   VistoBueno vistoBueno;
 
     @Embedded
     List<UserInfo> userInfo;
@@ -120,6 +120,10 @@ public class Solicitud {
     public void setVistoBueno(VistoBueno vistoBueno) {
         this.vistoBueno = vistoBueno;
     }
+
+   
+
+   
 
    
 
