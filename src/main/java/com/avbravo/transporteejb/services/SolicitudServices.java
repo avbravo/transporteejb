@@ -467,4 +467,27 @@ public class SolicitudServices {
         return suggestions;
     }
     // </editor-fold>
+    
+    
+      // <editor-fold defaultstate="collapsed" desc="String showDate(Date date)">
+    public String showDate(Date date) {
+        String h = "";
+        try {
+            h = DateUtil.dateFormatToString(date, "dd/MM/yyyy");
+        } catch (Exception e) {
+            JsfUtil.errorMessage("showDate() " + e.getLocalizedMessage());
+        }
+        return h;
+    }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String showHour(Date date)">
+
+    public String showHour(Date date) {
+        String h = "";
+        try {
+            h = DateUtil.hourFromDateToString(date);
+        } catch (Exception e) {
+            JsfUtil.errorMessage("showHour() " + e.getLocalizedMessage());
+        }
+        return h;
+    }// </editor-fold>
 }
