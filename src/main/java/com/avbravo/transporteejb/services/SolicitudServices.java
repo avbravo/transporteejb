@@ -5,6 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
+import com.avbravo.jmoordb.configuration.JmoordbContext;
 import com.avbravo.jmoordbutils.DateUtil;
 import com.avbravo.jmoordbutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
@@ -15,6 +16,7 @@ import com.avbravo.transporteejb.repository.ViajeRepository;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -430,5 +432,39 @@ public class SolicitudServices {
         return false;
     }
 
+    // </editor-fold>
+    
+      // <editor-fold defaultstate="collapsed" desc="completeSolicitudParaCopiar(String query)">
+    public List<Solicitud> completeSolicitudParaCopiar(String query, String tipoSolicitud) {
+        List<Solicitud> suggestions = new ArrayList<>();
+        try {
+            Usuario jmoordb_user = (Usuario) JmoordbContext.get("jmoordb_user");
+            List<Solicitud> list = new ArrayList<>();
+            list = repository.complete(query);
+            if (!list.isEmpty()) {
+                for (Solicitud s : list) {
+                    if (s.getTiposolicitud().getIdtiposolicitud().equals(tipoSolicitud)
+                            && (s.getUsuario().get(0).getUsername().equals(jmoordb_user.getUsername())
+                            || s.getUsuario().get(1).getUsername().equals(jmoordb_user.getUsername()))) {
+                        suggestions.add(s);
+                    }
+                }
+            }
+            if (!suggestions.isEmpty()) {
+
+        
+                suggestions.sort(Comparator.comparing(Solicitud::getIdsolicitud)
+                        .reversed()
+                        .thenComparing(Comparator.comparing(Solicitud::getIdsolicitud)
+                                .reversed())
+                );
+            }
+
+        } catch (Exception e) {
+               JsfUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
+        }
+
+        return suggestions;
+    }
     // </editor-fold>
 }
