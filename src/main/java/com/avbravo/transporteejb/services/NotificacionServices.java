@@ -40,7 +40,7 @@ public class NotificacionServices {
         try {
             JmoordbNotifications jmoordbNotifications = new JmoordbNotifications();
 
-            jmoordbNotifications.setIdjmoordbnotifications(autoincrementableServices.getContador("jmoordbnNotifications"));
+            jmoordbNotifications.setIdjmoordbnotifications(autoincrementableServices.getContador("jmoordbNotifications"));
             jmoordbNotifications.setUsername(username);
             jmoordbNotifications.setMessage(mensaje);
             jmoordbNotifications.setViewed("no");
