@@ -26,14 +26,14 @@ public class EstatusServices {
 
     @Inject
     EstatusRepository repository;
- @Inject
-   SolicitudRepository solicitudRepository;
+    @Inject
+    SolicitudRepository solicitudRepository;
     List<Estatus> estatusList = new ArrayList<>();
 
     public List<Estatus> complete(String query) {
         List<Estatus> suggestions = new ArrayList<>();
-           try {
-          suggestions=repository.complete(query);
+        try {
+            suggestions = repository.complete(query);
         } catch (Exception e) {
             JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
@@ -54,42 +54,101 @@ public class EstatusServices {
     public void setEstatusList(List<Estatus> estatusList) {
         this.estatusList = estatusList;
     }
-    
-        // <editor-fold defaultstate="collapsed" desc="isDeleted(Estatus estatus)">
-  
-    public Boolean isDeleted(Estatus estatus){
-        Boolean found=false;
+
+    // <editor-fold defaultstate="collapsed" desc="isDeleted(Estatus estatus)">
+    public Boolean isDeleted(Estatus estatus) {
+        Boolean found = false;
         try {
-            Document doc = new Document("estatus.idestatus",estatus.getIdestatus());
+            Document doc = new Document("estatus.idestatus", estatus.getIdestatus());
             Integer count = solicitudRepository.count(doc);
-            if (count > 0){
+            if (count > 0) {
                 return false;
             }
-            
+
         } catch (Exception e) {
-             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
-    
-    
-    // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
 
-    public Estatus findById(String id){
-           Estatus estatus = new Estatus();
+    // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
+    public Estatus findById(String id) {
+        Estatus estatus = new Estatus();
         try {
-         
+
             estatus.setIdestatus(id);
             Optional<Estatus> optional = repository.findById(estatus);
             if (optional.isPresent()) {
-               return optional.get();
-            } 
+                return optional.get();
+            }
         } catch (Exception e) {
-             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
-      
-      return estatus;
+
+        return estatus;
     }
     // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="columnColor(Estatus estatus)">
+    /**
+     * Devuelve el color en base al estatus
+     *
+     * @param estatus
+     * @return
+     */
+    public String columnColor(Estatus estatus) {
+        String color = "";
+        try {
+            switch (estatus.getIdestatus()) {
+                case "RECHAZADO":
+                    color = "red";
+                    break;
+                case "CANCELADO":
+                    color = "pink";
+                    break;
+                case "APROBADO":
+                    color = "green";
+                    break;
+                case "SOLICITADO":
+                    color = "blue";
+                    break;
+                default:
+                    color = "black";
+            }
+        } catch (Exception e) {
+            JsfUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+        }
+        return color;
+    } // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Boolean isSolicitado(Estatus estatus)">
+    /**
+     * Verifica si el estatus es solicitado se usa mucho en las solicitudes
+     *
+     * @param estatus
+     * @return
+     */
+    public Boolean isSolicitado(Estatus estatus) {
+        Boolean habilitado = true;
+        try {
+            switch (estatus.getIdestatus()) {
+                case "RECHAZADO":
+                    habilitado = false;
+                    break;
+                case "CANCELADO":
+                    habilitado = false;
+                    break;
+                case "APROBADO":
+                    habilitado = false;
+                    break;
+                case "SOLICITADO":
+                default:
+                    habilitado = true;
+            }
+        } catch (Exception e) {
+            JsfUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+        }
+        return habilitado;
+    } // </editor-fold>
 
 }
