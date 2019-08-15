@@ -7,6 +7,7 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.jmoordbutils.DateUtil;
 import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.transporteejb.entity.Estatus;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.entity.VistoBueno;
 import com.avbravo.transporteejb.repository.VistoBuenoRepository;
@@ -170,4 +171,62 @@ public class VistoBuenoServices {
         return vistoBueno;
     }
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="columnColor(VistoBueno vistoBueno))">
+    /**
+     * Devuelve el color en base aprobaado
+     *
+     * @param estatus
+     * @return
+     */
+    public String columnColor(VistoBueno vistoBueno) {
+        String color = "";
+        try {
+            switch (vistoBueno.getAprobado()) {
+                case "no":
+                    color = "red";
+                    break;
+             
+                case "si":
+                    color = "black";
+                    break;
+                case "pe":
+                    color = "blue";
+                    break;
+                default:
+                    color = "black";
+            }
+        } catch (Exception e) {
+            JsfUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+        }
+        return color;
+    } // </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="String columnNameVistoBueno(VistoBueno vistoBueno) ">
+    /**
+     * Devuelve el nombre de las siglas del visto bueno
+     * @param vistoBueno
+     * @return 
+     */
+    public String columnNameVistoBueno(VistoBueno vistoBueno) {
+        
+        String name= "Pendiente";
+        try {
+           if(vistoBueno.getAprobado().equals("si")){
+              name="APROBADO";
+           }else{
+               if(vistoBueno.getAprobado().equals("no")){
+              name="RECHAZADO";
+           }else{
+                   if(vistoBueno.getAprobado().equals("pe")){
+              name="PENDIENTE";
+           }
+               }
+           }
+        } catch (Exception e) {
+           JsfUtil.errorMessage("columnNameVistoBueno() " + e.getLocalizedMessage());
+        }
+        return name;
+    }
+// </editor-fold>
 }
