@@ -210,13 +210,13 @@ public class VistoBuenoServices {
      */
     public String columnNameVistoBueno(VistoBueno vistoBueno) {
         
-        String name= "Pendiente";
+        String name= "PENDIENTE";
         try {
            if(vistoBueno.getAprobado().equals("si")){
               name="APROBADO";
            }else{
                if(vistoBueno.getAprobado().equals("no")){
-              name="RECHAZADO";
+              name="NO APROBADO";
            }else{
                    if(vistoBueno.getAprobado().equals("pe")){
               name="PENDIENTE";
