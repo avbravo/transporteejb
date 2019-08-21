@@ -191,7 +191,9 @@ public class UsuarioServices {
 
             for (Usuario u : usuarioList) {
                 if (u.getUsername().equals(usuario.getUsername())) {
+
                     esElCoordinadorQuienSolicita = true;
+
                     break;
                 }
             }
@@ -200,6 +202,33 @@ public class UsuarioServices {
             JsfUtil.errorMessage("esElCoordinadorQuienSolicita() " + e.getLocalizedMessage());
         }
         return esElCoordinadorQuienSolicita;
+    }
+
+    // </editor-fold>  
+    // <editor-fold defaultstate="collapsed" desc="Boolean esElSecretarioAcademicoQuienSolicita(List<Usuario> usuarioList, Usuario usuario)">
+    /**
+     * Verifica si el coordinador es quien realiza la solicitud para evitar
+     * enviarle notificaciones a el mismo
+     *
+     * @param usuarioList
+     * @param usuario
+     * @return
+     */
+    public Boolean esElSecretarioAdministrativoQuienSolicita(Usuario usuario) {
+        Boolean found = false;
+        try {
+
+            for (Rol rol : usuario.getRol()) {
+                if (rol.getIdrol().equals("SECRETARIO ADMINISTRATIVO")) {
+                    found = true;
+                    break;
+                }
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage("esElSecretarioAdministrativoQuienSolicita() " + e.getLocalizedMessage());
+        }
+        return found;
     }
     // </editor-fold>  
 

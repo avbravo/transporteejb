@@ -105,14 +105,28 @@ public class Solicitud {
 
     private Integer solicitudpadre;
     @Embedded
-   VistoBueno vistoBueno;
+    VistoBueno vistoBueno;
+    @Embedded 
+    VistoBuenoSecretarioAdministrativo vistoBuenoSecretarioAdministrativo;
 
+ 
     @Embedded
     List<UserInfo> userInfo;
 
     public Solicitud() {
     }
 
+    public VistoBuenoSecretarioAdministrativo getVistoBuenoSecretarioAdministrativo() {
+        return vistoBuenoSecretarioAdministrativo;
+    }
+
+    public void setVistoBuenoSecretarioAdministrativo(VistoBuenoSecretarioAdministrativo vistoBuenoSecretarioAdministrativo) {
+        this.vistoBuenoSecretarioAdministrativo = vistoBuenoSecretarioAdministrativo;
+    }
+
+    
+    
+    
     public VistoBueno getVistoBueno() {
         return vistoBueno;
     }
@@ -120,12 +134,6 @@ public class Solicitud {
     public void setVistoBueno(VistoBueno vistoBueno) {
         this.vistoBueno = vistoBueno;
     }
-
-   
-
-   
-
-   
 
     public Integer getSolicitudpadre() {
         return solicitudpadre;
@@ -375,4 +383,5 @@ public class Solicitud {
         this.estatusViaje = estatusViaje;
     }
 
+ 
 }
