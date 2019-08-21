@@ -19,15 +19,37 @@ public class Tipogira {
     @Id
     private String idtipogira;
     private String activo;
+    private String requiereAprobacion;
     @Embedded
     List<UserInfo> userInfo;
 
+    public Tipogira() {
+    }
+
+    public Tipogira(String idtipogira, String activo, String requiereAprobacion, List<UserInfo> userInfo) {
+        this.idtipogira = idtipogira;
+        this.activo = activo;
+        this.requiereAprobacion = requiereAprobacion;
+        this.userInfo = userInfo;
+    }
+
+    
+    
+    
     public String getIdtipogira() {
         return idtipogira;
     }
 
     public void setIdtipogira(String idtipogira) {
         this.idtipogira = idtipogira;
+    }
+
+    public String getRequiereAprobacion() {
+        return requiereAprobacion;
+    }
+
+    public void setRequiereAprobacion(String requiereAprobacion) {
+        this.requiereAprobacion = requiereAprobacion;
     }
 
    
