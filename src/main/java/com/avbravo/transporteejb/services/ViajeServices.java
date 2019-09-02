@@ -579,4 +579,28 @@ public class ViajeServices {
     }
     // </editor-fold>
 
+    
+     // <editor-fold defaultstate="collapsed" desc="columnColor(String descripcion )"> 
+    public String columnColor(String realizado, String activo) {
+        String color = "";
+        try {
+            switch (realizado.toLowerCase()) {
+                case "si":
+                    color = "green";
+                    break;
+                case "no":
+                    color = "black";
+                    break;
+                default:
+                    color = "blue";
+            }
+            if (activo.equals("no")) {
+                color = "red";
+            }
+        } catch (Exception e) {
+                JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+        }
+        return color;
+    }
+// </editor-fold>
 }
