@@ -46,6 +46,16 @@ public class Viaje {
     @Embedded
     List<UserInfo> userInfo;
 
+    public String getMision() {
+        return mision;
+    }
+
+    public void setMision(String mision) {
+        this.mision = mision;
+    }
+
+    
+    
     public String getRealizado() {
         return realizado;
     }
