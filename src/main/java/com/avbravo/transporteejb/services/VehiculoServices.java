@@ -172,4 +172,79 @@ public class VehiculoServices {
         return pasajerosRecomendadosList;
     }
     // </editor-fold>
+  
+  
+   // <editor-fold defaultstate="collapsed" desc="vehiculosRecomendados(List<Vehiculo> vehiculoDisponiblesList)">
+    /**
+     * Devuelve la cantidad de vehiculos recomendados en base a los disponibles
+     *
+     * @param vehiculoDisponiblesList
+     * @return
+     */
+    public Integer vehiculosRecomendados(List<Vehiculo> vehiculoDisponiblesList, Integer pasajeros) {
+        Integer totalVehiculos = 0;
+        try {
+            Integer mayorCapacidad = vehiculoDisponiblesList.get(0).getPasajeros();
+            Integer pasajerosPendientes = pasajeros;
+            for (Vehiculo v : vehiculoDisponiblesList) {
+
+                if (pasajerosPendientes > 0) {
+                    totalVehiculos++;
+                    pasajerosPendientes -= v.getPasajeros();
+                    if (pasajerosPendientes < 0) {
+                        pasajerosPendientes = 0;
+                    }
+                }
+            }
+            if (pasajerosPendientes > 0) {
+                if (pasajerosPendientes <= mayorCapacidad) {
+                    totalVehiculos++;
+                } else {
+                    Integer residuo = pasajerosPendientes % mayorCapacidad;
+                    Integer divisor = pasajerosPendientes / mayorCapacidad;
+                    if (residuo > 0) {
+                        divisor++;
+                    }
+                    totalVehiculos += divisor;
+                }
+
+            }
+        } catch (Exception e) {
+               JsfUtil.errorMessage("vehiculosRecomendados " + e.getLocalizedMessage());
+        }
+        return totalVehiculos;
+    }
+
+    // </editor-fold>
+    
+    
+     // <editor-fold defaultstate="collapsed" desc="Integer pasajerosRecomendados(List<Vehiculo> vehiculoDisponiblesList, Integer pasajeros)">
+    /**
+     * Devuelve la cantidad de pasajeros que quedan pendientes
+     *
+     * @param vehiculoDisponiblesList
+     * @return
+     */
+    public Integer pasajerosRecomendados(List<Vehiculo> vehiculoDisponiblesList, Integer pasajeros) {
+        Integer pasajerosPendientes = pasajeros;
+        try {
+            Integer mayorCapacidad = vehiculoDisponiblesList.get(0).getPasajeros();
+            for (Vehiculo v : vehiculoDisponiblesList) {
+
+                if (pasajerosPendientes > 0) {
+                    pasajerosPendientes -= v.getPasajeros();
+                    if (pasajerosPendientes < 0) {
+                        pasajerosPendientes = 0;
+                    }
+
+                }
+            }
+
+        } catch (Exception e) {
+             JsfUtil.errorMessage("pasajerosRecomendados() " + e.getLocalizedMessage());
+        }
+        return pasajerosPendientes;
+    }
+
+    // </editor-fold>
 }
