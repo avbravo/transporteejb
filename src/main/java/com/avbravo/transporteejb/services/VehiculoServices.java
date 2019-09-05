@@ -111,4 +111,65 @@ public class VehiculoServices {
         return cantidad;
     }
     // </editor-fold> 
+   
+   
+   /**
+     * Devuelve la lista de pasajeros recomendados para cada viaje
+     *
+     * @param vehiculoDisponiblesList
+     * @return
+     */
+  public List<Integer> generarPasajerosPorViajes(List<Vehiculo> vehiculoDisponiblesList, Integer pasajeros) {
+
+        List<Integer> pasajerosRecomendadosList = new ArrayList<>();
+        try {
+            Integer mayorCapacidad = vehiculoDisponiblesList.get(0).getPasajeros();
+            Integer pasajerosPendientes = pasajeros;
+
+            if (pasajeros <= mayorCapacidad) {
+                //Si es igual o menor que la capacidad del bus con mayor capacidad
+                pasajerosRecomendadosList.add(pasajeros);
+            } else {
+                for (Vehiculo v : vehiculoDisponiblesList) {
+                    if (pasajerosPendientes > 0) {
+                        if (pasajerosPendientes >= v.getPasajeros()) {
+                            pasajerosPendientes -= v.getPasajeros();
+                            pasajerosRecomendadosList.add(v.getPasajeros());
+                        } else {
+
+                            pasajerosRecomendadosList.add(pasajerosPendientes);
+                            pasajerosPendientes = 0;
+                        }
+
+                    }
+
+                }
+                // revisa los pendientes
+
+                if (pasajerosPendientes <= mayorCapacidad) {
+                    pasajerosRecomendadosList.add(pasajerosPendientes);
+                } else {
+                    Integer residuo = pasajerosPendientes % mayorCapacidad;
+                    Integer divisor = pasajerosPendientes / mayorCapacidad;
+
+                    if (residuo > 0) {
+                        divisor++;
+                    }
+
+                    for (Integer i = 1; i <= divisor; i++) {
+                        if (i < divisor) {
+                            pasajerosRecomendadosList.add(mayorCapacidad);
+                        } else {
+                            pasajerosRecomendadosList.add(residuo);
+                        }
+                    }
+
+                }
+            }
+        } catch (Exception e) {
+            JsfUtil.errorMessage("generarPasajerosPorViajes() " + e.getLocalizedMessage());
+        }
+        return pasajerosRecomendadosList;
+    }
+    // </editor-fold>
 }
