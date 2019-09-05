@@ -580,7 +580,7 @@ public class ViajeServices {
     // </editor-fold>
 
     
-     // <editor-fold defaultstate="collapsed" desc="columnColor(String descripcion )"> 
+     // <editor-fold defaultstate="collapsed" desc="String columnColor(String realizado, String activo)"> 
     public String columnColor(String realizado, String activo) {
         String color = "";
         try {
@@ -603,4 +603,28 @@ public class ViajeServices {
         return color;
     }
 // </editor-fold>
+    
+          // <editor-fold defaultstate="collapsed" desc="String showDate(Date date)">
+    public String showDate(Date date) {
+        String h = "";
+        try {
+            h = DateUtil.dateFormatToString(date, "dd/MM/yyyy");
+        } catch (Exception e) {
+            JsfUtil.errorMessage("showDate() " + e.getLocalizedMessage());
+        }
+        return h;
+    }// </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="String showHour(Date date)">
+
+    public String showHour(Date date) {
+        String h = "";
+        try {
+            h = DateUtil.hourFromDateToString(date);
+        } catch (Exception e) {
+            JsfUtil.errorMessage("showHour() " + e.getLocalizedMessage());
+        }
+        return h;
+    }// </editor-fold>
+
 }
