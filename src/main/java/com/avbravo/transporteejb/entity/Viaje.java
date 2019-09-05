@@ -29,6 +29,7 @@ public class Viaje {
             repository = "com.avbravo.transporteejb.repository.ConductorRepository")
     private Conductor conductor;
 
+    private String mision;
     private String comentarios;
 
     private Double kmestimados;
