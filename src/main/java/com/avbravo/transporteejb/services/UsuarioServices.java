@@ -239,7 +239,7 @@ public class UsuarioServices {
      * @param usuario
      * @return
      */
-    public List<Usuario> removerCoordinadorLista(List<Usuario> usuarioList, Usuario usuario) {
+    public List<Usuario> removerUsuarioLista(List<Usuario> usuarioList, Usuario usuario) {
         List<Usuario> list = new ArrayList<>();
         try {
             list = usuarioList;
