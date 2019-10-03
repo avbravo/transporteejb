@@ -467,6 +467,43 @@ public class SolicitudServices {
         return suggestions;
     }
     // </editor-fold>
+      // <editor-fold defaultstate="collapsed" desc="completeSolicitudParaCopiarAll(String query, String tipoSolicitud)">
+    /**
+     * Devuelve un list para copiar
+     * @param query
+     * @param tipoSolicitud
+     * @return 
+     */
+    public List<Solicitud> completeAllSolicitudParaCopiar(String query, String tipoSolicitud) {
+        List<Solicitud> suggestions = new ArrayList<>();
+        try {
+          //  Usuario jmoordb_user = (Usuario) JmoordbContext.get("jmoordb_user");
+            List<Solicitud> list = new ArrayList<>();
+            list = repository.complete(query);
+            if (!list.isEmpty()) {
+                for (Solicitud s : list) {
+                    if (s.getTiposolicitud().getIdtiposolicitud().equals(tipoSolicitud)  ) {
+                        suggestions.add(s);
+                    }
+                }
+            }
+            if (!suggestions.isEmpty()) {
+
+        
+                suggestions.sort(Comparator.comparing(Solicitud::getIdsolicitud)
+                        .reversed()
+                        .thenComparing(Comparator.comparing(Solicitud::getIdsolicitud)
+                                .reversed())
+                );
+            }
+
+        } catch (Exception e) {
+               JsfUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
+        }
+
+        return suggestions;
+    }
+    // </editor-fold>
     
     
       // <editor-fold defaultstate="collapsed" desc="String showDate(Date date)">
