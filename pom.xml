@@ -4,7 +4,7 @@
 
     <groupId>com.avbravo</groupId>
     <artifactId>transporteejb</artifactId>
-    <version>21.7</version>
+    <version>21.8</version>
     <packaging>ejb</packaging>
 
     <name>transporteejb</name>
@@ -30,7 +30,7 @@
  	<dependency>
 	    <groupId>com.github.avbravo</groupId>
 	    <artifactId>jmoordbutils</artifactId>
-	    <version>0.32</version>
+	    <version>0.33</version>
 	</dependency>
 
 
