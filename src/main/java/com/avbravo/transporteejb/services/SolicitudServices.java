@@ -434,7 +434,7 @@ public class SolicitudServices {
 
     // </editor-fold>
     
-      // <editor-fold defaultstate="collapsed" desc="completeSolicitudParaCopiar(String query)">
+      // <editor-fold defaultstate="collapsed" desc="completeSolicitudParaCopiar(String query, String tipoSolicitud)">
     public List<Solicitud> completeSolicitudParaCopiar(String query, String tipoSolicitud) {
         List<Solicitud> suggestions = new ArrayList<>();
         try {
