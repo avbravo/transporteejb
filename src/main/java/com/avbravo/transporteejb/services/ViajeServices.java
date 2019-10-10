@@ -626,5 +626,96 @@ public class ViajeServices {
         }
         return h;
     }// </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="isValidDates()">
+    public Boolean isValidDates(Viaje viaje, Boolean showdialog) {
+        try {
+            if (viaje.getFechahorainicioreserva()== null) {
+                if (showdialog) {
+                    JsfUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
+                } else {
+                    JsfUtil.warningMessage("Fecha de partida no seleccionada");
+                }
+
+                return false;
+            }
+
+            if (viaje.getFechahorafinreserva() == null) {
+                if (showdialog) {
+                    JsfUtil.warningDialog("Advertencia", "Fecha de regreso no seleccionada");
+                } else {
+                    JsfUtil.warningMessage("Fecha de regreso no seleccionada");
+                }
+
+                return false;
+            }
+
+            if (DateUtil.fechaMenor(viaje.getFechahorafinreserva(), viaje.getFechahorainicioreserva())) {
+                if (showdialog) {
+                    JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                } else {
+                    JsfUtil.warningMessage("Fecha de regreso menor que la fecha de partida");
+                }
+
+                return false;
+            }
+
+            if (DateUtil.fechaMenor(viaje.getFechahorafinreserva(), viaje.getFechahorainicioreserva())) {
+                if (showdialog) {
+                    JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                } else {
+                    JsfUtil.warningMessage("Fecha de regreso menor que la fecha de partida");
+                }
+
+                return false;
+            }
+            if (DateUtil.fechaIgual(viaje.getFechahorafinreserva(), viaje.getFechahorainicioreserva())) {
+                if (showdialog) {
+                    JsfUtil.warningDialog("Advertencia", "Fecha de regreso es igual que la fecha de partida");
+                } else {
+                    JsfUtil.warningMessage("Fecha de regreso es igual que la fecha de partida");
+                }
+
+                return false;
+            }
+
+            if (DateUtil.horaDeUnaFecha(viaje.getFechahorainicioreserva()) == 0
+                    && DateUtil.minutosDeUnaFecha(viaje.getFechahorainicioreserva()) == 0) {
+                if (showdialog) {
+                    JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
+                } else {
+                    JsfUtil.warningMessage("La hora de partida no debe ser cero");
+                }
+
+                return false;
+            }
+
+            if (DateUtil.horaDeUnaFecha(viaje.getFechahorafinreserva()) == 0
+                    && DateUtil.minutosDeUnaFecha(viaje.getFechahorafinreserva()) == 0) {
+                if (showdialog) {
+                    JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
+                } else {
+                    JsfUtil.warningMessage("La hora de llegada no debe ser cero");
+                }
+
+                return false;
+            }
+
+            if (DateUtil.fechaMenor(viaje.getFechahorainicioreserva(), DateUtil.fechaActual())) {
+                if (showdialog) {
+                    JsfUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
+                } else {
+                    JsfUtil.warningMessage("Fecha de partida es menor que la fecha actual");
+                }
+
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            JsfUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
+    // </editor-fold>
 
 }
