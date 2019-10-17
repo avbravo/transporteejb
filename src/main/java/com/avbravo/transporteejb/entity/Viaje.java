@@ -168,4 +168,14 @@ public class Viaje {
         this.fechahorafinreserva = fechahorafinreserva;
     }
 
+    public String getTipoviaje() {
+        return tipoviaje;
+    }
+
+    public void setTipoviaje(String tipoviaje) {
+        this.tipoviaje = tipoviaje;
+    }
+
+    
+    
 }
