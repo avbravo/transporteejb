@@ -467,6 +467,42 @@ public class SolicitudServices {
         return suggestions;
     }
     // </editor-fold>
+      // <editor-fold defaultstate="collapsed" desc="completeByEstatus(String query, String estatus)">
+    /**
+     * Devuelve la lista en base al estatus
+     * @param query
+     * @param estatus
+     * @return 
+     */
+    public List<Solicitud> completeByEstatus(String query, String estatus) {
+        List<Solicitud> suggestions = new ArrayList<>();
+        try {
+             List<Solicitud> list = new ArrayList<>();
+            list = repository.complete(query);
+            if (!list.isEmpty()) {
+                for (Solicitud s : list) {
+                    if (s.getEstatus().getIdestatus().equals(estatus) ) {
+                        suggestions.add(s);
+                    }
+                }
+            }
+            if (!suggestions.isEmpty()) {
+
+        
+                suggestions.sort(Comparator.comparing(Solicitud::getIdsolicitud)
+                        .reversed()
+                        .thenComparing(Comparator.comparing(Solicitud::getIdsolicitud)
+                                .reversed())
+                );
+            }
+
+        } catch (Exception e) {
+               JsfUtil.errorDialog("completeByEstatus() ", e.getLocalizedMessage().toString());
+        }
+
+        return suggestions;
+    }
+    // </editor-fold>
       // <editor-fold defaultstate="collapsed" desc="completeSolicitudParaCopiarAll(String query, String tipoSolicitud)">
     /**
      * Devuelve un list para copiar
