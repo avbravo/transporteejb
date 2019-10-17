@@ -42,6 +42,7 @@ public class Viaje {
     private String lugarpartida;
     private String lugardestino;
     private String realizado;
+    private String tipoviaje;
 
     @Embedded
     List<UserInfo> userInfo;
