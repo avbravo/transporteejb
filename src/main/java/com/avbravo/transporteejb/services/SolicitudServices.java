@@ -574,7 +574,7 @@ public class SolicitudServices {
     public Boolean solicitudDisponibleParaViajes(Solicitud solicitud, Date fechahorapartida, Date fechahoraregreso) {
         try {
 
-            Bson filter = Filters.and(eq("solicitud.idsolicitud", solicitud.getIdsolicitud()),eq("activo", "si"));
+            Bson filter = Filters.and(eq("idsolicitud", solicitud.getIdsolicitud()),eq("activo", "si"));
 //           
             return repository.isAvailableBetweenDateHour(filter,
                     "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
@@ -595,9 +595,9 @@ public class SolicitudServices {
      * @param viajes
      * @return
      */
-    public Boolean solicitudDisponibleExcluyendoMismoViaje(Solicitud solicitud, Date fechahorapartida, Date fechahoraregreso, Integer idviaje) {
+    public Boolean solicitudDisponibleExcluyendoMismoViaje(Solicitud solicitud, Date fechahorapartida, Date fechahoraregreso) {
         try {
-            Bson filter = Filters.and(eq("solicitud.idsolicitud", solicitud.getIdsolicitud()), eq("activo", "si"));
+            Bson filter = Filters.and(eq("idsolicitud", solicitud.getIdsolicitud()), eq("activo", "si"));
 
             return repository.isAvailableBetweenDateHour(filter,
                     "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
