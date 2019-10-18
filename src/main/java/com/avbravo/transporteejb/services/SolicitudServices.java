@@ -10,11 +10,13 @@ import com.avbravo.jmoordbutils.DateUtil;
 import com.avbravo.jmoordbutils.JsfUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
+import com.avbravo.transporteejb.entity.Vehiculo;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
 import com.avbravo.transporteejb.repository.ViajeRepository;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.ne;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -410,7 +412,7 @@ public class SolicitudServices {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="vehiculoDisponible(Vehiculo vehiculo, Date fechahorainicio, Date fechahorafin)">
+    // <editor-fold defaultstate="collapsed" desc="Boolean solicitudDisponible(Solicitud solicitud, Date fechahorapartida, Date fechahoraregreso)">
     /**
      * *
      * busca si el vehiculo tiene un viaje en esas fechas
@@ -433,8 +435,7 @@ public class SolicitudServices {
     }
 
     // </editor-fold>
-    
-      // <editor-fold defaultstate="collapsed" desc="completeSolicitudParaCopiar(String query, String tipoSolicitud)">
+    // <editor-fold defaultstate="collapsed" desc="completeSolicitudParaCopiar(String query, String tipoSolicitud)">
     public List<Solicitud> completeSolicitudParaCopiar(String query, String tipoSolicitud) {
         List<Solicitud> suggestions = new ArrayList<>();
         try {
@@ -452,7 +453,6 @@ public class SolicitudServices {
             }
             if (!suggestions.isEmpty()) {
 
-        
                 suggestions.sort(Comparator.comparing(Solicitud::getIdsolicitud)
                         .reversed()
                         .thenComparing(Comparator.comparing(Solicitud::getIdsolicitud)
@@ -461,71 +461,34 @@ public class SolicitudServices {
             }
 
         } catch (Exception e) {
-               JsfUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
+            JsfUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
         }
 
         return suggestions;
     }
     // </editor-fold>
-      // <editor-fold defaultstate="collapsed" desc="completeByEstatus(String query, String estatus)">
+    // <editor-fold defaultstate="collapsed" desc="completeByEstatus(String query, String estatus)">
     /**
      * Devuelve la lista en base al estatus
+     *
      * @param query
      * @param estatus
-     * @return 
+     * @return
      */
     public List<Solicitud> completeByEstatus(String query, String estatus) {
         List<Solicitud> suggestions = new ArrayList<>();
         try {
-             List<Solicitud> list = new ArrayList<>();
-            list = repository.complete(query);
-            if (!list.isEmpty()) {
-                for (Solicitud s : list) {
-                    if (s.getEstatus().getIdestatus().equals(estatus) ) {
-                        suggestions.add(s);
-                    }
-                }
-            }
-            if (!suggestions.isEmpty()) {
-
-        
-                suggestions.sort(Comparator.comparing(Solicitud::getIdsolicitud)
-                        .reversed()
-                        .thenComparing(Comparator.comparing(Solicitud::getIdsolicitud)
-                                .reversed())
-                );
-            }
-
-        } catch (Exception e) {
-               JsfUtil.errorDialog("completeByEstatus() ", e.getLocalizedMessage().toString());
-        }
-
-        return suggestions;
-    }
-    // </editor-fold>
-      // <editor-fold defaultstate="collapsed" desc="completeSolicitudParaCopiarAll(String query, String tipoSolicitud)">
-    /**
-     * Devuelve un list para copiar
-     * @param query
-     * @param tipoSolicitud
-     * @return 
-     */
-    public List<Solicitud> completeAllSolicitudParaCopiar(String query, String tipoSolicitud) {
-        List<Solicitud> suggestions = new ArrayList<>();
-        try {
-          //  Usuario jmoordb_user = (Usuario) JmoordbContext.get("jmoordb_user");
             List<Solicitud> list = new ArrayList<>();
             list = repository.complete(query);
             if (!list.isEmpty()) {
                 for (Solicitud s : list) {
-                    if (s.getTiposolicitud().getIdtiposolicitud().equals(tipoSolicitud)  ) {
+                    if (s.getEstatus().getIdestatus().equals(estatus)) {
                         suggestions.add(s);
                     }
                 }
             }
             if (!suggestions.isEmpty()) {
 
-        
                 suggestions.sort(Comparator.comparing(Solicitud::getIdsolicitud)
                         .reversed()
                         .thenComparing(Comparator.comparing(Solicitud::getIdsolicitud)
@@ -534,15 +497,51 @@ public class SolicitudServices {
             }
 
         } catch (Exception e) {
-               JsfUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
+            JsfUtil.errorDialog("completeByEstatus() ", e.getLocalizedMessage().toString());
         }
 
         return suggestions;
     }
     // </editor-fold>
-    
-    
-      // <editor-fold defaultstate="collapsed" desc="String showDate(Date date)">
+    // <editor-fold defaultstate="collapsed" desc="completeSolicitudParaCopiarAll(String query, String tipoSolicitud)">
+    /**
+     * Devuelve un list para copiar
+     *
+     * @param query
+     * @param tipoSolicitud
+     * @return
+     */
+    public List<Solicitud> completeAllSolicitudParaCopiar(String query, String tipoSolicitud) {
+        List<Solicitud> suggestions = new ArrayList<>();
+        try {
+            //  Usuario jmoordb_user = (Usuario) JmoordbContext.get("jmoordb_user");
+            List<Solicitud> list = new ArrayList<>();
+            list = repository.complete(query);
+            if (!list.isEmpty()) {
+                for (Solicitud s : list) {
+                    if (s.getTiposolicitud().getIdtiposolicitud().equals(tipoSolicitud)) {
+                        suggestions.add(s);
+                    }
+                }
+            }
+            if (!suggestions.isEmpty()) {
+
+                suggestions.sort(Comparator.comparing(Solicitud::getIdsolicitud)
+                        .reversed()
+                        .thenComparing(Comparator.comparing(Solicitud::getIdsolicitud)
+                                .reversed())
+                );
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
+        }
+
+        return suggestions;
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="String showDate(Date date)">
     public String showDate(Date date) {
         String h = "";
         try {
@@ -563,4 +562,51 @@ public class SolicitudServices {
         }
         return h;
     }// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Boolean solicitudDisponibleParaViajes(Solicitud solicitud, Date fechahorapartida, Date fechahoraregreso)">
+    /**
+     * *
+     * busca si el vehiculo tiene un viaje en esas fechas
+     *
+     * @param viajes
+     * @return
+     */
+    public Boolean solicitudDisponibleParaViajes(Solicitud solicitud, Date fechahorapartida, Date fechahoraregreso) {
+        try {
+
+            Bson filter = Filters.and(eq("solicitud.idsolicitud", solicitud.getIdsolicitud()),eq("activo", "si"));
+//           
+            return repository.isAvailableBetweenDateHour(filter,
+                    "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
+
+        } catch (Exception e) {
+            JsfUtil.errorDialog(" solicitudDisponibleParaViajes() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
+
+    // </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="vehiculoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo, Date fechahorainicioreserva, Date fechahorafinreserva,Integer idviaje)">
+    /**
+     * *
+     * busca si el vehiculo tiene un viaje en esas fechas
+     *
+     * @param viajes
+     * @return
+     */
+    public Boolean solicitudDisponibleExcluyendoMismoViaje(Solicitud solicitud, Date fechahorainicioreserva, Date fechahorafinreserva, Integer idviaje) {
+        try {
+            Bson filter = Filters.and(eq("solicitud.idsolicitud", solicitud.getIdsolicitud()), eq("activo", "si"), ne("idviaje", idviaje));
+
+            return repository.isAvailableBetweenDateHour(filter,
+                    "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
+
+        } catch (Exception e) {
+            JsfUtil.errorDialog("vehiculoDisponible() ", e.getLocalizedMessage().toString());
+        }
+        return false;
+    }
+
+    // </editor-fold>
 }
