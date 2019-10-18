@@ -595,15 +595,15 @@ public class SolicitudServices {
      * @param viajes
      * @return
      */
-    public Boolean solicitudDisponibleExcluyendoMismoViaje(Solicitud solicitud, Date fechahorainicioreserva, Date fechahorafinreserva, Integer idviaje) {
+    public Boolean solicitudDisponibleExcluyendoMismoViaje(Solicitud solicitud, Date fechahorapartida, Date fechahoraregreso, Integer idviaje) {
         try {
-            Bson filter = Filters.and(eq("solicitud.idsolicitud", solicitud.getIdsolicitud()), eq("activo", "si"), ne("idviaje", idviaje));
+            Bson filter = Filters.and(eq("solicitud.idsolicitud", solicitud.getIdsolicitud()), eq("activo", "si"));
 
             return repository.isAvailableBetweenDateHour(filter,
-                    "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
+                    "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
 
         } catch (Exception e) {
-            JsfUtil.errorDialog("vehiculoDisponible() ", e.getLocalizedMessage().toString());
+            JsfUtil.errorDialog("solicitudDisponibleExcluyendoMismoViaje() ", e.getLocalizedMessage().toString());
         }
         return false;
     }
