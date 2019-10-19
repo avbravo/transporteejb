@@ -43,6 +43,15 @@ public class Viaje {
     private String lugardestino;
     private String realizado;
     private String tipoviaje;
+    private Integer asientosdisponibles;
+
+    public Integer getAsientosdisponibles() {
+        return asientosdisponibles;
+    }
+
+    public void setAsientosdisponibles(Integer asientosdisponibles) {
+        this.asientosdisponibles = asientosdisponibles;
+    }
 
     @Embedded
     List<UserInfo> userInfo;
