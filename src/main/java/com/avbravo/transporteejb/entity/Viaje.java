@@ -42,7 +42,10 @@ public class Viaje {
     private String lugarpartida;
     private String lugardestino;
     private String realizado;
-    private String tipoviaje;
+ @Referenced(collection = "EstatusViaje",
+            field = "idestatusviaje", javatype = "String", lazy = false,
+            repository = "com.avbravo.transporteejb.repository.EstatusViajeRepository")
+    private EstatusViaje estatusViaje;
     private Integer asientosdisponibles;
 
     public Integer getAsientosdisponibles() {
@@ -177,13 +180,15 @@ public class Viaje {
         this.fechahorafinreserva = fechahorafinreserva;
     }
 
-    public String getTipoviaje() {
-        return tipoviaje;
+    public EstatusViaje getEstatusViaje() {
+        return estatusViaje;
     }
 
-    public void setTipoviaje(String tipoviaje) {
-        this.tipoviaje = tipoviaje;
+    public void setEstatusViaje(EstatusViaje estatusViaje) {
+        this.estatusViaje = estatusViaje;
     }
+
+   
 
     
     
