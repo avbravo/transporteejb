@@ -41,12 +41,9 @@ public class Vehiculo {
     private String activo;
     @Embedded
     List<UserInfo> userInfo;
-    @Ignore
     private Double totalkm;
-    @Ignore
-    Double totalconsumo;
-    @Ignore
-    Integer totalviajes;
+   private Double totalconsumo;
+    private Integer totalviajes;
 
     public Vehiculo() {
     }
