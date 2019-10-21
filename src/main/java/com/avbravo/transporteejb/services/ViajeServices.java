@@ -238,6 +238,7 @@ public class ViajeServices {
                 JsfUtil.warningDialog("Advertencia", "Costo de combustible debe ser mayor que cero");
                 return false;
             }
+       
             if (viajes.getVehiculo().getActivo().equals("no")) {
                 JsfUtil.warningDialog("Advertencia", "El vehiculo no esta activo");
                 return false;
@@ -718,4 +719,52 @@ public class ViajeServices {
     }
     // </editor-fold>
 
+    
+      // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponible(Vehiculo vehiculo)">
+    public Boolean isVehiculoActivoDisponible(Vehiculo vehiculo, Solicitud solicitud, Viaje viaje) {
+        Boolean valid = false;
+        try {
+            if(!vehiculo.getTipovehiculo().getIdtipovehiculo().equals(solicitud.getTipovehiculo().get(0).getIdtipovehiculo())){
+                return valid;
+            }
+            if (vehiculo.getActivo().equals("no") && vehiculo.getEnreparacion().equals("si") ) {
+
+            } else {
+                if (vehiculoDisponible(vehiculo, viaje.getFechahorainicioreserva(), viaje.getFechahorafinreserva())) {
+                    valid = true;
+                }
+            }
+
+        } catch (Exception e) {
+                     JsfUtil.errorDialog("isVehiculoActivoDisponible() ",e.getLocalizedMessage());
+            //errorServices.errorDialog(nameOfClass(), nameOfMethod(), nameOfMethod(), e.getLocalizedMessage());
+        }
+        return valid;
+    }
+
+    // </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo)">
+    public Boolean isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo, Solicitud solicitud, Viaje viaje) {
+        Boolean valid = false;
+        try {
+             if(!vehiculo.getTipovehiculo().getIdtipovehiculo().equals(solicitud.getTipovehiculo().get(0).getIdtipovehiculo())){
+                return valid;
+            }
+
+            if (vehiculo.getActivo().equals("no") && vehiculo.getEnreparacion().equals("si")) {
+
+            } else {
+                if (vehiculoDisponibleExcluyendoMismoViaje(vehiculo, viaje.getFechahorainicioreserva(), viaje.getFechahorafinreserva(), viaje.getIdviaje())) {
+                    valid = true;
+                }
+            }
+
+        } catch (Exception e) {
+                        JsfUtil.errorDialog("isVehiculoActivoDisponibleExcluyendoMismoViaje() ",e.getLocalizedMessage());
+        }
+        return valid;
+    }
+
+    // </editor-fold>
 }
