@@ -597,7 +597,7 @@ public class SolicitudServices {
      */
     public Boolean solicitudDisponibleExcluyendoMismoViaje(Solicitud solicitud, Date fechahorapartida, Date fechahoraregreso) {
         try {
-            Bson filter = Filters.and(eq("idsolicitud", solicitud.getIdsolicitud()), eq("activo", "si"));
+            Bson filter = Filters.and(eq("idsolicitud", solicitud.getIdsolicitud()), eq("activo", "si"),eq("estatus.idestatus","SOLICITADO"));
 
             return repository.isAvailableBetweenDateHour(filter,
                     "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
