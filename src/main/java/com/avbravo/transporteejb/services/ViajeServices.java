@@ -629,8 +629,12 @@ public class ViajeServices {
     }// </editor-fold>
     
      // <editor-fold defaultstate="collapsed" desc="isValidDates()">
-    public Boolean isValidDates(Viaje viaje, Boolean showdialog) {
+    public Boolean isValidDates(Viaje viaje, Boolean showdialog, Boolean ...compararConFechaActual) {
         try {
+              Boolean isFechaActual = true;
+            if (compararConFechaActual.length != 0) {
+               isFechaActual = compararConFechaActual[0];
+            }
             if (viaje.getFechahorainicioreserva()== null) {
                 if (showdialog) {
                     JsfUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
@@ -702,7 +706,8 @@ public class ViajeServices {
                 return false;
             }
 
-            if (DateUtil.fechaMenor(viaje.getFechahorainicioreserva(), DateUtil.fechaActual())) {
+            if(isFechaActual){
+                   if (DateUtil.fechaMenor(viaje.getFechahorainicioreserva(), DateUtil.fechaActual())) {
                 if (showdialog) {
                     JsfUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
                 } else {
@@ -710,7 +715,9 @@ public class ViajeServices {
                 }
 
                 return false;
+            } 
             }
+        
             return true;
         } catch (Exception e) {
             JsfUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
