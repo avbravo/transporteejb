@@ -47,6 +47,8 @@ public class Viaje {
             repository = "com.avbravo.transporteejb.repository.EstatusViajeRepository")
     private EstatusViaje estatusViaje;
     private Integer asientosdisponibles;
+    
+    private String mensajeWarning;
 
     public Integer getAsientosdisponibles() {
         return asientosdisponibles;
@@ -73,6 +75,16 @@ public class Viaje {
         return realizado;
     }
 
+    public String getMensajeWarning() {
+        return mensajeWarning;
+    }
+
+    public void setMensajeWarning(String mensajeWarning) {
+        this.mensajeWarning = mensajeWarning;
+    }
+
+    
+    
     public void setRealizado(String realizado) {
         this.realizado = realizado;
     }
