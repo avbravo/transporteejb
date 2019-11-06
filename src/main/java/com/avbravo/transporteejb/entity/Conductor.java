@@ -30,9 +30,7 @@ public class Conductor {
     private String escontrol;
     
       private Double totalkm;
-    @Ignore
     Double totalconsumo;
-    @Ignore
     Integer totalviajes;
 
 
