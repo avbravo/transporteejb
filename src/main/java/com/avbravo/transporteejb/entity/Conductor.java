@@ -28,17 +28,19 @@ public class Conductor {
     private String email;
     private String activo;
     private String escontrol;
-
-   @Embedded
-    List<UserInfo> userInfo;
-
-    @Ignore
-    private Double totalkm;
+    
+      private Double totalkm;
     @Ignore
     Double totalconsumo;
     @Ignore
     Integer totalviajes;
 
+
+   @Embedded
+    List<UserInfo> userInfo;
+
+ 
+  
     
     
     public Conductor() {

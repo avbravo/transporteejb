@@ -21,7 +21,7 @@ public class Vehiculo {
 
     @Id
     private Integer idvehiculo;
-   @Secondary
+    @Secondary
     private String placa;
     private String marca;
     private String modelo;
@@ -39,11 +39,12 @@ public class Vehiculo {
     private Double km;
     private String enreparacion;
     private String activo;
+
+    private Double totalkm;
+    private Double totalconsumo;
+    private Integer totalviajes;
     @Embedded
     List<UserInfo> userInfo;
-    private Double totalkm;
-   private Double totalconsumo;
-    private Integer totalviajes;
 
     public Vehiculo() {
     }
@@ -56,10 +57,6 @@ public class Vehiculo {
         this.totalviajes = totalviajes;
     }
 
-    
-    
-    
-    
     public Double getTotalkm() {
         return totalkm;
     }
@@ -76,11 +73,6 @@ public class Vehiculo {
         this.totalconsumo = totalconsumo;
     }
 
-    
-    
-    
-    
-    
     public Integer getIdvehiculo() {
         return idvehiculo;
     }
