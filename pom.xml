@@ -4,7 +4,7 @@
 
     <groupId>com.avbravo</groupId>
     <artifactId>transporteejb</artifactId>
-    <version>23.1</version>
+    <version>23.2</version>
     <packaging>ejb</packaging>
 
     <name>transporteejb</name>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>commonejb</artifactId>
-            <version>0.11</version>
+            <version>0.12</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
