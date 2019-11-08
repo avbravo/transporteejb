@@ -5,6 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
+import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Rol;
 import com.avbravo.transporteejb.repository.RolRepository;
@@ -24,7 +25,8 @@ import org.bson.Document;
  */
 @Stateless
 public class RolServices {
-
+ @Inject
+    ErrorInfoServices errorServices;
     @Inject
     RolRepository repository;
 
@@ -37,7 +39,7 @@ public class RolServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -54,7 +56,7 @@ public class RolServices {
             suggestions = repository.findRegex(field, query, true, new Document(field, 1));
 
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
         return suggestions;
     }
@@ -64,7 +66,7 @@ public class RolServices {
         try {
             rolList = repository.findAll(new Document("rol", 1));
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("getRolList() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getRolList() " + e.getLocalizedMessage());
         }
         return rolList;
     }// </editor-fold>
@@ -84,7 +86,7 @@ public class RolServices {
             }
 
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -100,7 +102,7 @@ public class RolServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
 
         return rol;

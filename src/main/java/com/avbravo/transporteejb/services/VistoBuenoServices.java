@@ -5,7 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
-
+import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.entity.VistoBueno;
@@ -28,6 +28,8 @@ import org.bson.Document;
 public class VistoBuenoServices {
 
     @Inject
+    ErrorInfoServices errorServices;
+    @Inject
     VistoBuenoRepository repository;
 
     @Inject
@@ -39,7 +41,7 @@ public class VistoBuenoServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -56,7 +58,7 @@ public class VistoBuenoServices {
             suggestions = repository.findRegex(field, query, true, new Document(field, 1));
 
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
         return suggestions;
     }
@@ -66,7 +68,7 @@ public class VistoBuenoServices {
         try {
             vistoBuenoList = repository.findAll(new Document("vistoBueno", 1));
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("getVistoBuenoList() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("getVistoBuenoList() " + e.getLocalizedMessage());
         }
         return vistoBuenoList;
     }// </editor-fold>
@@ -86,7 +88,7 @@ public class VistoBuenoServices {
 //            }
 
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -102,17 +104,19 @@ public class VistoBuenoServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
 
         return vistoBueno;
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="VistoBueno inicializarPendiente(Usuario usuario)">
     /**
      * Inicializa en pendiente la solicitud
+     *
      * @param usuario
-     * @return 
+     * @return
      */
     public VistoBueno inicializarPendiente(Usuario usuario) {
         VistoBueno vistoBueno = new VistoBueno();
@@ -122,19 +126,21 @@ public class VistoBuenoServices {
             vistoBueno.setAprobado("pe");
             vistoBueno.setUsuario(usuario);
             vistoBueno.setFecha(JmoordbUtil.getFechaActual());
-            
+
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
         }
 
         return vistoBueno;
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="VistoBueno inicializarAprobado(Usuario usuario)">
     /**
      * Inicializa un usuario aprobado
+     *
      * @param usuario
-     * @return 
+     * @return
      */
     public VistoBueno inicializarAprobado(Usuario usuario) {
         VistoBueno vistoBueno = new VistoBueno();
@@ -144,17 +150,19 @@ public class VistoBuenoServices {
             vistoBueno.setAprobado("si");
             vistoBueno.setUsuario(usuario);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
         }
 
         return vistoBueno;
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="VistoBueno aprobar(Usuario usuario, String aprobado) ">
     /**
      * Devuelve el entity Visto Bueno con el estatus asignado y el usuario
+     *
      * @param usuario
-     * @return 
+     * @return
      */
     public VistoBueno aprobar(Usuario usuario, String aprobado) {
         VistoBueno vistoBueno = new VistoBueno();
@@ -165,13 +173,14 @@ public class VistoBuenoServices {
             vistoBueno.setUsuario(usuario);
             vistoBueno.setFecha(JmoordbUtil.fechaActual());
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("aprobar() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+
         }
 
         return vistoBueno;
     }
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="columnColor(VistoBueno vistoBueno))">
     /**
      * Devuelve el color en base aprobaado
@@ -186,7 +195,7 @@ public class VistoBuenoServices {
                 case "no":
                     color = "red";
                     break;
-             
+
                 case "si":
                     color = "black";
                     break;
@@ -197,34 +206,35 @@ public class VistoBuenoServices {
                     color = "black";
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
         }
         return color;
     } // </editor-fold>
-    
-     // <editor-fold defaultstate="collapsed" desc="String columnNameVistoBueno(VistoBueno vistoBueno) ">
+
+    // <editor-fold defaultstate="collapsed" desc="String columnNameVistoBueno(VistoBueno vistoBueno) ">
     /**
      * Devuelve el nombre de las siglas del visto bueno
+     *
      * @param vistoBueno
-     * @return 
+     * @return
      */
     public String columnNameVistoBueno(VistoBueno vistoBueno) {
-        
-        String name= "PENDIENTE";
+
+        String name = "PENDIENTE";
         try {
-           if(vistoBueno.getAprobado().equals("si")){
-              name="APROBADO";
-           }else{
-               if(vistoBueno.getAprobado().equals("no")){
-              name="NO APROBADO";
-           }else{
-                   if(vistoBueno.getAprobado().equals("pe")){
-              name="PENDIENTE";
-           }
-               }
-           }
+            if (vistoBueno.getAprobado().equals("si")) {
+                name = "APROBADO";
+            } else {
+                if (vistoBueno.getAprobado().equals("no")) {
+                    name = "NO APROBADO";
+                } else {
+                    if (vistoBueno.getAprobado().equals("pe")) {
+                        name = "PENDIENTE";
+                    }
+                }
+            }
         } catch (Exception e) {
-           JmoordbUtil.errorMessage("columnNameVistoBueno() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("columnNameVistoBueno() " + e.getLocalizedMessage());
         }
         return name;
     }

@@ -6,6 +6,7 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.jmoordb.mongodb.history.services.AutoincrementableServices;
+import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.pojos.JmoordbNotifications;
 import com.avbravo.jmoordb.pojos.UserInfo;
 import com.avbravo.jmoordb.profiles.repository.JmoordbNotificationsRepository;
@@ -24,7 +25,8 @@ import javax.inject.Inject;
  */
 @Stateless
 public class NotificacionServices {
-
+ @Inject
+    ErrorInfoServices errorServices;
     @Inject
    JmoordbNotificationsRepository repository;
     @Inject
@@ -53,7 +55,7 @@ public class NotificacionServices {
             repository.save(jmoordbNotifications);
             return true;
         } catch (Exception e) {
-               JmoordbUtil.errorMessage("saveNotification " + e.getLocalizedMessage());
+                errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("saveNotification " + e.getLocalizedMessage());
 
 
         }

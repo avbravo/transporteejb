@@ -5,6 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
+import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Tipovehiculo;
 import com.avbravo.transporteejb.entity.Vehiculo;
@@ -23,6 +24,8 @@ import org.bson.Document;
  */
 @Stateless
 public class VehiculoServices {
+     @Inject
+    ErrorInfoServices errorServices;
     @Inject
     VehiculoRepository repository;
       @Inject
@@ -35,7 +38,7 @@ public class VehiculoServices {
          try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -46,7 +49,7 @@ public class VehiculoServices {
         try {
             vehiculoList = repository.findAll(new Document("vehiculo", 1));
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("getVehiculoList() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getVehiculoList() " + e.getLocalizedMessage());
         }
         return vehiculoList;
     }// </editor-fold>
@@ -68,7 +71,7 @@ public class VehiculoServices {
             }
             
         } catch (Exception e) {
-             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -85,7 +88,7 @@ public class VehiculoServices {
                return optional.get();
             } 
         } catch (Exception e) {
-             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return vehiculo;
@@ -105,7 +108,7 @@ public class VehiculoServices {
             
          cantidad=   repository.count(new Document("tipovehiculo.idtipovehiculo",tipovehiculo.getIdtipovehiculo()));
         } catch (Exception e) {
-           JmoordbUtil.errorMessage("cantidadVehiculosPorTipo() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("cantidadVehiculosPorTipo() " + e.getLocalizedMessage());
         }
        
         return cantidad;
@@ -167,7 +170,7 @@ public class VehiculoServices {
                 }
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("generarPasajerosPorViajes() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("generarPasajerosPorViajes() " + e.getLocalizedMessage());
         }
         return pasajerosRecomendadosList;
     }
@@ -210,7 +213,7 @@ public class VehiculoServices {
 
             }
         } catch (Exception e) {
-               JmoordbUtil.errorMessage("vehiculosRecomendados " + e.getLocalizedMessage());
+                errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("vehiculosRecomendados " + e.getLocalizedMessage());
         }
         return totalVehiculos;
     }
@@ -241,7 +244,7 @@ public class VehiculoServices {
             }
 
         } catch (Exception e) {
-             JmoordbUtil.errorMessage("pasajerosRecomendados() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("pasajerosRecomendados() " + e.getLocalizedMessage());
         }
         return pasajerosPendientes;
     }

@@ -5,6 +5,7 @@
 */
 package com.avbravo.transporteejb.services;
 
+import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Conductor;
 import com.avbravo.transporteejb.repository.ConductorRepository;
@@ -22,6 +23,8 @@ import org.bson.Document;
  */
 @Stateless
 public class ConductorServices {
+     @Inject
+    ErrorInfoServices errorServices;
  @Inject
     ViajeRepository viajesRepository;
         
@@ -34,7 +37,7 @@ public class ConductorServices {
            try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
            return suggestions;
@@ -44,7 +47,7 @@ public class ConductorServices {
           try {
         conductorList= repository.findAll(new Document("idconductor",1));
         } catch (Exception e) {
-              JmoordbUtil.errorMessage("getConductorList() " + e.getLocalizedMessage());
+               errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getConductorList() " + e.getLocalizedMessage());
         }
 
         return conductorList;
@@ -66,7 +69,7 @@ public class ConductorServices {
             }
             
         } catch (Exception e) {
-             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -83,7 +86,7 @@ public class ConductorServices {
                return optional.get();
             } 
         } catch (Exception e) {
-             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return conductor;

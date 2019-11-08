@@ -7,6 +7,7 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.commonejb.entity.Facultad;
 import com.avbravo.jmoordb.configuration.JmoordbContext;
+import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Rol;
 import com.avbravo.transporteejb.entity.Usuario;
@@ -28,7 +29,8 @@ import org.bson.conversions.Bson;
  */
 @Stateless
 public class UsuarioServices {
-
+ @Inject
+    ErrorInfoServices errorServices;
     Boolean coordinadorvalido = false;
     Boolean escoordinador = false;
     @Inject
@@ -43,7 +45,7 @@ public class UsuarioServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -53,7 +55,7 @@ public class UsuarioServices {
         try {
             usuarioList = repository.findAll(new Document("username", 1));
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("getUsuarioList() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getUsuarioList() " + e.getLocalizedMessage());
         }
 
         return usuarioList;
@@ -74,7 +76,7 @@ public class UsuarioServices {
             }
 
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -90,7 +92,7 @@ public class UsuarioServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
 
         return usuario;
@@ -110,7 +112,7 @@ public class UsuarioServices {
             list = repository.filters(filter);
 
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
         }
         return list;
     }
@@ -170,7 +172,7 @@ public class UsuarioServices {
 
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
         }
         return l;
     }
@@ -199,7 +201,7 @@ public class UsuarioServices {
             }
 
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("esElCoordinadorQuienSolicita() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("esElCoordinadorQuienSolicita() " + e.getLocalizedMessage());
         }
         return esElCoordinadorQuienSolicita;
     }
@@ -226,7 +228,7 @@ public class UsuarioServices {
             }
 
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("esElSecretarioAdministrativoQuienSolicita() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("esElSecretarioAdministrativoQuienSolicita() " + e.getLocalizedMessage());
         }
         return found;
     }
@@ -250,7 +252,7 @@ public class UsuarioServices {
                 }
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("removerCoordinadorLista() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("removerCoordinadorLista() " + e.getLocalizedMessage());
         }
         return list;
     }

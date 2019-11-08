@@ -5,6 +5,7 @@
 */
 package com.avbravo.transporteejb.converter;
 
+import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.repository.UsuarioRepository;
@@ -23,7 +24,8 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class UsuarioConverter implements Converter {
-
+ @Inject
+    ErrorInfoServices errorServices;
     @Inject
     UsuarioRepository usuarioRepository;
 
@@ -40,7 +42,7 @@ public class UsuarioConverter implements Converter {
                }   
              }
           } catch (Exception e) {
-             JmoordbUtil.errorMessage("getAsObject()" + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getAsObject()" + e.getLocalizedMessage());
           }
           return usuario;
       }
@@ -57,7 +59,7 @@ public class UsuarioConverter implements Converter {
                r = (String) o;
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("getAsString()" + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getAsString()" + e.getLocalizedMessage());
         }
         return r;
         }

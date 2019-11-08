@@ -5,6 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
+import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 
 import com.avbravo.transporteejb.entity.Estatus;
@@ -23,7 +24,8 @@ import org.bson.Document;
  */
 @Stateless
 public class EstatusServices {
-
+ @Inject
+    ErrorInfoServices errorServices;
     @Inject
     EstatusRepository repository;
     @Inject
@@ -35,7 +37,7 @@ public class EstatusServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -45,7 +47,7 @@ public class EstatusServices {
         try {
             estatusList = repository.findAll(new Document("idestatus", 1));
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
         }
 
         return estatusList;
@@ -66,7 +68,7 @@ public class EstatusServices {
             }
 
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -82,7 +84,7 @@ public class EstatusServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
 
         return estatus;
@@ -116,7 +118,7 @@ public class EstatusServices {
                     color = "black";
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
         }
         return color;
     } // </editor-fold>
@@ -146,7 +148,7 @@ public class EstatusServices {
                     habilitado = true;
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
         }
         return habilitado;
     } // </editor-fold>

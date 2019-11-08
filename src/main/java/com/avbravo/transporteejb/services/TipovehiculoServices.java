@@ -5,6 +5,7 @@
 */
 package com.avbravo.transporteejb.services;
 
+import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Tipovehiculo;
 import com.avbravo.transporteejb.repository.TipovehiculoRepository;
@@ -22,7 +23,8 @@ import org.bson.Document;
  */
 @Stateless
 public class TipovehiculoServices {
-
+ @Inject
+    ErrorInfoServices errorServices;
     @Inject
     TipovehiculoRepository repository;
        @Inject
@@ -33,7 +35,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
              try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
            return suggestions;
@@ -45,7 +47,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
         try {
            tipovehiculoList= repository.findAll(new Document("tipovehiculo",1));
         } catch (Exception e) {
-              JmoordbUtil.errorMessage("getTipovehiculoList() " + e.getLocalizedMessage());
+               errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getTipovehiculoList() " + e.getLocalizedMessage());
         }
         return tipovehiculoList;
     }// </editor-fold>
@@ -66,7 +68,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
             }
             
         } catch (Exception e) {
-             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -83,7 +85,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
                return optional.get();
             } 
         } catch (Exception e) {
-             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return tipovehiculo;

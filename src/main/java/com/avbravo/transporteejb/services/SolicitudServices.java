@@ -6,6 +6,7 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.jmoordb.configuration.JmoordbContext;
+import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
@@ -30,7 +31,8 @@ import org.bson.conversions.Bson;
  */
 @Stateless
 public class SolicitudServices {
-
+ @Inject
+    ErrorInfoServices errorServices;
     @Inject
     SolicitudRepository repository;
     @Inject
@@ -45,7 +47,7 @@ public class SolicitudServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -56,7 +58,7 @@ public class SolicitudServices {
         try {
             solicitudList = repository.findAll(new Document("solicitud", 1));
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("getSolicitudList() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getSolicitudList() " + e.getLocalizedMessage());
         }
         return solicitudList;
     }// </editor-fold>
@@ -76,7 +78,7 @@ public class SolicitudServices {
             }
 
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -92,7 +94,7 @@ public class SolicitudServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
 
         return solicitud;
@@ -125,7 +127,7 @@ public class SolicitudServices {
                 }
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
         }
         return Optional.empty();
     }
@@ -157,7 +159,7 @@ public class SolicitudServices {
                 }
             }
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
         }
         return Optional.empty();
     }
@@ -169,7 +171,7 @@ public class SolicitudServices {
         try {
             usuario = solicitud.getUsuario().get(0);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("solicitadoPor() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("solicitadoPor() " + e.getLocalizedMessage());
         }
         return usuario;
     }
@@ -181,7 +183,7 @@ public class SolicitudServices {
         try {
             usuario = solicitud.getUsuario().get(1);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("responsable() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("responsable() " + e.getLocalizedMessage());
         }
         return usuario;
     }
@@ -544,7 +546,7 @@ public class SolicitudServices {
         try {
             h = JmoordbUtil.dateFormatToString(date, "dd/MM/yyyy");
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("showDate() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("showDate() " + e.getLocalizedMessage());
         }
         return h;
     }// </editor-fold>
@@ -555,7 +557,7 @@ public class SolicitudServices {
         try {
             h = JmoordbUtil.hourFromDateToString(date);
         } catch (Exception e) {
-            JmoordbUtil.errorMessage("showHour() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("showHour() " + e.getLocalizedMessage());
         }
         return h;
     }// </editor-fold>
