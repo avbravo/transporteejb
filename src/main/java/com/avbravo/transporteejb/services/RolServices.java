@@ -5,7 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Rol;
 import com.avbravo.transporteejb.repository.RolRepository;
 import com.avbravo.transporteejb.repository.UsuarioRepository;
@@ -37,7 +37,7 @@ public class RolServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -54,7 +54,7 @@ public class RolServices {
             suggestions = repository.findRegex(field, query, true, new Document(field, 1));
 
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
         return suggestions;
     }
@@ -64,7 +64,7 @@ public class RolServices {
         try {
             rolList = repository.findAll(new Document("rol", 1));
         } catch (Exception e) {
-            JsfUtil.errorMessage("getRolList() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getRolList() " + e.getLocalizedMessage());
         }
         return rolList;
     }// </editor-fold>
@@ -84,7 +84,7 @@ public class RolServices {
             }
 
         } catch (Exception e) {
-            JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -100,7 +100,7 @@ public class RolServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
 
         return rol;

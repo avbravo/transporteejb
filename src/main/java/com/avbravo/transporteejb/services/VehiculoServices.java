@@ -5,7 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Tipovehiculo;
 import com.avbravo.transporteejb.entity.Vehiculo;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
@@ -35,7 +35,7 @@ public class VehiculoServices {
          try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -46,7 +46,7 @@ public class VehiculoServices {
         try {
             vehiculoList = repository.findAll(new Document("vehiculo", 1));
         } catch (Exception e) {
-            JsfUtil.errorMessage("getVehiculoList() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getVehiculoList() " + e.getLocalizedMessage());
         }
         return vehiculoList;
     }// </editor-fold>
@@ -68,7 +68,7 @@ public class VehiculoServices {
             }
             
         } catch (Exception e) {
-             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -85,7 +85,7 @@ public class VehiculoServices {
                return optional.get();
             } 
         } catch (Exception e) {
-             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return vehiculo;
@@ -105,7 +105,7 @@ public class VehiculoServices {
             
          cantidad=   repository.count(new Document("tipovehiculo.idtipovehiculo",tipovehiculo.getIdtipovehiculo()));
         } catch (Exception e) {
-           JsfUtil.errorMessage("cantidadVehiculosPorTipo() " + e.getLocalizedMessage());
+           JmoordbUtil.errorMessage("cantidadVehiculosPorTipo() " + e.getLocalizedMessage());
         }
        
         return cantidad;
@@ -167,7 +167,7 @@ public class VehiculoServices {
                 }
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("generarPasajerosPorViajes() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("generarPasajerosPorViajes() " + e.getLocalizedMessage());
         }
         return pasajerosRecomendadosList;
     }
@@ -210,7 +210,7 @@ public class VehiculoServices {
 
             }
         } catch (Exception e) {
-               JsfUtil.errorMessage("vehiculosRecomendados " + e.getLocalizedMessage());
+               JmoordbUtil.errorMessage("vehiculosRecomendados " + e.getLocalizedMessage());
         }
         return totalVehiculos;
     }
@@ -241,7 +241,7 @@ public class VehiculoServices {
             }
 
         } catch (Exception e) {
-             JsfUtil.errorMessage("pasajerosRecomendados() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("pasajerosRecomendados() " + e.getLocalizedMessage());
         }
         return pasajerosPendientes;
     }

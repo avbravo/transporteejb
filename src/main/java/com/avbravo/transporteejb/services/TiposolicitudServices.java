@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Tiposolicitud;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.TiposolicitudRepository;
@@ -33,7 +33,7 @@ public class TiposolicitudServices {
            try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
            return suggestions;
@@ -43,7 +43,7 @@ public class TiposolicitudServices {
           try {
         tiposolicitudList= repository.findAll(new Document("idtiposolicitud",1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getTiposolicitudList() " + e.getLocalizedMessage());
+              JmoordbUtil.errorMessage("getTiposolicitudList() " + e.getLocalizedMessage());
         }
 
         return tiposolicitudList;
@@ -66,7 +66,7 @@ public class TiposolicitudServices {
             }
             
         } catch (Exception e) {
-             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -83,7 +83,7 @@ public class TiposolicitudServices {
                return optional.get();
             } 
         } catch (Exception e) {
-             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return tiposolicitud;

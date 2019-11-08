@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Tipovehiculo;
 import com.avbravo.transporteejb.repository.TipovehiculoRepository;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
@@ -33,7 +33,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
              try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
            return suggestions;
@@ -45,7 +45,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
         try {
            tipovehiculoList= repository.findAll(new Document("tipovehiculo",1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getTipovehiculoList() " + e.getLocalizedMessage());
+              JmoordbUtil.errorMessage("getTipovehiculoList() " + e.getLocalizedMessage());
         }
         return tipovehiculoList;
     }// </editor-fold>
@@ -66,7 +66,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
             }
             
         } catch (Exception e) {
-             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -83,7 +83,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
                return optional.get();
             } 
         } catch (Exception e) {
-             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return tipovehiculo;

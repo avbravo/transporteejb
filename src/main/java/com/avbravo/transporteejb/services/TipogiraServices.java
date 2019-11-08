@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Tipogira;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.TipogiraRepository;
@@ -33,7 +33,7 @@ public class TipogiraServices {
            try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
            return suggestions;
@@ -43,7 +43,7 @@ public class TipogiraServices {
           try {
         tipogiraList= repository.findAll(new Document("idtipogira",1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getTipogiraList() " + e.getLocalizedMessage());
+              JmoordbUtil.errorMessage("getTipogiraList() " + e.getLocalizedMessage());
         }
 
         return tipogiraList;
@@ -66,7 +66,7 @@ public class TipogiraServices {
             }
             
         } catch (Exception e) {
-             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -83,7 +83,7 @@ public class TipogiraServices {
                return optional.get();
             } 
         } catch (Exception e) {
-             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return tipogira;

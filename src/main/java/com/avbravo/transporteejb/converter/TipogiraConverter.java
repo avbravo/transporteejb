@@ -5,7 +5,7 @@
  */
 package com.avbravo.transporteejb.converter;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Tipogira;
 import com.avbravo.transporteejb.repository.TipogiraRepository;
 import java.util.Optional;
@@ -40,7 +40,7 @@ public class TipogiraConverter implements Converter {
                 }
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("getAsObject()" + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getAsObject()" + e.getLocalizedMessage());
         }
         return tipogira;
     }
@@ -56,7 +56,7 @@ public class TipogiraConverter implements Converter {
                 r = (String) o;
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("getAsString()" + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getAsString()" + e.getLocalizedMessage());
         }
         return r;
     }

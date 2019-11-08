@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.converter;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Viaje;
 import com.avbravo.transporteejb.repository.ViajeRepository;
 import java.util.Optional;
@@ -40,7 +40,7 @@ public class ViajeConverter implements Converter {
                }   
              }
           } catch (Exception e) {
-             JsfUtil.errorMessage("getAsObject()" + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("getAsObject()" + e.getLocalizedMessage());
           }
           return viajes;
       }
@@ -57,7 +57,7 @@ public class ViajeConverter implements Converter {
                r = (String) o;
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("getAsString()" + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getAsString()" + e.getLocalizedMessage());
         }
         return r;
         }

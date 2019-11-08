@@ -9,8 +9,7 @@ import com.avbravo.jmoordb.mongodb.history.services.AutoincrementableServices;
 import com.avbravo.jmoordb.pojos.JmoordbNotifications;
 import com.avbravo.jmoordb.pojos.UserInfo;
 import com.avbravo.jmoordb.profiles.repository.JmoordbNotificationsRepository;
-import com.avbravo.jmoordbutils.DateUtil;
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 
 import com.avbravo.transporteejb.entity.Estatus;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
@@ -44,7 +43,7 @@ public class NotificacionServices {
             jmoordbNotifications.setUsername(username);
             jmoordbNotifications.setMessage(mensaje);
             jmoordbNotifications.setViewed("no");
-            jmoordbNotifications.setDate(DateUtil.fechaActual());
+            jmoordbNotifications.setDate(JmoordbUtil.fechaActual());
             jmoordbNotifications.setType(tiposolicitud);
 
             List<UserInfo> list = repository.generateListUserinfo(username, "create");
@@ -54,7 +53,7 @@ public class NotificacionServices {
             repository.save(jmoordbNotifications);
             return true;
         } catch (Exception e) {
-               JsfUtil.errorMessage("saveNotification " + e.getLocalizedMessage());
+               JmoordbUtil.errorMessage("saveNotification " + e.getLocalizedMessage());
 
 
         }

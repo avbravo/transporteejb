@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Unidad;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.UnidadRepository;
@@ -39,7 +39,7 @@ public class UnidadServices {
             try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
            return suggestions;
@@ -49,7 +49,7 @@ public class UnidadServices {
           try {
           unidadList= repository.findAll(new Document("unidad",1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getUnidadList() " + e.getLocalizedMessage());
+              JmoordbUtil.errorMessage("getUnidadList() " + e.getLocalizedMessage());
         }
 
         return unidadList;
@@ -76,7 +76,7 @@ public class UnidadServices {
             }
             
         } catch (Exception e) {
-             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -93,7 +93,7 @@ public class UnidadServices {
                return optional.get();
             } 
         } catch (Exception e) {
-             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return unidad;

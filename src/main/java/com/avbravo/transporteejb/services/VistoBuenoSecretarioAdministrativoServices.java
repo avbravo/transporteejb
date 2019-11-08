@@ -5,9 +5,8 @@
  */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.jmoordbutils.DateUtil;
-import com.avbravo.jmoordbutils.JsfUtil;
-import com.avbravo.transporteejb.entity.Estatus;
+
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.entity.VistoBuenoSecretarioAdministrativo;
 import com.avbravo.transporteejb.repository.VistoBuenoSecretarioAdministrativoRepository;
@@ -40,7 +39,7 @@ public class VistoBuenoSecretarioAdministrativoServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -57,7 +56,7 @@ public class VistoBuenoSecretarioAdministrativoServices {
             suggestions = repository.findRegex(field, query, true, new Document(field, 1));
 
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
         return suggestions;
     }
@@ -67,7 +66,7 @@ public class VistoBuenoSecretarioAdministrativoServices {
         try {
             vistoBuenoList = repository.findAll(new Document("vistoBueno", 1));
         } catch (Exception e) {
-            JsfUtil.errorMessage("getVistoBuenoSecretarioAdministrativoList() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getVistoBuenoSecretarioAdministrativoList() " + e.getLocalizedMessage());
         }
         return vistoBuenoList;
     }// </editor-fold>
@@ -87,7 +86,7 @@ public class VistoBuenoSecretarioAdministrativoServices {
 //            }
 
         } catch (Exception e) {
-            JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -103,7 +102,7 @@ public class VistoBuenoSecretarioAdministrativoServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
 
         return vistoBueno;
@@ -119,13 +118,13 @@ public class VistoBuenoSecretarioAdministrativoServices {
         VistoBuenoSecretarioAdministrativo vistoBueno = new VistoBuenoSecretarioAdministrativo();
         try {
 
-            vistoBueno.setIdvistobuenosecretarioadministrativo(JsfUtil.generateUniqueID());
+            vistoBueno.setIdvistobuenosecretarioadministrativo(JmoordbUtil.generateUniqueID());
             vistoBueno.setAprobado("pe");
             vistoBueno.setUsuario(usuario);
-            vistoBueno.setFecha(DateUtil.getFechaActual());
+            vistoBueno.setFecha(JmoordbUtil.getFechaActual());
             
         } catch (Exception e) {
-            JsfUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
         }
 
         return vistoBueno;
@@ -141,11 +140,11 @@ public class VistoBuenoSecretarioAdministrativoServices {
         VistoBuenoSecretarioAdministrativo vistoBueno = new VistoBuenoSecretarioAdministrativo();
         try {
 
-            vistoBueno.setIdvistobuenosecretarioadministrativo(JsfUtil.generateUniqueID());
+            vistoBueno.setIdvistobuenosecretarioadministrativo(JmoordbUtil.generateUniqueID());
             vistoBueno.setAprobado("si");
             vistoBueno.setUsuario(usuario);
         } catch (Exception e) {
-            JsfUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
         }
 
         return vistoBueno;
@@ -161,11 +160,11 @@ public class VistoBuenoSecretarioAdministrativoServices {
         VistoBuenoSecretarioAdministrativo vistoBueno = new VistoBuenoSecretarioAdministrativo();
         try {
 
-            vistoBueno.setIdvistobuenosecretarioadministrativo(JsfUtil.generateUniqueID());
+            vistoBueno.setIdvistobuenosecretarioadministrativo(JmoordbUtil.generateUniqueID());
             vistoBueno.setAprobado(aprobado);
             vistoBueno.setUsuario(usuario);
         } catch (Exception e) {
-            JsfUtil.errorMessage("aprobar() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("aprobar() " + e.getLocalizedMessage());
         }
 
         return vistoBueno;
@@ -197,7 +196,7 @@ public class VistoBuenoSecretarioAdministrativoServices {
                     color = "black";
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
         }
         return color;
     } // </editor-fold>
@@ -224,7 +223,7 @@ public class VistoBuenoSecretarioAdministrativoServices {
                }
            }
         } catch (Exception e) {
-           JsfUtil.errorMessage("columnNameVistoBuenoSecretarioAdministrativo() " + e.getLocalizedMessage());
+           JmoordbUtil.errorMessage("columnNameVistoBuenoSecretarioAdministrativo() " + e.getLocalizedMessage());
         }
         return name;
     }

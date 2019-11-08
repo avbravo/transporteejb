@@ -7,7 +7,7 @@ package com.avbravo.transporteejb.services;
 
 import com.avbravo.commonejb.entity.Facultad;
 import com.avbravo.jmoordb.configuration.JmoordbContext;
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Rol;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
@@ -43,7 +43,7 @@ public class UsuarioServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -53,7 +53,7 @@ public class UsuarioServices {
         try {
             usuarioList = repository.findAll(new Document("username", 1));
         } catch (Exception e) {
-            JsfUtil.errorMessage("getUsuarioList() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getUsuarioList() " + e.getLocalizedMessage());
         }
 
         return usuarioList;
@@ -74,7 +74,7 @@ public class UsuarioServices {
             }
 
         } catch (Exception e) {
-            JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -90,7 +90,7 @@ public class UsuarioServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
 
         return usuario;
@@ -110,7 +110,7 @@ public class UsuarioServices {
             list = repository.filters(filter);
 
         } catch (Exception e) {
-            JsfUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
         }
         return list;
     }
@@ -170,7 +170,7 @@ public class UsuarioServices {
 
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("usuariosParaNotificar() " + e.getLocalizedMessage());
         }
         return l;
     }
@@ -199,7 +199,7 @@ public class UsuarioServices {
             }
 
         } catch (Exception e) {
-            JsfUtil.errorMessage("esElCoordinadorQuienSolicita() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("esElCoordinadorQuienSolicita() " + e.getLocalizedMessage());
         }
         return esElCoordinadorQuienSolicita;
     }
@@ -226,7 +226,7 @@ public class UsuarioServices {
             }
 
         } catch (Exception e) {
-            JsfUtil.errorMessage("esElSecretarioAdministrativoQuienSolicita() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("esElSecretarioAdministrativoQuienSolicita() " + e.getLocalizedMessage());
         }
         return found;
     }
@@ -250,7 +250,7 @@ public class UsuarioServices {
                 }
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("removerCoordinadorLista() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("removerCoordinadorLista() " + e.getLocalizedMessage());
         }
         return list;
     }

@@ -5,7 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 
 import com.avbravo.transporteejb.entity.Estatus;
 import com.avbravo.transporteejb.entity.EstatusViaje;
@@ -36,7 +36,7 @@ public class EstatusViajeServices {
            try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -46,7 +46,7 @@ public class EstatusViajeServices {
         try {
             estatusViajeList = repository.findAll(new Document("idestatusviaje", 1));
         } catch (Exception e) {
-            JsfUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
         }
 
         return estatusViajeList;
@@ -68,7 +68,7 @@ public class EstatusViajeServices {
             }
             
         } catch (Exception e) {
-             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -86,7 +86,7 @@ public class EstatusViajeServices {
                return optional.get();
             } 
         } catch (Exception e) {
-             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return estatusViaje;

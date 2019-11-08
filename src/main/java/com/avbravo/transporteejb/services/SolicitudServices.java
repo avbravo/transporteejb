@@ -6,17 +6,14 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.jmoordb.configuration.JmoordbContext;
-import com.avbravo.jmoordbutils.DateUtil;
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
-import com.avbravo.transporteejb.entity.Vehiculo;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
 import com.avbravo.transporteejb.repository.ViajeRepository;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.ne;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -48,7 +45,7 @@ public class SolicitudServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -59,7 +56,7 @@ public class SolicitudServices {
         try {
             solicitudList = repository.findAll(new Document("solicitud", 1));
         } catch (Exception e) {
-            JsfUtil.errorMessage("getSolicitudList() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getSolicitudList() " + e.getLocalizedMessage());
         }
         return solicitudList;
     }// </editor-fold>
@@ -79,7 +76,7 @@ public class SolicitudServices {
             }
 
         } catch (Exception e) {
-            JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -95,7 +92,7 @@ public class SolicitudServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
 
         return solicitud;
@@ -119,8 +116,8 @@ public class SolicitudServices {
             List<Solicitud> list = repository.filters(filter_1, new Document("idsolicitud", -1));
             if (!list.isEmpty()) {
                 for (Solicitud s : list) {
-                    if (DateUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
-                            || DateUtil.dateBetween(solicitud.getFechahoraregreso(), s.getFechahorapartida(), s.getFechahoraregreso())) {
+                    if (JmoordbUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
+                            || JmoordbUtil.dateBetween(solicitud.getFechahoraregreso(), s.getFechahorapartida(), s.getFechahoraregreso())) {
 
 // coincide en el rango de fecha y hora con la solicitud s
                         return Optional.of(s);
@@ -128,7 +125,7 @@ public class SolicitudServices {
                 }
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
         }
         return Optional.empty();
     }
@@ -151,8 +148,8 @@ public class SolicitudServices {
             List<Solicitud> list = repository.filters(filter_1, new Document("idsolicitud", -1));
             if (!list.isEmpty()) {
                 for (Solicitud s : list) {
-                    if (DateUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
-                            || DateUtil.dateBetween(solicitud.getFechahoraregreso(), s.getFechahorapartida(), s.getFechahoraregreso())) {
+                    if (JmoordbUtil.dateBetween(solicitud.getFechahorapartida(), s.getFechahorapartida(), s.getFechahoraregreso())
+                            || JmoordbUtil.dateBetween(solicitud.getFechahoraregreso(), s.getFechahorapartida(), s.getFechahoraregreso())) {
 
 // coincide en el rango de fecha y hora con la solicitud s
                         return Optional.of(s);
@@ -160,7 +157,7 @@ public class SolicitudServices {
                 }
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
         }
         return Optional.empty();
     }
@@ -172,7 +169,7 @@ public class SolicitudServices {
         try {
             usuario = solicitud.getUsuario().get(0);
         } catch (Exception e) {
-            JsfUtil.errorMessage("solicitadoPor() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("solicitadoPor() " + e.getLocalizedMessage());
         }
         return usuario;
     }
@@ -184,7 +181,7 @@ public class SolicitudServices {
         try {
             usuario = solicitud.getUsuario().get(1);
         } catch (Exception e) {
-            JsfUtil.errorMessage("responsable() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("responsable() " + e.getLocalizedMessage());
         }
         return usuario;
     }
@@ -194,71 +191,71 @@ public class SolicitudServices {
     public Boolean isValid(Solicitud solicitud) {
         try {
             if (solicitud.getFechahorapartida() == null) {
-                JsfUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
+                JmoordbUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
                 return false;
             }
 
             if (solicitud.getFechahoraregreso() == null) {
-                JsfUtil.warningDialog("Advertencia", "Fecha de regreso no seleccionada");
+                JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso no seleccionada");
                 return false;
             }
             if (solicitud.getRangoagenda() == null || solicitud.getRangoagenda().isEmpty()) {
-                JsfUtil.warningDialog("Advertencia", "Por favor indique el rango para la agenad");
+                JmoordbUtil.warningDialog("Advertencia", "Por favor indique el rango para la agenad");
                 return false;
             }
 
-            if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+            if (JmoordbUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
-                JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
                 return false;
             }
 
-            if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+            if (JmoordbUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
-                JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
                 return false;
             }
-            if (DateUtil.fechaIgual(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+            if (JmoordbUtil.fechaIgual(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
-                JsfUtil.warningDialog("Advertencia", "Fecha de regreso es igual que la fecha de partida");
-                return false;
-            }
-
-            if (DateUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
-                    && DateUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
-                JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
+                JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso es igual que la fecha de partida");
                 return false;
             }
 
-            if (DateUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
-                    && DateUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
-                JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
+            if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
+                    && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
+                JmoordbUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
+                return false;
+            }
+
+            if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
+                    && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
+                JmoordbUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
                 return false;
             }
 
             if (solicitud.getPasajeros() <= 0) {
-                JsfUtil.warningDialog("Advertencia", "Numero de pasajeros menor que cero");
+                JmoordbUtil.warningDialog("Advertencia", "Numero de pasajeros menor que cero");
                 return false;
             }
 
             if (solicitud.getNumerodevehiculos() <= 0) {
-                JsfUtil.warningDialog("Advertencia", "Numero de vehiculos debe ser mayor que cero");
+                JmoordbUtil.warningDialog("Advertencia", "Numero de vehiculos debe ser mayor que cero");
                 return false;
             }
             Integer totalvehiculos = vehiculoRepository.count(new Document("activo", "si").append("enreparacion", "no"));
 
             if (solicitud.getNumerodevehiculos() >= totalvehiculos) {
-                JsfUtil.warningDialog("Advertencia", "Numero de vehiculos es mayor que la cantidad de vehiculos disponibles");
+                JmoordbUtil.warningDialog("Advertencia", "Numero de vehiculos es mayor que la cantidad de vehiculos disponibles");
                 return false;
             }
 
-            if (DateUtil.fechaMenor(solicitud.getFechahorapartida(), DateUtil.fechaActual())) {
-                JsfUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
+            if (JmoordbUtil.fechaMenor(solicitud.getFechahorapartida(), JmoordbUtil.fechaActual())) {
+                JmoordbUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
                 return false;
             }
             return true;
         } catch (Exception e) {
-            JsfUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
+            JmoordbUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
         }
         return false;
     }
@@ -269,9 +266,9 @@ public class SolicitudServices {
         try {
             if (solicitud.getFechahorapartida() == null) {
                 if (showdialog) {
-                    JsfUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
+                    JmoordbUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
                 } else {
-                    JsfUtil.warningMessage("Fecha de partida no seleccionada");
+                    JmoordbUtil.warningMessage("Fecha de partida no seleccionada");
                 }
 
                 return false;
@@ -279,77 +276,77 @@ public class SolicitudServices {
 
             if (solicitud.getFechahoraregreso() == null) {
                 if (showdialog) {
-                    JsfUtil.warningDialog("Advertencia", "Fecha de regreso no seleccionada");
+                    JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso no seleccionada");
                 } else {
-                    JsfUtil.warningMessage("Fecha de regreso no seleccionada");
+                    JmoordbUtil.warningMessage("Fecha de regreso no seleccionada");
                 }
 
                 return false;
             }
 
-            if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+            if (JmoordbUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
                 if (showdialog) {
-                    JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                    JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
                 } else {
-                    JsfUtil.warningMessage("Fecha de regreso menor que la fecha de partida");
+                    JmoordbUtil.warningMessage("Fecha de regreso menor que la fecha de partida");
                 }
 
                 return false;
             }
 
-            if (DateUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+            if (JmoordbUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
                 if (showdialog) {
-                    JsfUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                    JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
                 } else {
-                    JsfUtil.warningMessage("Fecha de regreso menor que la fecha de partida");
+                    JmoordbUtil.warningMessage("Fecha de regreso menor que la fecha de partida");
                 }
 
                 return false;
             }
-            if (DateUtil.fechaIgual(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
+            if (JmoordbUtil.fechaIgual(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
                 if (showdialog) {
-                    JsfUtil.warningDialog("Advertencia", "Fecha de regreso es igual que la fecha de partida");
+                    JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso es igual que la fecha de partida");
                 } else {
-                    JsfUtil.warningMessage("Fecha de regreso es igual que la fecha de partida");
-                }
-
-                return false;
-            }
-
-            if (DateUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
-                    && DateUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
-                if (showdialog) {
-                    JsfUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
-                } else {
-                    JsfUtil.warningMessage("La hora de partida no debe ser cero");
+                    JmoordbUtil.warningMessage("Fecha de regreso es igual que la fecha de partida");
                 }
 
                 return false;
             }
 
-            if (DateUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
-                    && DateUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
+            if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
+                    && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
                 if (showdialog) {
-                    JsfUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
+                    JmoordbUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
                 } else {
-                    JsfUtil.warningMessage("La hora de llegada no debe ser cero");
+                    JmoordbUtil.warningMessage("La hora de partida no debe ser cero");
                 }
 
                 return false;
             }
 
-            if (DateUtil.fechaMenor(solicitud.getFechahorapartida(), DateUtil.fechaActual())) {
+            if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
+                    && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
                 if (showdialog) {
-                    JsfUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
+                    JmoordbUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
                 } else {
-                    JsfUtil.warningMessage("Fecha de partida es menor que la fecha actual");
+                    JmoordbUtil.warningMessage("La hora de llegada no debe ser cero");
+                }
+
+                return false;
+            }
+
+            if (JmoordbUtil.fechaMenor(solicitud.getFechahorapartida(), JmoordbUtil.fechaActual())) {
+                if (showdialog) {
+                    JmoordbUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
+                } else {
+                    JmoordbUtil.warningMessage("Fecha de partida es menor que la fecha actual");
                 }
 
                 return false;
             }
             return true;
         } catch (Exception e) {
-            JsfUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
+            JmoordbUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
         }
         return false;
     }
@@ -379,7 +376,7 @@ public class SolicitudServices {
             solicitud.setFechahoraregreso(solicitudCopiar.getFechahoraregreso());
 
         } catch (Exception ex) {
-            JsfUtil.errorDialog("copiarDesde() ", ex.getLocalizedMessage().toString());
+            JmoordbUtil.errorDialog("copiarDesde() ", ex.getLocalizedMessage().toString());
         }
         return solicitud;
     }
@@ -394,19 +391,19 @@ public class SolicitudServices {
     public Boolean esMismoDiaSolicitud(Solicitud solicitud) {
         try {
 
-            Integer dia = DateUtil.diaDeUnaFecha(solicitud.getFechahorapartida());
-            Integer mes = DateUtil.diaDeUnaFecha(solicitud.getFechahorapartida());
-            Integer anio = DateUtil.diaDeUnaFecha(solicitud.getFechahorapartida());
-            Integer diaf = DateUtil.diaDeUnaFecha(solicitud.getFechahoraregreso());
-            Integer mesf = DateUtil.diaDeUnaFecha(solicitud.getFechahoraregreso());
-            Integer aniof = DateUtil.diaDeUnaFecha(solicitud.getFechahoraregreso());
+            Integer dia = JmoordbUtil.diaDeUnaFecha(solicitud.getFechahorapartida());
+            Integer mes = JmoordbUtil.diaDeUnaFecha(solicitud.getFechahorapartida());
+            Integer anio = JmoordbUtil.diaDeUnaFecha(solicitud.getFechahorapartida());
+            Integer diaf = JmoordbUtil.diaDeUnaFecha(solicitud.getFechahoraregreso());
+            Integer mesf = JmoordbUtil.diaDeUnaFecha(solicitud.getFechahoraregreso());
+            Integer aniof = JmoordbUtil.diaDeUnaFecha(solicitud.getFechahoraregreso());
 // ES EN LA MISMA FECHA
 
             if (anio == aniof && mes == mesf && dia == diaf) {
                 return true;
             }
         } catch (Exception e) {
-            JsfUtil.errorDialog("esMismoDiaSolicitud() ", e.getLocalizedMessage().toString());
+            JmoordbUtil.errorDialog("esMismoDiaSolicitud() ", e.getLocalizedMessage().toString());
         }
         return false;
     }
@@ -429,7 +426,7 @@ public class SolicitudServices {
                     "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
 
         } catch (Exception e) {
-            JsfUtil.errorDialog("solicitudDisponible() ", e.getLocalizedMessage().toString());
+            JmoordbUtil.errorDialog("solicitudDisponible() ", e.getLocalizedMessage().toString());
         }
         return false;
     }
@@ -461,7 +458,7 @@ public class SolicitudServices {
             }
 
         } catch (Exception e) {
-            JsfUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
+            JmoordbUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
         }
 
         return suggestions;
@@ -497,7 +494,7 @@ public class SolicitudServices {
             }
 
         } catch (Exception e) {
-            JsfUtil.errorDialog("completeByEstatus() ", e.getLocalizedMessage().toString());
+            JmoordbUtil.errorDialog("completeByEstatus() ", e.getLocalizedMessage().toString());
         }
 
         return suggestions;
@@ -534,7 +531,7 @@ public class SolicitudServices {
             }
 
         } catch (Exception e) {
-            JsfUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
+            JmoordbUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
         }
 
         return suggestions;
@@ -545,9 +542,9 @@ public class SolicitudServices {
     public String showDate(Date date) {
         String h = "";
         try {
-            h = DateUtil.dateFormatToString(date, "dd/MM/yyyy");
+            h = JmoordbUtil.dateFormatToString(date, "dd/MM/yyyy");
         } catch (Exception e) {
-            JsfUtil.errorMessage("showDate() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("showDate() " + e.getLocalizedMessage());
         }
         return h;
     }// </editor-fold>
@@ -556,9 +553,9 @@ public class SolicitudServices {
     public String showHour(Date date) {
         String h = "";
         try {
-            h = DateUtil.hourFromDateToString(date);
+            h = JmoordbUtil.hourFromDateToString(date);
         } catch (Exception e) {
-            JsfUtil.errorMessage("showHour() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("showHour() " + e.getLocalizedMessage());
         }
         return h;
     }// </editor-fold>
@@ -580,7 +577,7 @@ public class SolicitudServices {
                     "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
 
         } catch (Exception e) {
-            JsfUtil.errorDialog(" solicitudDisponibleParaViajes() ", e.getLocalizedMessage().toString());
+            JmoordbUtil.errorDialog(" solicitudDisponibleParaViajes() ", e.getLocalizedMessage().toString());
         }
         return false;
     }
@@ -603,7 +600,7 @@ public class SolicitudServices {
                     "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
 
         } catch (Exception e) {
-            JsfUtil.errorDialog("solicitudDisponibleExcluyendoMismoViaje() ", e.getLocalizedMessage().toString());
+            JmoordbUtil.errorDialog("solicitudDisponibleExcluyendoMismoViaje() ", e.getLocalizedMessage().toString());
         }
         return false;
     }

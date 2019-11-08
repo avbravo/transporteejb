@@ -5,7 +5,7 @@
 */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Sugerencia;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.SugerenciaRepository;
@@ -33,7 +33,7 @@ public class SugerenciaServices {
            try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
            return suggestions;
@@ -43,7 +43,7 @@ public class SugerenciaServices {
           try {
         sugerenciaList= repository.findAll(new Document("idsugerencia",1));
         } catch (Exception e) {
-              JsfUtil.errorMessage("getSugerenciaList() " + e.getLocalizedMessage());
+              JmoordbUtil.errorMessage("getSugerenciaList() " + e.getLocalizedMessage());
         }
 
         return sugerenciaList;
@@ -66,7 +66,7 @@ public class SugerenciaServices {
             }
             
         } catch (Exception e) {
-             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -83,7 +83,7 @@ public class SugerenciaServices {
                return optional.get();
             } 
         } catch (Exception e) {
-             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return sugerencia;

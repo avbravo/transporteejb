@@ -5,7 +5,7 @@
  */
 package com.avbravo.transporteejb.services;
 
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 
 import com.avbravo.transporteejb.entity.Estatus;
 import com.avbravo.transporteejb.repository.EstatusRepository;
@@ -35,7 +35,7 @@ public class EstatusServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -45,7 +45,7 @@ public class EstatusServices {
         try {
             estatusList = repository.findAll(new Document("idestatus", 1));
         } catch (Exception e) {
-            JsfUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
         }
 
         return estatusList;
@@ -66,7 +66,7 @@ public class EstatusServices {
             }
 
         } catch (Exception e) {
-            JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -82,7 +82,7 @@ public class EstatusServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
 
         return estatus;
@@ -116,7 +116,7 @@ public class EstatusServices {
                     color = "black";
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
         }
         return color;
     } // </editor-fold>
@@ -146,7 +146,7 @@ public class EstatusServices {
                     habilitado = true;
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
         }
         return habilitado;
     } // </editor-fold>

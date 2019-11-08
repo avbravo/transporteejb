@@ -6,7 +6,7 @@
 package com.avbravo.transporteejb.services;
 
 import com.avbravo.jmoordb.configuration.JmoordbContext;
-import com.avbravo.jmoordbutils.JsfUtil;
+import com.avbravo.jmoordb.util.JmoordbUtil;
 
 import com.avbravo.transporteejb.entity.Lugares;
 import com.avbravo.transporteejb.entity.Usuario;
@@ -37,7 +37,7 @@ public class LugaresServices {
            try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-            JsfUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -54,7 +54,7 @@ public class LugaresServices {
           
           suggestions=repository.complete(query);
           if(suggestions == null || suggestions.isEmpty()){
-              if (JsfUtil.totalEspaciosAlfinalCadena(query)>=2){
+              if (JmoordbUtil.totalEspaciosAlfinalCadena(query)>=2){
                   Lugares lugares = new Lugares();
                   lugares.setActivo("si");
                   lugares.setIdlugares(query.trim());
@@ -65,7 +65,7 @@ public class LugaresServices {
                suggestions= completeWithInsert(query.trim());
           }
         } catch (Exception e) {
-            JsfUtil.errorMessage("completeWithInsert() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("completeWithInsert() " + e.getLocalizedMessage());
         }
 
         return suggestions;
@@ -75,7 +75,7 @@ public class LugaresServices {
         try {
             lugaresList = repository.findAll(new Document("idlugares", 1));
         } catch (Exception e) {
-            JsfUtil.errorMessage("getLugaresList() " + e.getLocalizedMessage());
+            JmoordbUtil.errorMessage("getLugaresList() " + e.getLocalizedMessage());
         }
 
         return lugaresList;
@@ -97,7 +97,7 @@ public class LugaresServices {
             }
             
         } catch (Exception e) {
-             JsfUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
         }
         return true;
     }  // </editor-fold>
@@ -115,7 +115,7 @@ public class LugaresServices {
                return optional.get();
             } 
         } catch (Exception e) {
-             JsfUtil.errorMessage("findById() " + e.getLocalizedMessage());
+             JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
         }
       
       return lugares;
