@@ -105,7 +105,7 @@ public class UsuarioServices {
         List<Usuario> list = new ArrayList<>();
         try {
             Usuario jmoordb_user = (Usuario) JmoordbContext.get("jmoordb_user");
-            Bson filter = or(eq("rol.idrol", "ADMINISTRADOR"), eq("rol.idrol", "SECRETARIO ADMINISTRATIVO"), eq("rol.idrol", "SECRETARIA"));
+            Bson filter = or(eq("rol.idrol", "ADMINISTRADOR"), eq("rol.idrol", "SUBDIRECTORADMINISTRATIVO"), eq("rol.idrol", "SECRETARIA"));
 
             list = repository.filters(filter);
 
@@ -127,7 +127,7 @@ public class UsuarioServices {
         try {
 
             Usuario jmoordb_user = (Usuario) JmoordbContext.get("jmoordb_user");
-            Bson filter = or(eq("rol.idrol", "ADMINISTRADOR"), eq("rol.idrol", "SECRETARIO ADMINISTRATIVO"), eq("rol.idrol", "SECRETARIA"), eq("rol.idrol", "COORDINADOR"));
+            Bson filter = or(eq("rol.idrol", "ADMINISTRADOR"), eq("rol.idrol", "SUBDIRECTORADMINISTRATIVO"), eq("rol.idrol", "SECRETARIA"), eq("rol.idrol", "COORDINADOR"));
             List<Usuario> list = new ArrayList<>();
             list = repository.filters(filter);
             if (list == null || list.isEmpty()) {
@@ -219,7 +219,7 @@ public class UsuarioServices {
         try {
 
             for (Rol rol : usuario.getRol()) {
-                if (rol.getIdrol().equals("SECRETARIO ADMINISTRATIVO")) {
+                if (rol.getIdrol().equals("SUBDIRECTORADMINISTRATIVO")) {
                     found = true;
                     break;
                 }

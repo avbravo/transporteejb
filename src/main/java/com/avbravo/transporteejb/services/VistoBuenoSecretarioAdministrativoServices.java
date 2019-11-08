@@ -143,6 +143,7 @@ public class VistoBuenoSecretarioAdministrativoServices {
             vistoBueno.setIdvistobuenosecretarioadministrativo(JmoordbUtil.generateUniqueID());
             vistoBueno.setAprobado("si");
             vistoBueno.setUsuario(usuario);
+            vistoBueno.setFecha(JmoordbUtil.fechaActual());
         } catch (Exception e) {
             JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
         }
@@ -163,6 +164,7 @@ public class VistoBuenoSecretarioAdministrativoServices {
             vistoBueno.setIdvistobuenosecretarioadministrativo(JmoordbUtil.generateUniqueID());
             vistoBueno.setAprobado(aprobado);
             vistoBueno.setUsuario(usuario);
+            vistoBueno.setFecha(JmoordbUtil.fechaActual());
         } catch (Exception e) {
             JmoordbUtil.errorMessage("aprobar() " + e.getLocalizedMessage());
         }
