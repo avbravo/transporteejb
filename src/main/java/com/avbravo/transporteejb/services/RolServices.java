@@ -25,6 +25,7 @@ import org.bson.Document;
  */
 @Stateless
 public class RolServices {
+
  @Inject
     ErrorInfoServices errorServices;
     @Inject

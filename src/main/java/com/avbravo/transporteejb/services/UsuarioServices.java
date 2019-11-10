@@ -15,11 +15,13 @@ import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.UsuarioRepository;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.or;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.inject.Named;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -28,7 +30,9 @@ import org.bson.conversions.Bson;
  * @authoravbravo
  */
 @Stateless
+
 public class UsuarioServices {
+
  @Inject
     ErrorInfoServices errorServices;
     Boolean coordinadorvalido = false;
@@ -127,6 +131,7 @@ public class UsuarioServices {
         List<Usuario> l = new ArrayList<>();
 
         try {
+          
 
             Usuario jmoordb_user = (Usuario) JmoordbContext.get("jmoordb_user");
             Bson filter = or(eq("rol.idrol", "ADMINISTRADOR"), eq("rol.idrol", "SUBDIRECTORADMINISTRATIVO"), eq("rol.idrol", "SECRETARIA"), eq("rol.idrol", "COORDINADOR"));

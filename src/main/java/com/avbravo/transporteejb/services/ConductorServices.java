@@ -23,6 +23,7 @@ import org.bson.Document;
  */
 @Stateless
 public class ConductorServices {
+    
      @Inject
     ErrorInfoServices errorServices;
  @Inject
