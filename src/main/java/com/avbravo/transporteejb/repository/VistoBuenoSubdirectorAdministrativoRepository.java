@@ -6,7 +6,7 @@
 package com.avbravo.transporteejb.repository;
 import com.avbravo.jmoordb.mongodb.repository.Repository;
 import com.avbravo.transporteejb.entity.VistoBueno;
-import com.avbravo.transporteejb.entity.VistoBuenoSecretarioAdministrativo;
+import com.avbravo.transporteejb.entity.VistoBuenoSubdirectorAdministrativo;
 import javax.ejb.Stateless;
 
 /**
@@ -14,10 +14,10 @@ import javax.ejb.Stateless;
  * @author avbravo
  */
 @Stateless
-public class VistoBuenoSecretarioAdministrativoRepository extends Repository<VistoBuenoSecretarioAdministrativo> {
+public class VistoBuenoSubdirectorAdministrativoRepository extends Repository<VistoBuenoSubdirectorAdministrativo> {
 
-    public VistoBuenoSecretarioAdministrativoRepository(){
-        super(VistoBuenoSecretarioAdministrativo.class);
+    public VistoBuenoSubdirectorAdministrativoRepository(){
+        super(VistoBuenoSubdirectorAdministrativo.class);
     }
    
 

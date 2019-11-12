@@ -124,7 +124,7 @@ public class UsuarioServices {
     // </editor-fold>  
     // <editor-fold defaultstate="collapsed" desc="List<Usuario> usuariosParaNotificar(List<Facultad> facultadList)">
     /*
-    Obtiene la lista de usuarios(admiminstrador, secretario administativo, secretaria, coordinadores
+    Obtiene la lista de usuarios(admiminstrador, Subdirector administativo, secretaria, coordinadores
     validos y verifica que el coordinador pertenezca a la facultad
      */
     public List<Usuario> usuariosParaNotificar(List<Facultad> facultadList) {
@@ -212,7 +212,7 @@ public class UsuarioServices {
     }
 
     // </editor-fold>  
-    // <editor-fold defaultstate="collapsed" desc="Boolean esElSecretarioAcademicoQuienSolicita(List<Usuario> usuarioList, Usuario usuario)">
+    // <editor-fold defaultstate="collapsed" desc="Boolean esElSubdirectorAcademicoQuienSolicita(List<Usuario> usuarioList, Usuario usuario)">
     /**
      * Verifica si el coordinador es quien realiza la solicitud para evitar
      * enviarle notificaciones a el mismo
@@ -221,7 +221,7 @@ public class UsuarioServices {
      * @param usuario
      * @return
      */
-    public Boolean esElSecretarioAdministrativoQuienSolicita(Usuario usuario) {
+    public Boolean esElSubdirectorAdministrativoQuienSolicita(Usuario usuario) {
         Boolean found = false;
         try {
 
@@ -233,7 +233,7 @@ public class UsuarioServices {
             }
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("esElSecretarioAdministrativoQuienSolicita() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("esElSubdirectorAdministrativoQuienSolicita() " + e.getLocalizedMessage());
         }
         return found;
     }

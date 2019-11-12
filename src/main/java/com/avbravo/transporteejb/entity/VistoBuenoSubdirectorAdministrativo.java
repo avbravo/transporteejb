@@ -12,18 +12,18 @@ import java.util.Date;
  *
  * @author avbravo
  */
-public class VistoBuenoSecretarioAdministrativo {
+public class VistoBuenoSubdirectorAdministrativo {
     @Id
-    private String idvistobuenosecretarioadministrativo;
+    private String idvistobuenosubdirectoradministrativo;
     private Usuario usuario;
     private String aprobado;
     private Date fecha;
 
-    public VistoBuenoSecretarioAdministrativo() {
+    public VistoBuenoSubdirectorAdministrativo() {
     }
 
-    public VistoBuenoSecretarioAdministrativo(String idvistobuenosecretarioadministrativo, Usuario usuario, String aprobado, Date fecha) {
-        this.idvistobuenosecretarioadministrativo = idvistobuenosecretarioadministrativo;
+    public VistoBuenoSubdirectorAdministrativo(String idvistobuenosubdirectoradministrativo, Usuario usuario, String aprobado, Date fecha) {
+        this.idvistobuenosubdirectoradministrativo = idvistobuenosubdirectoradministrativo;
         this.usuario = usuario;
         this.aprobado = aprobado;
         this.fecha = fecha;
@@ -38,13 +38,15 @@ public class VistoBuenoSecretarioAdministrativo {
         this.fecha = fecha;
     }
 
-    public String getIdvistobuenosecretarioadministrativo() {
-        return idvistobuenosecretarioadministrativo;
+    public String getIdvistobuenosubdirectoradministrativo() {
+        return idvistobuenosubdirectoradministrativo;
     }
 
-    public void setIdvistobuenosecretarioadministrativo(String idvistobuenosecretarioadministrativo) {
-        this.idvistobuenosecretarioadministrativo = idvistobuenosecretarioadministrativo;
+    public void setIdvistobuenosubdirectoradministrativo(String idvistobuenosubdirectoradministrativo) {
+        this.idvistobuenosubdirectoradministrativo = idvistobuenosubdirectoradministrativo;
     }
+
+   
 
     
  

@@ -149,6 +149,7 @@ public class VistoBuenoServices {
             vistoBueno.setIdvistobueno(JmoordbUtil.generateUniqueID());
             vistoBueno.setAprobado("si");
             vistoBueno.setUsuario(usuario);
+            vistoBueno.setFecha(JmoordbUtil.fechaActual());
         } catch (Exception e) {
             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
         }

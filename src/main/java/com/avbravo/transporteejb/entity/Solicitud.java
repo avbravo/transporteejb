@@ -107,7 +107,7 @@ public class Solicitud {
     @Embedded
     VistoBueno vistoBueno;
     @Embedded 
-    VistoBuenoSecretarioAdministrativo vistoBuenoSecretarioAdministrativo;
+    VistoBuenoSubdirectorAdministrativo vistoBuenoSubdirectorAdministrativo;
 
  
     @Embedded
@@ -116,15 +116,15 @@ public class Solicitud {
     public Solicitud() {
     }
 
-    public VistoBuenoSecretarioAdministrativo getVistoBuenoSecretarioAdministrativo() {
-        return vistoBuenoSecretarioAdministrativo;
+    public VistoBuenoSubdirectorAdministrativo getVistoBuenoSubdirectorAdministrativo() {
+        return vistoBuenoSubdirectorAdministrativo;
     }
 
-    public void setVistoBuenoSecretarioAdministrativo(VistoBuenoSecretarioAdministrativo vistoBuenoSecretarioAdministrativo) {
-        this.vistoBuenoSecretarioAdministrativo = vistoBuenoSecretarioAdministrativo;
+    public void setVistoBuenoSubdirectorAdministrativo(VistoBuenoSubdirectorAdministrativo vistoBuenoSubdirectorAdministrativo) {
+        this.vistoBuenoSubdirectorAdministrativo = vistoBuenoSubdirectorAdministrativo;
     }
 
-    
+ 
     
     
     public VistoBueno getVistoBueno() {
