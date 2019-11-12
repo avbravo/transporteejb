@@ -246,7 +246,7 @@ public class SolicitudServices {
             }
             Integer totalvehiculos = vehiculoRepository.count(new Document("activo", "si").append("enreparacion", "no"));
 
-            if (solicitud.getNumerodevehiculos() >= totalvehiculos) {
+            if (solicitud.getNumerodevehiculos() > totalvehiculos) {
                 JmoordbUtil.warningDialog("Advertencia", "Numero de vehiculos es mayor que la cantidad de vehiculos disponibles");
                 return false;
             }
