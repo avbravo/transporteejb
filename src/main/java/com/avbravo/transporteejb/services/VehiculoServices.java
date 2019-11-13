@@ -126,6 +126,9 @@ public class VehiculoServices {
 
         List<Integer> pasajerosRecomendadosList = new ArrayList<>();
         try {
+            if(vehiculoDisponiblesList == null || vehiculoDisponiblesList.isEmpty()){
+                return pasajerosRecomendadosList;
+            }
             Integer mayorCapacidad = vehiculoDisponiblesList.get(0).getPasajeros();
             Integer pasajerosPendientes = pasajeros;
 
@@ -187,6 +190,9 @@ public class VehiculoServices {
     public Integer vehiculosRecomendados(List<Vehiculo> vehiculoDisponiblesList, Integer pasajeros) {
         Integer totalVehiculos = 0;
         try {
+            if(vehiculoDisponiblesList == null || vehiculoDisponiblesList.isEmpty()){
+                return totalVehiculos;
+            }
             Integer mayorCapacidad = vehiculoDisponiblesList.get(0).getPasajeros();
             Integer pasajerosPendientes = pasajeros;
             for (Vehiculo v : vehiculoDisponiblesList) {
