@@ -265,8 +265,13 @@ public class SolicitudServices {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="isValidDates()">
-    public Boolean isValidDates(Solicitud solicitud, Boolean showdialog, Boolean validateFechaActual) {
+    public Boolean isValidDates(Solicitud solicitud, Boolean showdialog, Boolean validateFechaActual, Boolean... validarHoraCero) {
         try {
+             Boolean validarHoraCeroLocal = true;
+            if (validarHoraCero.length != 0) {
+               validarHoraCeroLocal  = validarHoraCero[0];
+
+            }
             if (solicitud.getFechahorapartida() == null) {
                 if (showdialog) {
                     JmoordbUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
@@ -315,8 +320,8 @@ public class SolicitudServices {
 
                 return false;
             }
-
-            if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
+if(validarHoraCeroLocal){
+     if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
                     && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
                 if (showdialog) {
                     JmoordbUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
@@ -326,8 +331,10 @@ public class SolicitudServices {
 
                 return false;
             }
-
-            if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
+}
+           
+if(validarHoraCeroLocal){
+      if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
                     && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
                 if (showdialog) {
                     JmoordbUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
@@ -337,6 +344,8 @@ public class SolicitudServices {
 
                 return false;
             }
+}
+          
             if (validateFechaActual) {
                 if (JmoordbUtil.fechaMenor(solicitud.getFechahorapartida(), JmoordbUtil.fechaActual())) {
                     if (showdialog) {
