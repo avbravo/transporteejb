@@ -198,9 +198,12 @@ public class ViajeServices {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="isValid()">
-    public Boolean isValid(Viaje viajes) {
+    public Boolean isValid(Viaje viajes, Boolean...kmCombustibleMayorCero) {
         try {
-
+ Boolean isKmCombustibleMayorCero = true;
+            if (kmCombustibleMayorCero.length != 0) {
+               isKmCombustibleMayorCero = kmCombustibleMayorCero[0];
+            }
             if (JmoordbUtil.fechaMenor(viajes.getFechahorafinreserva(), viajes.getFechahorainicioreserva())) {
 
                 JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
@@ -229,8 +232,8 @@ public class ViajeServices {
                 JmoordbUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
                 return false;
             }
-
-            if (viajes.getKmestimados() <= 0) {
+if(isKmCombustibleMayorCero){
+    if (viajes.getKmestimados() <= 0) {
                 JmoordbUtil.warningDialog("Advertencia", "Numero de km menor que cero");
                 return false;
             }
@@ -239,6 +242,18 @@ public class ViajeServices {
                 JmoordbUtil.warningDialog("Advertencia", "Costo de combustible debe ser mayor que cero");
                 return false;
             }
+}else{
+    if (viajes.getKmestimados() < 0) {
+                JmoordbUtil.warningDialog("Advertencia", "Numero de km menor que cero");
+                return false;
+            }
+
+            if (viajes.getCostocombustible() < 0) {
+                JmoordbUtil.warningDialog("Advertencia", "Costo de combustible debe ser mayor que cero");
+                return false;
+            }
+}
+            
        
             if (viajes.getVehiculo().getActivo().equals("no")) {
                 JmoordbUtil.warningDialog("Advertencia", "El vehiculo no esta activo");
