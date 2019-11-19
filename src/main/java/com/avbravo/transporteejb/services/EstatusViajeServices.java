@@ -118,13 +118,17 @@ public class EstatusViajeServices {
      * @param estatusViaje
      * @return
      */
-
     public Optional<EstatusViaje> estatusViajeInicial() {
-    
+
         try {
 
-          Optional<EstatusViaje>   optional = repository.findById(new Document("inicial", "si"));
-            return optional;
+            List<EstatusViaje> list = repository.findBy(new Document("inicial", "si"));
+            if (list == null || list.isEmpty()) {
+                return Optional.empty();
+            } else {
+                return Optional.of(list.get(0));
+            }
+
         } catch (Exception e) {
             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
