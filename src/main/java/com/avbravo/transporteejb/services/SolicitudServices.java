@@ -12,6 +12,7 @@ import com.avbravo.transporteejb.entity.EstatusViaje;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.entity.Viaje;
+import com.avbravo.transporteejb.repository.EstatusViajeRepository;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
 import com.avbravo.transporteejb.repository.ViajeRepository;
@@ -38,6 +39,10 @@ public class SolicitudServices {
     ErrorInfoServices errorServices;
     @Inject
     EstatusServices estatusServices;
+    @Inject
+    EstatusViajeServices estatusViajeServices;
+   @Inject
+   EstatusViajeRepository estatusViajeRepository;
     @Inject
     SolicitudRepository repository;
     @Inject
@@ -654,70 +659,70 @@ public class SolicitudServices {
      * @param list
      * @return 
      */
-//    public Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list,String mensajewarning){
-//        try {
-//            
-//             if (list == null || list.isEmpty()) {
-//                for (Solicitud s : list) {
-//                    //Es el viaje de ida y regreso
-//                    if (s.getViaje().get(0).equals(viaje.getIdviaje()) && s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
-//                        List<Viaje> viajeList = new ArrayList<>();
-//                        s.setViaje(viajeList);
-//                        //cambiar el estatus del viaje a no asignado
-//
-//                        Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
-//                        if (optional.isPresent()) {
-//                            s.setEstatusViaje(optional.get());
-//                        } else {
-//                            JsfUtil.warningDialog(rf.getAppMessage("warning.view"), rf.getMessage("warning.noexisteestatusviajenoasigando"));
-//                            return "";
-//                        }
-//
-//                        repository.update(s);
-//
-//                    } else {
-//                        // Si el que se quita es el viaje de ida
-//                        if (s.getViaje().get(0).equals(viaje.getIdviaje()) && !s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
-//                            EstatusViaje estatusViaje = new EstatusViaje();
-//                            estatusViaje.setIdestatusviaje("PENDIENTEIDA/REGRESOASIGNADO");
-//                            Optional<EstatusViaje> optional = estatusViajeRepository.findById(estatusViaje);
-//                            if (optional.isPresent()) {
-//                                estatusViaje = optional.get();
-//                            } else {
-//                                JsfUtil.warningDialog(rf.getAppMessage("warning.view"), rf.getMessage("warning.noexisteestatusviajenoasigando"));
-//                                return "";
-//                            }
-//                            s.setEstatusViaje(estatusViaje);
-//
-//                            //Removerlo 
-//                            s.getViaje().remove(0);
-//                            repository.update(s);
-//                        } else {
-//                            //Remueve el viaje de regreso y si tiene viaje de ida
-//                            if (s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
-//                                EstatusViaje estatusViaje = new EstatusViaje();
-//                                estatusViaje.setIdestatusviaje("PENDIENTEREGRESO/IDAASIGNADO");
-//                                Optional<EstatusViaje> optional = estatusViajeRepository.findById(estatusViaje);
-//                                if (optional.isPresent()) {
-//                                    estatusViaje = optional.get();
-//                                } else {
-//                                    JsfUtil.warningDialog(rf.getAppMessage("warning.view"), rf.getMessage("warning.noexisteestatusviajenoasigando"));
-//                                    return "";
-//                                }
-//                                s.setEstatusViaje(estatusViaje);
-//
-//                                //Removerlo 
-//                                s.getViaje().remove(0);
-//                                repository.update(s);
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
-//        }
-//        return false;
-//    }
-//    // </editor-fold>  
+    public Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list,String titleWarning, String mensajewarning){
+        try {
+            
+             if (list == null || list.isEmpty()) {
+                for (Solicitud s : list) {
+                    //Es el viaje de ida y regreso
+                    if (s.getViaje().get(0).equals(viaje.getIdviaje()) && s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
+                        List<Viaje> viajeList = new ArrayList<>();
+                        s.setViaje(viajeList);
+                        //cambiar el estatus del viaje a no asignado
+
+                        Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
+                        if (optional.isPresent()) {
+                            s.setEstatusViaje(optional.get());
+                        } else {
+                            JmoordbUtil.warningDialog(titleWarning, mensajewarning);
+                            return false;
+                        }
+
+                        repository.update(s);
+
+                    } else {
+                        // Si el que se quita es el viaje de ida
+                        if (s.getViaje().get(0).equals(viaje.getIdviaje()) && !s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
+                            EstatusViaje estatusViaje = new EstatusViaje();
+                            estatusViaje.setIdestatusviaje("PENDIENTEIDA/REGRESOASIGNADO");
+                            Optional<EstatusViaje> optional = estatusViajeRepository.findById(estatusViaje);
+                            if (optional.isPresent()) {
+                                estatusViaje = optional.get();
+                            } else {
+                              JmoordbUtil.warningDialog(titleWarning, mensajewarning);
+                                return false;
+                            }
+                            s.setEstatusViaje(estatusViaje);
+
+                            //Removerlo 
+                            s.getViaje().remove(0);
+                            repository.update(s);
+                        } else {
+                            //Remueve el viaje de regreso y si tiene viaje de ida
+                            if (s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
+                                EstatusViaje estatusViaje = new EstatusViaje();
+                                estatusViaje.setIdestatusviaje("PENDIENTEREGRESO/IDAASIGNADO");
+                                Optional<EstatusViaje> optional = estatusViajeRepository.findById(estatusViaje);
+                                if (optional.isPresent()) {
+                                    estatusViaje = optional.get();
+                                } else {
+                                    JmoordbUtil.warningDialog(titleWarning, mensajewarning);
+                                    return false;
+                                }
+                                s.setEstatusViaje(estatusViaje);
+
+                                //Removerlo 
+                                s.getViaje().remove(0);
+                                repository.update(s);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return false;
+    }
+    // </editor-fold>  
 }
