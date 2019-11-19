@@ -55,7 +55,7 @@ public class NotificacionServices {
             repository.save(jmoordbNotifications);
             return true;
         } catch (Exception e) {
-                errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("saveNotification " + e.getLocalizedMessage());
+                errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
 
 
         }

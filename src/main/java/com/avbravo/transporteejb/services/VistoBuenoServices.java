@@ -41,7 +41,7 @@ public class VistoBuenoServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return suggestions;
@@ -58,7 +58,7 @@ public class VistoBuenoServices {
             suggestions = repository.findRegex(field, query, true, new Document(field, 1));
 
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
         return suggestions;
     }
@@ -68,7 +68,7 @@ public class VistoBuenoServices {
         try {
             vistoBuenoList = repository.findAll(new Document("vistoBueno", 1));
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("getVistoBuenoList() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
         return vistoBuenoList;
     }// </editor-fold>
@@ -88,7 +88,7 @@ public class VistoBuenoServices {
 //            }
 
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
         return true;
     }  // </editor-fold>
@@ -104,7 +104,7 @@ public class VistoBuenoServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
 
         return vistoBueno;
@@ -128,7 +128,7 @@ public class VistoBuenoServices {
             vistoBueno.setFecha(JmoordbUtil.getFechaActual());
 
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
 
         return vistoBueno;
@@ -151,7 +151,7 @@ public class VistoBuenoServices {
             vistoBueno.setUsuario(usuario);
             vistoBueno.setFecha(JmoordbUtil.fechaActual());
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
 
         return vistoBueno;
@@ -207,7 +207,7 @@ public class VistoBuenoServices {
                     color = "black";
             }
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
         return color;
     } // </editor-fold>
@@ -235,7 +235,7 @@ public class VistoBuenoServices {
                 }
             }
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("columnNameVistoBueno() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
         return name;
     }

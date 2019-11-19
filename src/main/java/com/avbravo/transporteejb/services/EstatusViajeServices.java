@@ -38,17 +38,19 @@ public class EstatusViajeServices {
            try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
         }
 
         return suggestions;
     }
 
+   
+
     public List<EstatusViaje> getEstatusList() {
         try {
             estatusViajeList = repository.findAll(new Document("idestatusviaje", 1));
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getEstatusList() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
         }
 
         return estatusViajeList;
@@ -70,7 +72,7 @@ public class EstatusViajeServices {
             }
             
         } catch (Exception e) {
-              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
         }
         return true;
     }  // </editor-fold>
@@ -88,11 +90,28 @@ public class EstatusViajeServices {
                return optional.get();
             } 
         } catch (Exception e) {
-              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
         }
       
       return estatusViaje;
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Boolean isValidEstatusViajeInicial(EstatusViaje estatusViaje)">
+    /**
+     * Verifica si es un estatus de viaje inicial/IDA/IDA/REGRESO
+     * @param estatusViaje
+     * @return 
+     */
+    public Boolean isValidEstatusViajeInicial(EstatusViaje estatusViaje){
+        try {
+              if(estatusViaje.getIdestatusviaje().equals("IDA") ||estatusViaje.getIdestatusviaje().equals("IDA/REGRESO")){
+                return true;
+            }
+        } catch (Exception e) {
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
+        }
+        return false;
+    }
+    // </editor-fold>  
 }

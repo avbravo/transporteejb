@@ -5,7 +5,6 @@
  */
 package com.avbravo.transporteejb.services;
 
-
 import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Usuario;
@@ -27,7 +26,8 @@ import org.bson.Document;
  */
 @Stateless
 public class VistoBuenoSubdirectorAdministrativoServices {
- @Inject
+
+    @Inject
     ErrorInfoServices errorServices;
     @Inject
     VistoBuenoSubdirectorAdministrativoRepository repository;
@@ -41,7 +41,7 @@ public class VistoBuenoSubdirectorAdministrativoServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return suggestions;
@@ -58,7 +58,7 @@ public class VistoBuenoSubdirectorAdministrativoServices {
             suggestions = repository.findRegex(field, query, true, new Document(field, 1));
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
         return suggestions;
     }
@@ -68,7 +68,7 @@ public class VistoBuenoSubdirectorAdministrativoServices {
         try {
             vistoBuenoList = repository.findAll(new Document("vistoBueno", 1));
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getVistoBuenoSubdirectorAdministrativoList() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return vistoBuenoList;
     }// </editor-fold>
@@ -88,7 +88,7 @@ public class VistoBuenoSubdirectorAdministrativoServices {
 //            }
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
         return true;
     }  // </editor-fold>
@@ -104,17 +104,19 @@ public class VistoBuenoSubdirectorAdministrativoServices {
                 return optional.get();
             }
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
 
         return vistoBueno;
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="VistoBuenoSubdirectorAdministrativo inicializarPendiente(Usuario usuario)">
     /**
      * Inicializa en pendiente la solicitud
+     *
      * @param usuario
-     * @return 
+     * @return
      */
     public VistoBuenoSubdirectorAdministrativo inicializarPendiente(Usuario usuario) {
         VistoBuenoSubdirectorAdministrativo vistoBueno = new VistoBuenoSubdirectorAdministrativo();
@@ -124,19 +126,21 @@ public class VistoBuenoSubdirectorAdministrativoServices {
             vistoBueno.setAprobado("pe");
             vistoBueno.setUsuario(usuario);
             vistoBueno.setFecha(JmoordbUtil.getFechaActual());
-            
+
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
 
         return vistoBueno;
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="VistoBuenoSubdirectorAdministrativo inicializarAprobado(Usuario usuario)">
     /**
      * Inicializa un usuario aprobado
+     *
      * @param usuario
-     * @return 
+     * @return
      */
     public VistoBuenoSubdirectorAdministrativo inicializarAprobado(Usuario usuario) {
         VistoBuenoSubdirectorAdministrativo vistoBueno = new VistoBuenoSubdirectorAdministrativo();
@@ -147,17 +151,19 @@ public class VistoBuenoSubdirectorAdministrativoServices {
             vistoBueno.setUsuario(usuario);
             vistoBueno.setFecha(JmoordbUtil.fechaActual());
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("inicializar() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
 
         return vistoBueno;
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="VistoBuenoSubdirectorAdministrativo aprobar(Usuario usuario, String aprobado) ">
     /**
      * Devuelve el entity Visto Bueno con el estatus asignado y el usuario
+     *
      * @param usuario
-     * @return 
+     * @return
      */
     public VistoBuenoSubdirectorAdministrativo aprobar(Usuario usuario, String aprobado) {
         VistoBuenoSubdirectorAdministrativo vistoBueno = new VistoBuenoSubdirectorAdministrativo();
@@ -168,13 +174,13 @@ public class VistoBuenoSubdirectorAdministrativoServices {
             vistoBueno.setUsuario(usuario);
             vistoBueno.setFecha(JmoordbUtil.fechaActual());
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("aprobar() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
 
         return vistoBueno;
     }
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="columnColor(VistoBuenoSubdirectorAdministrativo vistoBueno))">
     /**
      * Devuelve el color en base aprobaado
@@ -189,7 +195,7 @@ public class VistoBuenoSubdirectorAdministrativoServices {
                 case "no":
                     color = "red";
                     break;
-             
+
                 case "si":
                     color = "black";
                     break;
@@ -200,34 +206,35 @@ public class VistoBuenoSubdirectorAdministrativoServices {
                     color = "black";
             }
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("columnColor() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); 
         }
         return color;
     } // </editor-fold>
-    
-     // <editor-fold defaultstate="collapsed" desc="String columnNameVistoBuenoSubdirectorAdministrativo(VistoBuenoSubdirectorAdministrativo vistoBueno) ">
+
+    // <editor-fold defaultstate="collapsed" desc="String columnNameVistoBuenoSubdirectorAdministrativo(VistoBuenoSubdirectorAdministrativo vistoBueno) ">
     /**
      * Devuelve el nombre de las siglas del visto bueno
+     *
      * @param vistoBueno
-     * @return 
+     * @return
      */
     public String columnNameVistoBuenoSubdirectorAdministrativo(VistoBuenoSubdirectorAdministrativo vistoBuenoSubdirectorAdministrativo) {
-        
-        String name= "PENDIENTE";
+
+        String name = "PENDIENTE";
         try {
-           if(vistoBuenoSubdirectorAdministrativo.getAprobado().equals("si")){
-              name="APROBADO";
-           }else{
-               if(vistoBuenoSubdirectorAdministrativo.getAprobado().equals("no")){
-              name="NO APROBADO";
-           }else{
-                   if(vistoBuenoSubdirectorAdministrativo.getAprobado().equals("pe")){
-              name="PENDIENTE";
-           }
-               }
-           }
+            if (vistoBuenoSubdirectorAdministrativo.getAprobado().equals("si")) {
+                name = "APROBADO";
+            } else {
+                if (vistoBuenoSubdirectorAdministrativo.getAprobado().equals("no")) {
+                    name = "NO APROBADO";
+                } else {
+                    if (vistoBuenoSubdirectorAdministrativo.getAprobado().equals("pe")) {
+                        name = "PENDIENTE";
+                    }
+                }
+            }
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("columnNameVistoBuenoSubdirectorAdministrativo() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return name;
     }

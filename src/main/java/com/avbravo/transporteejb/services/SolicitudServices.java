@@ -10,6 +10,7 @@ import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Usuario;
+import com.avbravo.transporteejb.entity.Viaje;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.VehiculoRepository;
 import com.avbravo.transporteejb.repository.ViajeRepository;
@@ -48,7 +49,7 @@ public class SolicitudServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return suggestions;
@@ -59,7 +60,7 @@ public class SolicitudServices {
         try {
             solicitudList = repository.findAll(new Document("solicitud", 1));
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("getSolicitudList() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return solicitudList;
     }// </editor-fold>
@@ -79,7 +80,7 @@ public class SolicitudServices {
             }
 
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return true;
     }  // </editor-fold>
@@ -95,7 +96,7 @@ public class SolicitudServices {
                 return optional.get();
             }
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return solicitud;
@@ -128,7 +129,7 @@ public class SolicitudServices {
                 }
             }
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return Optional.empty();
     }
@@ -160,7 +161,7 @@ public class SolicitudServices {
                 }
             }
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("coincidenciaEnRango() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return Optional.empty();
     }
@@ -172,7 +173,7 @@ public class SolicitudServices {
         try {
             usuario = solicitud.getUsuario().get(0);
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("solicitadoPor() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return usuario;
     }
@@ -184,7 +185,7 @@ public class SolicitudServices {
         try {
             usuario = solicitud.getUsuario().get(1);
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("responsable() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return usuario;
     }
@@ -258,7 +259,7 @@ public class SolicitudServices {
             }
             return true;
         } catch (Exception e) {
-            JmoordbUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -267,9 +268,9 @@ public class SolicitudServices {
     // <editor-fold defaultstate="collapsed" desc="isValidDates()">
     public Boolean isValidDates(Solicitud solicitud, Boolean showdialog, Boolean validateFechaActual, Boolean... validarHoraCero) {
         try {
-             Boolean validarHoraCeroLocal = true;
+            Boolean validarHoraCeroLocal = true;
             if (validarHoraCero.length != 0) {
-               validarHoraCeroLocal  = validarHoraCero[0];
+                validarHoraCeroLocal = validarHoraCero[0];
 
             }
             if (solicitud.getFechahorapartida() == null) {
@@ -320,32 +321,32 @@ public class SolicitudServices {
 
                 return false;
             }
-if(validarHoraCeroLocal){
-     if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
-                    && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
-                if (showdialog) {
-                    JmoordbUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
-                } else {
-                    JmoordbUtil.warningMessage("La hora de partida no debe ser cero");
-                }
+            if (validarHoraCeroLocal) {
+                if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
+                        && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
+                    if (showdialog) {
+                        JmoordbUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
+                    } else {
+                        JmoordbUtil.warningMessage("La hora de partida no debe ser cero");
+                    }
 
-                return false;
-            }
-}
-           
-if(validarHoraCeroLocal){
-      if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
-                    && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
-                if (showdialog) {
-                    JmoordbUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
-                } else {
-                    JmoordbUtil.warningMessage("La hora de llegada no debe ser cero");
+                    return false;
                 }
-
-                return false;
             }
-}
-          
+
+            if (validarHoraCeroLocal) {
+                if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
+                        && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
+                    if (showdialog) {
+                        JmoordbUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
+                    } else {
+                        JmoordbUtil.warningMessage("La hora de llegada no debe ser cero");
+                    }
+
+                    return false;
+                }
+            }
+
             if (validateFechaActual) {
                 if (JmoordbUtil.fechaMenor(solicitud.getFechahorapartida(), JmoordbUtil.fechaActual())) {
                     if (showdialog) {
@@ -360,7 +361,7 @@ if(validarHoraCeroLocal){
 
             return true;
         } catch (Exception e) {
-            JmoordbUtil.errorDialog("isValid() ", e.getLocalizedMessage().toString());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -389,8 +390,8 @@ if(validarHoraCeroLocal){
             solicitud.setFechahorapartida(solicitudCopiar.getFechahorapartida());
             solicitud.setFechahoraregreso(solicitudCopiar.getFechahoraregreso());
 
-        } catch (Exception ex) {
-            JmoordbUtil.errorDialog("copiarDesde() ", ex.getLocalizedMessage().toString());
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return solicitud;
     }
@@ -417,7 +418,7 @@ if(validarHoraCeroLocal){
                 return true;
             }
         } catch (Exception e) {
-            JmoordbUtil.errorDialog("esMismoDiaSolicitud() ", e.getLocalizedMessage().toString());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -440,7 +441,7 @@ if(validarHoraCeroLocal){
                     "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
 
         } catch (Exception e) {
-            JmoordbUtil.errorDialog("solicitudDisponible() ", e.getLocalizedMessage().toString());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -472,7 +473,7 @@ if(validarHoraCeroLocal){
             }
 
         } catch (Exception e) {
-            JmoordbUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return suggestions;
@@ -509,7 +510,7 @@ if(validarHoraCeroLocal){
             }
 
         } catch (Exception e) {
-            JmoordbUtil.errorDialog("completeByEstatus() ", e.getLocalizedMessage().toString());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return suggestions;
@@ -547,7 +548,7 @@ if(validarHoraCeroLocal){
             }
 
         } catch (Exception e) {
-            JmoordbUtil.errorDialog("completeSolicitudParaCopiar() ", e.getLocalizedMessage().toString());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return suggestions;
@@ -560,7 +561,7 @@ if(validarHoraCeroLocal){
         try {
             h = JmoordbUtil.dateFormatToString(date, "dd/MM/yyyy");
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("showDate() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return h;
     }// </editor-fold>
@@ -571,7 +572,7 @@ if(validarHoraCeroLocal){
         try {
             h = JmoordbUtil.hourFromDateToString(date);
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e); // JmoordbUtil.errorMessage("showHour() " + e.getLocalizedMessage());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return h;
     }// </editor-fold>
@@ -593,7 +594,7 @@ if(validarHoraCeroLocal){
                     "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
 
         } catch (Exception e) {
-            JmoordbUtil.errorDialog(" solicitudDisponibleParaViajes() ", e.getLocalizedMessage().toString());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -615,10 +616,31 @@ if(validarHoraCeroLocal){
                     "fechahorapartida", fechahorapartida, "fechahoraregreso", fechahoraregreso);
 
         } catch (Exception e) {
-            JmoordbUtil.errorDialog("solicitudDisponibleExcluyendoMismoViaje() ", e.getLocalizedMessage().toString());
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
 
     // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="List<Solicitud> solicitudPorViaje(Viaje viaje)">
+    /**
+     * devuelve la lista de solicitudes que contengan el viaje. Recuerde que es un List<Viaje> q
+     * que contiene en la primera posicion el viaje de ida  y en la segunda el viaje de regreso
+     *
+     * @
+     * @param viaje
+     * @return
+     */
+    public List<Solicitud> solicituPorViaje(Viaje viaje) {
+        List<Solicitud> list = new ArrayList<>();
+        try {
+            Document doc = new Document("viaje.idviaje", viaje.getIdviaje());
+            list = repository.findBy(doc);
+
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return list;
+    }
+    // </editor-fold>  
 }

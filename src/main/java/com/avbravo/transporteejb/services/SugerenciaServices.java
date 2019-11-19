@@ -35,7 +35,7 @@ public class SugerenciaServices {
            try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
         }
 
            return suggestions;
@@ -45,7 +45,7 @@ public class SugerenciaServices {
           try {
         sugerenciaList= repository.findAll(new Document("idsugerencia",1));
         } catch (Exception e) {
-               errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getSugerenciaList() " + e.getLocalizedMessage());
+               errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
         }
 
         return sugerenciaList;
@@ -68,7 +68,7 @@ public class SugerenciaServices {
             }
             
         } catch (Exception e) {
-              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
         }
         return true;
     }  // </editor-fold>
@@ -85,7 +85,7 @@ public class SugerenciaServices {
                return optional.get();
             } 
         } catch (Exception e) {
-              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
         }
       
       return sugerencia;

@@ -35,7 +35,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
              try {
           suggestions=repository.complete(query);
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("complete() " + e.getLocalizedMessage());
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
         }
 
            return suggestions;
@@ -47,7 +47,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
         try {
            tipovehiculoList= repository.findAll(new Document("tipovehiculo",1));
         } catch (Exception e) {
-               errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("getTipovehiculoList() " + e.getLocalizedMessage());
+               errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
         }
         return tipovehiculoList;
     }// </editor-fold>
@@ -68,7 +68,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
             }
             
         } catch (Exception e) {
-              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("isDeleted() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
         }
         return true;
     }  // </editor-fold>
@@ -85,7 +85,7 @@ List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
                return optional.get();
             } 
         } catch (Exception e) {
-              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); // JmoordbUtil.errorMessage("findById() " + e.getLocalizedMessage());
+              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
         }
       
       return tipovehiculo;
