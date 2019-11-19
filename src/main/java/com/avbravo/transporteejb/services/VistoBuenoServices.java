@@ -223,6 +223,9 @@ public class VistoBuenoServices {
 
         String name = "PENDIENTE";
         try {
+            if(vistoBueno == null || vistoBueno.getAprobado() ==null){
+                return name;
+            }
             if (vistoBueno.getAprobado().equals("si")) {
                 name = "APROBADO";
             } else {

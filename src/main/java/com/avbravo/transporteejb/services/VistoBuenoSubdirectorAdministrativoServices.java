@@ -222,6 +222,9 @@ public class VistoBuenoSubdirectorAdministrativoServices {
 
         String name = "PENDIENTE";
         try {
+            if(vistoBuenoSubdirectorAdministrativo == null || vistoBuenoSubdirectorAdministrativo.getAprobado() ==null){
+                return name;
+            }
             if (vistoBuenoSubdirectorAdministrativo.getAprobado().equals("si")) {
                 name = "APROBADO";
             } else {

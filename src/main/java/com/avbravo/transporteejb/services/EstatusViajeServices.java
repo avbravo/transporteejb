@@ -120,10 +120,10 @@ public class EstatusViajeServices {
      */
 
     public Optional<EstatusViaje> estatusViajeInicial() {
-        Optional<EstatusViaje> optional = null;
+    
         try {
 
-            optional = repository.findById(new Document("inicial", "si"));
+          Optional<EstatusViaje>   optional = repository.findById(new Document("inicial", "si"));
             return optional;
         } catch (Exception e) {
             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
