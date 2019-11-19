@@ -658,6 +658,9 @@ public class SolicitudServices {
      * @param viaje
      * @param list
      * @return 
+     * EstatusViaje: 
+     *              IDA, IDA/REGRESO, NO SOLICITADO, SOLO IDA, SOLO REGRESO
+     *              IDA= Indica que solo se registro el viaje de ida falta el viaje de regreso
      */
     public Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list,String titleWarning, String mensajewarning){
         try {
