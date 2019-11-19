@@ -25,32 +25,31 @@ import org.bson.Document;
  */
 @Stateless
 public class EstatusViajeServices {
- @Inject
+
+    @Inject
     ErrorInfoServices errorServices;
     @Inject
     EstatusViajeRepository repository;
- @Inject
-   SolicitudRepository solicitudRepository;
+    @Inject
+    SolicitudRepository solicitudRepository;
     List<EstatusViaje> estatusViajeList = new ArrayList<>();
 
     public List<EstatusViaje> complete(String query) {
         List<EstatusViaje> suggestions = new ArrayList<>();
-           try {
-          suggestions=repository.complete(query);
+        try {
+            suggestions = repository.complete(query);
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return suggestions;
     }
 
-   
-
     public List<EstatusViaje> getEstatusList() {
         try {
             estatusViajeList = repository.findAll(new Document("idestatusviaje", 1));
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return estatusViajeList;
@@ -59,59 +58,77 @@ public class EstatusViajeServices {
     public void setEstatusViajeList(List<EstatusViaje> estatusViajeList) {
         this.estatusViajeList = estatusViajeList;
     }
-    
-        // <editor-fold defaultstate="collapsed" desc="isDeleted(Estatus estatus)">
-  
-    public Boolean isDeleted(EstatusViaje estatusViaje){
-        Boolean found=false;
+
+    // <editor-fold defaultstate="collapsed" desc="isDeleted(Estatus estatus)">
+    public Boolean isDeleted(EstatusViaje estatusViaje) {
+        Boolean found = false;
         try {
-            Document doc = new Document("estatusviaje.idestatusviaje",estatusViaje.getIdestatusviaje());
+            Document doc = new Document("estatusviaje.idestatusviaje", estatusViaje.getIdestatusviaje());
             Integer count = solicitudRepository.count(doc);
-            if (count > 0){
+            if (count > 0) {
                 return false;
             }
-            
+
         } catch (Exception e) {
-              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return true;
     }  // </editor-fold>
-    
-    
-    // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
 
-    public EstatusViaje findById(String id){
-           EstatusViaje estatusViaje = new EstatusViaje();
+    // <editor-fold defaultstate="collapsed" desc="findById(Integer id)">
+    public EstatusViaje findById(String id) {
+        EstatusViaje estatusViaje = new EstatusViaje();
         try {
-         
+
             estatusViaje.setIdestatusviaje(id);
             Optional<EstatusViaje> optional = repository.findById(estatusViaje);
             if (optional.isPresent()) {
-               return optional.get();
-            } 
+                return optional.get();
+            }
         } catch (Exception e) {
-              errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
-      
-      return estatusViaje;
+
+        return estatusViaje;
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Boolean isValidEstatusViajeInicial(EstatusViaje estatusViaje)">
     /**
      * Verifica si es un estatus de viaje inicial/IDA/IDA/REGRESO
+     *
      * @param estatusViaje
-     * @return 
+     * @return
      */
-    public Boolean isValidEstatusViajeInicial(EstatusViaje estatusViaje){
+    public Boolean isValidEstatusViajeInicial(EstatusViaje estatusViaje) {
         try {
-              if(estatusViaje.getIdestatusviaje().equals("IDA") ||estatusViaje.getIdestatusviaje().equals("IDA/REGRESO")){
+            if (estatusViaje.getInicial().equals("si")) {
                 return true;
             }
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);  
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
+    }
+
+    // </editor-fold>  
+    /**
+     * Verifica si es un estatus de viaje inicial/IDA/IDA/REGRESO
+     *
+     * @param estatusViaje
+     * @return
+     */
+
+    public Optional<EstatusViaje> estatusViajeInicial() {
+        Optional<EstatusViaje> optional = null;
+        try {
+
+            optional = repository.findById(new Document("inicial", "si"));
+            return optional;
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return Optional.empty();
     }
     // </editor-fold>  
 }
