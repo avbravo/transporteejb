@@ -19,6 +19,7 @@ public class EstatusViaje {
     @Id
     private String idestatusviaje;
     private String activo;
+    private String inicial;
       @Embedded
     List<UserInfo> userInfo;
 
@@ -28,6 +29,14 @@ public class EstatusViaje {
 
     public void setIdestatusviaje(String idestatusviaje) {
         this.idestatusviaje = idestatusviaje;
+    }
+
+    public String getInicial() {
+        return inicial;
+    }
+
+    public void setInicial(String inicial) {
+        this.inicial = inicial;
     }
 
    
