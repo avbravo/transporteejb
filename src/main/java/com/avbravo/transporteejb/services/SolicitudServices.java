@@ -23,6 +23,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
@@ -200,69 +201,66 @@ public class SolicitudServices {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="isValid()">
-    public Boolean isValid(Solicitud solicitud) {
+    public Boolean isValid(Solicitud solicitud, ResourceBundle mrb, ResourceBundle arb) {
         try {
             if (solicitud.getFechahorapartida() == null) {
-                JmoordbUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
+           
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fechapartidanoseleccionada"));
                 return false;
             }
 
             if (solicitud.getFechahoraregreso() == null) {
-                JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso no seleccionada");
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresonoseleccionada"));
                 return false;
             }
             if (solicitud.getRangoagenda() == null || solicitud.getRangoagenda().isEmpty()) {
-                JmoordbUtil.warningDialog("Advertencia", "Por favor indique el rango para la agenad");
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.indiquerangoagenda"));
                 return false;
             }
 
-            if (JmoordbUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
-
-                JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
-                return false;
-            }
+            
 
             if (JmoordbUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
-                JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresomenorfechapartida"));
                 return false;
             }
             if (JmoordbUtil.fechaIgual(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
-                JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso es igual que la fecha de partida");
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresoigualpartida"));
                 return false;
             }
 
             if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
                     && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
-                JmoordbUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.horapartidacero"));
                 return false;
             }
 
             if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
                     && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
-                JmoordbUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.horallegadacero"));
                 return false;
             }
 
             if (solicitud.getPasajeros() <= 0) {
-                JmoordbUtil.warningDialog("Advertencia", "Numero de pasajeros menor que cero");
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.pasajerosmenorcero"));
                 return false;
             }
 
             if (solicitud.getNumerodevehiculos() <= 0) {
-                JmoordbUtil.warningDialog("Advertencia", "Numero de vehiculos debe ser mayor que cero");
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.numerovehiculoscero"));
                 return false;
             }
             Integer totalvehiculos = vehiculoRepository.count(new Document("activo", "si").append("enreparacion", "no"));
 
             if (solicitud.getNumerodevehiculos() > totalvehiculos) {
-                JmoordbUtil.warningDialog("Advertencia", "Numero de vehiculos es mayor que la cantidad de vehiculos disponibles");
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.vehiculosmayorquedisponibles"));
                 return false;
             }
 
             if (JmoordbUtil.fechaMenor(solicitud.getFechahorapartida(), JmoordbUtil.fechaActual())) {
-                JmoordbUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fechapartidamenoractual"));
                 return false;
             }
             return true;
@@ -274,7 +272,7 @@ public class SolicitudServices {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="isValidDates()">
-    public Boolean isValidDates(Solicitud solicitud, Boolean showdialog, Boolean validateFechaActual, Boolean... validarHoraCero) {
+    public Boolean isValidDates(Solicitud solicitud, Boolean showdialog, Boolean validateFechaActual,  ResourceBundle mrb, ResourceBundle arb,Boolean... validarHoraCero) {
         try {
             Boolean validarHoraCeroLocal = true;
             if (validarHoraCero.length != 0) {
@@ -283,9 +281,9 @@ public class SolicitudServices {
             }
             if (solicitud.getFechahorapartida() == null) {
                 if (showdialog) {
-                    JmoordbUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
+                    JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fechapartidanoseleccionada"));
                 } else {
-                    JmoordbUtil.warningMessage("Fecha de partida no seleccionada");
+                    JmoordbUtil.warningMessage(mrb.getString("warning.fechapartidanoseleccionada"));
                 }
 
                 return false;
@@ -293,9 +291,9 @@ public class SolicitudServices {
 
             if (solicitud.getFechahoraregreso() == null) {
                 if (showdialog) {
-                    JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso no seleccionada");
+                    JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresonoseleccionada"));
                 } else {
-                    JmoordbUtil.warningMessage("Fecha de regreso no seleccionada");
+                    JmoordbUtil.warningMessage(mrb.getString("warning.fecharegresonoseleccionada"));
                 }
 
                 return false;
@@ -303,28 +301,21 @@ public class SolicitudServices {
 
             if (JmoordbUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
                 if (showdialog) {
-                    JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
+                    JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresomenorfechapartida"));
                 } else {
-                    JmoordbUtil.warningMessage("Fecha de regreso menor que la fecha de partida");
+                    JmoordbUtil.warningMessage( mrb.getString("warning.fecharegresomenorfechapartida"));
                 }
 
                 return false;
             }
 
-            if (JmoordbUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
-                if (showdialog) {
-                    JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso menor que la fecha de partida");
-                } else {
-                    JmoordbUtil.warningMessage("Fecha de regreso menor que la fecha de partida");
-                }
-
-                return false;
-            }
+            
+         
             if (JmoordbUtil.fechaIgual(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
                 if (showdialog) {
-                    JmoordbUtil.warningDialog("Advertencia", "Fecha de regreso es igual que la fecha de partida");
+                    JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresoigualpartida"));
                 } else {
-                    JmoordbUtil.warningMessage("Fecha de regreso es igual que la fecha de partida");
+                    JmoordbUtil.warningMessage(mrb.getString("warning.fecharegresoigualpartida"));
                 }
 
                 return false;
@@ -333,9 +324,9 @@ public class SolicitudServices {
                 if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahorapartida()) == 0
                         && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahorapartida()) == 0) {
                     if (showdialog) {
-                        JmoordbUtil.warningDialog("Advertencia", "La hora de partida no debe ser cero");
+                        JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.horapartidacero"));
                     } else {
-                        JmoordbUtil.warningMessage("La hora de partida no debe ser cero");
+                        JmoordbUtil.warningMessage(mrb.getString("warning.horapartidacero"));
                     }
 
                     return false;
@@ -346,9 +337,9 @@ public class SolicitudServices {
                 if (JmoordbUtil.horaDeUnaFecha(solicitud.getFechahoraregreso()) == 0
                         && JmoordbUtil.minutosDeUnaFecha(solicitud.getFechahoraregreso()) == 0) {
                     if (showdialog) {
-                        JmoordbUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
+                        JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.horallegadaescero"));
                     } else {
-                        JmoordbUtil.warningMessage("La hora de llegada no debe ser cero");
+                        JmoordbUtil.warningMessage( mrb.getString("warning.horallegadaescero"));
                     }
 
                     return false;
@@ -358,9 +349,9 @@ public class SolicitudServices {
             if (validateFechaActual) {
                 if (JmoordbUtil.fechaMenor(solicitud.getFechahorapartida(), JmoordbUtil.fechaActual())) {
                     if (showdialog) {
-                        JmoordbUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
+                        JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fechapartidamenoractual"));
                     } else {
-                        JmoordbUtil.warningMessage("Fecha de partida es menor que la fecha actual");
+                        JmoordbUtil.warningMessage(mrb.getString("warning.fechapartidamenoractual"));
                     }
 
                     return false;
