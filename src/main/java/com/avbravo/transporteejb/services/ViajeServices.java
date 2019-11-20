@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
@@ -32,7 +33,8 @@ import org.bson.conversions.Bson;
  */
 @Stateless
 public class ViajeServices {
- @Inject
+
+    @Inject
     ErrorInfoServices errorServices;
     @Inject
     ViajeRepository repository;
@@ -45,7 +47,7 @@ public class ViajeServices {
         try {
             suggestions = repository.complete(query);
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return suggestions;
@@ -56,7 +58,7 @@ public class ViajeServices {
         try {
             solicitudList = repository.findAll(new Document("solicitud", 1));
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return solicitudList;
     }// </editor-fold>
@@ -75,7 +77,7 @@ public class ViajeServices {
                 return false;
             }
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return true;
     }  // </editor-fold>
@@ -91,7 +93,7 @@ public class ViajeServices {
                 return optional.get();
             }
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
 
         return viajes;
@@ -146,7 +148,7 @@ public class ViajeServices {
             }
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return viajesList;
     }
@@ -167,7 +169,7 @@ public class ViajeServices {
                 return true;
             }
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -191,18 +193,18 @@ public class ViajeServices {
                 }
             }
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return disponible;
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="isValid()">
-    public Boolean isValid(Viaje viajes, Boolean...kmCombustibleMayorCero) {
+    public Boolean isValid(Viaje viajes, Boolean... kmCombustibleMayorCero) {
         try {
- Boolean isKmCombustibleMayorCero = true;
+            Boolean isKmCombustibleMayorCero = true;
             if (kmCombustibleMayorCero.length != 0) {
-               isKmCombustibleMayorCero = kmCombustibleMayorCero[0];
+                isKmCombustibleMayorCero = kmCombustibleMayorCero[0];
             }
             if (JmoordbUtil.fechaMenor(viajes.getFechahorafinreserva(), viajes.getFechahorainicioreserva())) {
 
@@ -232,29 +234,28 @@ public class ViajeServices {
                 JmoordbUtil.warningDialog("Advertencia", "La hora de llegada no debe ser cero");
                 return false;
             }
-if(isKmCombustibleMayorCero){
-    if (viajes.getKmestimados() <= 0) {
-                JmoordbUtil.warningDialog("Advertencia", "Numero de km menor que cero");
-                return false;
+            if (isKmCombustibleMayorCero) {
+                if (viajes.getKmestimados() <= 0) {
+                    JmoordbUtil.warningDialog("Advertencia", "Numero de km menor que cero");
+                    return false;
+                }
+
+                if (viajes.getCostocombustible() <= 0) {
+                    JmoordbUtil.warningDialog("Advertencia", "Costo de combustible debe ser mayor que cero");
+                    return false;
+                }
+            } else {
+                if (viajes.getKmestimados() < 0) {
+                    JmoordbUtil.warningDialog("Advertencia", "Numero de km menor que cero");
+                    return false;
+                }
+
+                if (viajes.getCostocombustible() < 0) {
+                    JmoordbUtil.warningDialog("Advertencia", "Costo de combustible debe ser mayor que cero");
+                    return false;
+                }
             }
 
-            if (viajes.getCostocombustible() <= 0) {
-                JmoordbUtil.warningDialog("Advertencia", "Costo de combustible debe ser mayor que cero");
-                return false;
-            }
-}else{
-    if (viajes.getKmestimados() < 0) {
-                JmoordbUtil.warningDialog("Advertencia", "Numero de km menor que cero");
-                return false;
-            }
-
-            if (viajes.getCostocombustible() < 0) {
-                JmoordbUtil.warningDialog("Advertencia", "Costo de combustible debe ser mayor que cero");
-                return false;
-            }
-}
-            
-       
             if (viajes.getVehiculo().getActivo().equals("no")) {
                 JmoordbUtil.warningDialog("Advertencia", "El vehiculo no esta activo");
                 return false;
@@ -270,7 +271,7 @@ if(isKmCombustibleMayorCero){
 
             return true;
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -320,7 +321,7 @@ if(isKmCombustibleMayorCero){
 
             return true;
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -343,7 +344,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -366,7 +367,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -391,7 +392,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return list;
     }
@@ -413,7 +414,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -435,7 +436,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -458,7 +459,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return list;
     }
@@ -480,7 +481,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -502,7 +503,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -527,7 +528,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", viaje.getFechahorainicioreserva(), "fechahorafinreserva", viaje.getFechahorafinreserva());
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return list;
     }
@@ -548,7 +549,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -569,7 +570,7 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
@@ -590,14 +591,13 @@ if(isKmCombustibleMayorCero){
                     "fechahorainicioreserva", fechahorainicioreserva, "fechahorafinreserva", fechahorafinreserva);
 
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return list;
     }
     // </editor-fold>
 
-    
-     // <editor-fold defaultstate="collapsed" desc="String columnColor(String realizado, String activo)"> 
+    // <editor-fold defaultstate="collapsed" desc="String columnColor(String realizado, String activo)"> 
     public String columnColor(String realizado, String activo) {
         String color = "";
         try {
@@ -615,43 +615,42 @@ if(isKmCombustibleMayorCero){
                 color = "red";
             }
         } catch (Exception e) {
-                 errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return color;
     }
 // </editor-fold>
-    
-          // <editor-fold defaultstate="collapsed" desc="String showDate(Date date)">
+
+    // <editor-fold defaultstate="collapsed" desc="String showDate(Date date)">
     public String showDate(Date date) {
         String h = "";
         try {
             h = JmoordbUtil.dateFormatToString(date, "dd/MM/yyyy");
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return h;
     }// </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="String showHour(Date date)">
 
+    // <editor-fold defaultstate="collapsed" desc="String showHour(Date date)">
     public String showHour(Date date) {
         String h = "";
         try {
             h = JmoordbUtil.hourFromDateToString(date);
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return h;
     }// </editor-fold>
-    
-     // <editor-fold defaultstate="collapsed" desc="isValidDates()">
-    public Boolean isValidDates(Viaje viaje, Boolean showdialog, Boolean ...compararConFechaActual) {
+
+    // <editor-fold defaultstate="collapsed" desc="isValidDates()">
+    public Boolean isValidDates(Viaje viaje, Boolean showdialog, Boolean... compararConFechaActual) {
         try {
-              Boolean isFechaActual = true;
+            Boolean isFechaActual = true;
             if (compararConFechaActual.length != 0) {
-               isFechaActual = compararConFechaActual[0];
+                isFechaActual = compararConFechaActual[0];
             }
-            if (viaje.getFechahorainicioreserva()== null) {
+            if (viaje.getFechahorainicioreserva() == null) {
                 if (showdialog) {
                     JmoordbUtil.warningDialog("Advertencia", "Fecha de partida no seleccionada");
                 } else {
@@ -722,35 +721,34 @@ if(isKmCombustibleMayorCero){
                 return false;
             }
 
-            if(isFechaActual){
-                   if (JmoordbUtil.fechaMenor(viaje.getFechahorainicioreserva(), JmoordbUtil.fechaActual())) {
-                if (showdialog) {
-                    JmoordbUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
-                } else {
-                    JmoordbUtil.warningMessage("Fecha de partida es menor que la fecha actual");
-                }
+            if (isFechaActual) {
+                if (JmoordbUtil.fechaMenor(viaje.getFechahorainicioreserva(), JmoordbUtil.fechaActual())) {
+                    if (showdialog) {
+                        JmoordbUtil.warningDialog("Advertencia", "Fecha de partida es menor que la fecha actual");
+                    } else {
+                        JmoordbUtil.warningMessage("Fecha de partida es menor que la fecha actual");
+                    }
 
-                return false;
-            } 
+                    return false;
+                }
             }
-        
+
             return true;
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return false;
     }
     // </editor-fold>
 
-    
-      // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponible(Vehiculo vehiculo)">
+    // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponible(Vehiculo vehiculo)">
     public Boolean isVehiculoActivoDisponible(Vehiculo vehiculo, Solicitud solicitud, Viaje viaje) {
         Boolean valid = false;
         try {
-            if(!vehiculo.getTipovehiculo().getIdtipovehiculo().equals(solicitud.getTipovehiculo().get(0).getIdtipovehiculo())){
+            if (!vehiculo.getTipovehiculo().getIdtipovehiculo().equals(solicitud.getTipovehiculo().get(0).getIdtipovehiculo())) {
                 return valid;
             }
-            if (vehiculo.getActivo().equals("no") && vehiculo.getEnreparacion().equals("si") ) {
+            if (vehiculo.getActivo().equals("no") && vehiculo.getEnreparacion().equals("si")) {
 
             } else {
                 if (vehiculoDisponible(vehiculo, viaje.getFechahorainicioreserva(), viaje.getFechahorafinreserva())) {
@@ -759,19 +757,18 @@ if(isKmCombustibleMayorCero){
             }
 
         } catch (Exception e) {
-                      errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
             //errorServices.errorDialog(nameOfClass(), nameOfMethod(), nameOfMethod(), e.getLocalizedMessage());
         }
         return valid;
     }
 
     // </editor-fold>
-    
-     // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo)">
+    // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo)">
     public Boolean isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo, Solicitud solicitud, Viaje viaje) {
         Boolean valid = false;
         try {
-             if(!vehiculo.getTipovehiculo().getIdtipovehiculo().equals(solicitud.getTipovehiculo().get(0).getIdtipovehiculo())){
+            if (!vehiculo.getTipovehiculo().getIdtipovehiculo().equals(solicitud.getTipovehiculo().get(0).getIdtipovehiculo())) {
                 return valid;
             }
 
@@ -784,12 +781,73 @@ if(isKmCombustibleMayorCero){
             }
 
         } catch (Exception e) {
-                         errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return valid;
     }
 
     // </editor-fold>
-    
-   
+    // <editor-fold defaultstate="collapsed" desc="List<Object> asignarListViajesASolicitud(Viaje viaje, Solicitud solicitud, ResourceBundle mrb, ResourceBundle arb)">
+    /**
+     * Valida en base al estatusviaje y carga viajelist asignandolo a solicitud
+     * y devuelve si fue exitoso o no.
+     *
+     * @param viaje
+     * @param solicitud
+     * @param mrb
+     * @param arb
+     * @return
+     */
+    public List<Object> asignarListViajesASolicitud(Viaje viaje, Solicitud solicitud, ResourceBundle mrb, ResourceBundle arb) {
+        List<Object> list = new ArrayList<>();
+        List<Viaje> viajeList = new ArrayList<>();
+        Boolean valid = false;
+        try {
+            switch (viaje.getEstatusViaje().getIdestatusviaje()) {
+                case "IDA/REGRESO":
+                    viajeList.add(viaje);
+                    viajeList.add(viaje);
+                    valid = true;
+                    break;
+
+                case "IDA PENDIENTE REGRESO":
+                    viajeList.add(viaje);
+                    valid = true;
+                    break;
+                case "SOLO IDA":
+                    viajeList.add(viaje);
+                    valid = true;
+                    break;
+
+                case "SOLO REGRESO":
+                    if (solicitud.getViaje() == null || solicitud.getViaje().size() == 0) {
+                        JmoordbUtil.warningMessage(mrb.getString("warning.solicitudnotieneviajeida"));
+
+                    } else {
+                        viajeList = solicitud.getViaje();
+                        viajeList.add(viaje);
+                        valid = true;
+                    }
+
+                    break;
+                case "NO ASIGNADO":
+                    if (viajeList.size() == 0) {
+                        JmoordbUtil.warningMessage(mrb.getString("warning.seleccioneunestatusviaje"));
+                    }
+                    valid = true;
+                    break;
+                default:
+                    JmoordbUtil.warningMessage(mrb.getString("warning.indiquetipoviaje"));
+            }
+
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        solicitud.setViaje(viajeList);
+        list.add(valid);
+        list.add(solicitud);
+
+        return list;
+    }
+    // </editor-fold>  
 }
