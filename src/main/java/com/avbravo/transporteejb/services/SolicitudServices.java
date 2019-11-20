@@ -664,6 +664,8 @@ public class SolicitudServices {
                             if (s.getViaje().get(0).getIdviaje().equals(viaje.getIdviaje())) {
                                 List<Viaje> viajeList = new ArrayList<>();
                                 s.setViaje(viajeList);
+                                actualizarViajeIda("no")
+                              
                                 Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
                                 if (optional.isPresent()) {
                                     s.setEstatusViaje(optional.get());
@@ -683,6 +685,8 @@ public class SolicitudServices {
                                     List<Viaje> viajeList = new ArrayList<>();
                                     s.setViaje(viajeList);
                                     //cambiar el estatus del viaje a no asignado
+                                    actualizarViajeIda("no");
+                                    actualizarViajeRegreso("no");
 
                                     Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
                                     if (optional.isPresent()) {
