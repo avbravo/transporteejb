@@ -212,10 +212,9 @@ public class ViajeServices {
                 return false;
             }
 
-            
             if (JmoordbUtil.fechaIgual(viajes.getFechahorafinreserva(), viajes.getFechahorainicioreserva())) {
 
-                JmoordbUtil.warningDialog(arb.getString("warning.view"),mrb.getString("warning.fecharegresoigualpartida"));
+                JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresoigualpartida"));
                 return false;
             }
 
@@ -242,7 +241,7 @@ public class ViajeServices {
                 }
             } else {
                 if (viajes.getKmestimados() < 0) {
-                    JmoordbUtil.warningDialog(arb.getString("warning.view"),  mrb.getString("warning.kmmenorcero"));
+                    JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.kmmenorcero"));
                     return false;
                 }
 
@@ -274,7 +273,7 @@ public class ViajeServices {
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="isValidDate()">
-    public Boolean isValidDate(Viaje viaje,ResourceBundle mrb, ResourceBundle arb) {
+    public Boolean isValidDate(Viaje viaje, ResourceBundle mrb, ResourceBundle arb) {
         try {
 
             if (viaje.getFechahorainicioreserva() == null) {
@@ -286,7 +285,7 @@ public class ViajeServices {
                 JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fechafinnoseleccionada"));
                 return false;
             }
-           
+
             if (JmoordbUtil.fechaMenor(viaje.getFechahorafinreserva(), viaje.getFechahorainicioreserva())) {
 
                 JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresomenorfechapartida"));
@@ -635,7 +634,7 @@ public class ViajeServices {
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="isValidDates()">
-    public Boolean isValidDates(Viaje viaje, Boolean showdialog, ResourceBundle mrb, ResourceBundle arb,Boolean... compararConFechaActual) {
+    public Boolean isValidDates(Viaje viaje, Boolean showdialog, ResourceBundle mrb, ResourceBundle arb, Boolean... compararConFechaActual) {
         try {
             Boolean isFechaActual = true;
             if (compararConFechaActual.length != 0) {
@@ -671,7 +670,6 @@ public class ViajeServices {
                 return false;
             }
 
-           
             if (JmoordbUtil.fechaIgual(viaje.getFechahorafinreserva(), viaje.getFechahorainicioreserva())) {
                 if (showdialog) {
                     JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresoigualpartida"));
@@ -790,16 +788,22 @@ public class ViajeServices {
                 case "IDA/REGRESO":
                     viajeList.add(viaje);
                     viajeList.add(viaje);
+                    solicitud.setTieneAsignadoViajeIda("si");
+                    solicitud.setTieneAsignadoViajeRegreso("si");
                     valid = true;
                     break;
 
                 case "IDA PENDIENTE REGRESO":
                     viajeList.add(viaje);
                     valid = true;
+                    solicitud.setTieneAsignadoViajeIda("si");
+                    solicitud.setTieneAsignadoViajeRegreso("no");
                     break;
                 case "SOLO IDA":
                     viajeList.add(viaje);
                     valid = true;
+                    solicitud.setTieneAsignadoViajeIda("si");
+                    solicitud.setTieneAsignadoViajeRegreso("xx");
                     break;
 
                 case "SOLO REGRESO":
@@ -809,6 +813,8 @@ public class ViajeServices {
                     } else {
                         viajeList = solicitud.getViaje();
                         viajeList.add(viaje);
+                        solicitud.setTieneAsignadoViajeIda("xx");
+                        solicitud.setTieneAsignadoViajeRegreso("si");
                         valid = true;
                     }
 
@@ -817,6 +823,8 @@ public class ViajeServices {
                     if (viajeList.size() == 0) {
                         JmoordbUtil.warningMessage(mrb.getString("warning.seleccioneunestatusviaje"));
                     }
+                    solicitud.setTieneAsignadoViajeIda("no");
+                    solicitud.setTieneAsignadoViajeRegreso("no");
                     valid = true;
                     break;
                 default:

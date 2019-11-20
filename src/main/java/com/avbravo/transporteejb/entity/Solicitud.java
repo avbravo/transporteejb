@@ -108,7 +108,8 @@ public class Solicitud {
     VistoBueno vistoBueno;
     @Embedded 
     VistoBuenoSubdirectorAdministrativo vistoBuenoSubdirectorAdministrativo;
-
+    private String tieneAsignadoViajeIda;
+    private String tieneAsignadoViajeRegreso;
  
     @Embedded
     List<UserInfo> userInfo;
@@ -382,6 +383,24 @@ public class Solicitud {
     public void setEstatusViaje(EstatusViaje estatusViaje) {
         this.estatusViaje = estatusViaje;
     }
+
+    public String getTieneAsignadoViajeIda() {
+        return tieneAsignadoViajeIda;
+    }
+
+    public void setTieneAsignadoViajeIda(String tieneAsignadoViajeIda) {
+        this.tieneAsignadoViajeIda = tieneAsignadoViajeIda;
+    }
+
+    public String getTieneAsignadoViajeRegreso() {
+        return tieneAsignadoViajeRegreso;
+    }
+
+    public void setTieneAsignadoViajeRegreso(String tieneAsignadoViajeRegreso) {
+        this.tieneAsignadoViajeRegreso = tieneAsignadoViajeRegreso;
+    }
+
+   
 
  
 }

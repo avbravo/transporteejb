@@ -42,8 +42,8 @@ public class SolicitudServices {
     EstatusServices estatusServices;
     @Inject
     EstatusViajeServices estatusViajeServices;
-   @Inject
-   EstatusViajeRepository estatusViajeRepository;
+    @Inject
+    EstatusViajeRepository estatusViajeRepository;
     @Inject
     SolicitudRepository repository;
     @Inject
@@ -204,7 +204,7 @@ public class SolicitudServices {
     public Boolean isValid(Solicitud solicitud, ResourceBundle mrb, ResourceBundle arb) {
         try {
             if (solicitud.getFechahorapartida() == null) {
-           
+
                 JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fechapartidanoseleccionada"));
                 return false;
             }
@@ -217,8 +217,6 @@ public class SolicitudServices {
                 JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.indiquerangoagenda"));
                 return false;
             }
-
-            
 
             if (JmoordbUtil.fechaMenor(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
 
@@ -272,7 +270,7 @@ public class SolicitudServices {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="isValidDates()">
-    public Boolean isValidDates(Solicitud solicitud, Boolean showdialog, Boolean validateFechaActual,  ResourceBundle mrb, ResourceBundle arb,Boolean... validarHoraCero) {
+    public Boolean isValidDates(Solicitud solicitud, Boolean showdialog, Boolean validateFechaActual, ResourceBundle mrb, ResourceBundle arb, Boolean... validarHoraCero) {
         try {
             Boolean validarHoraCeroLocal = true;
             if (validarHoraCero.length != 0) {
@@ -303,14 +301,12 @@ public class SolicitudServices {
                 if (showdialog) {
                     JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresomenorfechapartida"));
                 } else {
-                    JmoordbUtil.warningMessage( mrb.getString("warning.fecharegresomenorfechapartida"));
+                    JmoordbUtil.warningMessage(mrb.getString("warning.fecharegresomenorfechapartida"));
                 }
 
                 return false;
             }
 
-            
-         
             if (JmoordbUtil.fechaIgual(solicitud.getFechahoraregreso(), solicitud.getFechahorapartida())) {
                 if (showdialog) {
                     JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.fecharegresoigualpartida"));
@@ -339,7 +335,7 @@ public class SolicitudServices {
                     if (showdialog) {
                         JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.horallegadaescero"));
                     } else {
-                        JmoordbUtil.warningMessage( mrb.getString("warning.horallegadaescero"));
+                        JmoordbUtil.warningMessage(mrb.getString("warning.horallegadaescero"));
                     }
 
                     return false;
@@ -623,8 +619,9 @@ public class SolicitudServices {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="List<Solicitud> solicitudPorViaje(Viaje viaje)">
     /**
-     * devuelve la lista de solicitudes que contengan el viaje. Recuerde que es un List<Viaje> q
-     * que contiene en la primera posicion el viaje de ida  y en la segunda el viaje de regreso
+     * devuelve la lista de solicitudes que contengan el viaje. Recuerde que es
+     * un List<Viaje> q que contiene en la primera posicion el viaje de ida y en
+     * la segunda el viaje de regreso
      *
      * @
      * @param viaje
@@ -642,23 +639,88 @@ public class SolicitudServices {
         return list;
     }
     // </editor-fold>  
-    
+
     // <editor-fold defaultstate="collapsed" desc="Boolean actualizarSolicitudConViajeCancelado(Viaje viaje, List<Solicitud> list)">
     /**
      * actualiza en todas las solicitudes el viaje cancelado removiendolo
+     *
      * @param viaje
      * @param list
-     * @return 
-     * EstatusViaje: 
-     *              IDA, IDA/REGRESO, NO SOLICITADO, SOLO IDA, SOLO REGRESO
-     *              IDA= Indica que solo se registro el viaje de ida falta el viaje de regreso
+     * @return EstatusViaje: IDA, IDA/REGRESO, NO SOLICITADO, SOLO IDA, SOLO
+     * REGRESO IDA= Indica que solo se registro el viaje de ida falta el viaje
+     * de regreso
      */
-    public Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list,String titleWarning, String mensajewarning){
+    public Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list, String titleWarning, String mensajewarning) {
         try {
-            
-             if (list == null || list.isEmpty()) {
+
+            if (list == null || list.isEmpty()) {
                 for (Solicitud s : list) {
-                    //Es el viaje de ida y regreso
+                    //No hay viajes 
+                    if (s.getViaje().size() == 0) {
+
+                    } else {
+                        //Un solo viaje
+                        if (s.getViaje().size() == 1) {
+                            if (s.getViaje().get(0).getIdviaje().equals(viaje.getIdviaje())) {
+                                List<Viaje> viajeList = new ArrayList<>();
+                                s.setViaje(viajeList);
+                                Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
+                                if (optional.isPresent()) {
+                                    s.setEstatusViaje(optional.get());
+                                } else {
+                                    JmoordbUtil.warningDialog(titleWarning, mensajewarning);
+                                    return false;
+                                }
+
+                                repository.update(s);
+                            }
+
+                        } else {
+                            //dos viajes
+                            if (s.getViaje().size() == 2) {
+                                //Mismo viaje de ida y regreso
+                                if (s.getViaje().get(0).equals(viaje.getIdviaje()) && s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
+                                    List<Viaje> viajeList = new ArrayList<>();
+                                    s.setViaje(viajeList);
+                                    //cambiar el estatus del viaje a no asignado
+
+                                    Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
+                                    if (optional.isPresent()) {
+                                        s.setEstatusViaje(optional.get());
+                                    } else {
+                                        JmoordbUtil.warningDialog(titleWarning, mensajewarning);
+                                        return false;
+                                    }
+
+                                    repository.update(s);
+
+                                } else {
+                                    //si es el primer viaje de ida y de regreso otro viaje
+                                    //Solo quitar el primer viaje
+                                    if (s.getViaje().get(0).equals(viaje.getIdviaje()) && !s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
+                                        List<Viaje> viajeList = new ArrayList<>();
+                                        viajeList.add(new Viaje());
+                                        viajeList.add(s.getViaje().get(1));
+                                        s.setViaje(viajeList);
+                                        //cambiar el estatus del viaje a no asignado
+
+                                        Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
+                                        if (optional.isPresent()) {
+                                            s.setEstatusViaje(optional.get());
+                                        } else {
+                                            JmoordbUtil.warningDialog(titleWarning, mensajewarning);
+                                            return false;
+                                        }
+
+                                        repository.update(s);
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //Es el mismo viaje de ida y regreso
                     if (s.getViaje().get(0).equals(viaje.getIdviaje()) && s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
                         List<Viaje> viajeList = new ArrayList<>();
                         s.setViaje(viajeList);
@@ -683,7 +745,7 @@ public class SolicitudServices {
                             if (optional.isPresent()) {
                                 estatusViaje = optional.get();
                             } else {
-                              JmoordbUtil.warningDialog(titleWarning, mensajewarning);
+                                JmoordbUtil.warningDialog(titleWarning, mensajewarning);
                                 return false;
                             }
                             s.setEstatusViaje(estatusViaje);
