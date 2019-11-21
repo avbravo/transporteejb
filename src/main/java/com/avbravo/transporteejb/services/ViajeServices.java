@@ -8,6 +8,7 @@ package com.avbravo.transporteejb.services;
 import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Conductor;
+import com.avbravo.transporteejb.entity.EstatusViaje;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Vehiculo;
 import com.avbravo.transporteejb.entity.Viaje;
@@ -841,4 +842,157 @@ public class ViajeServices {
         return list;
     }
     // </editor-fold>  
+
+    // <editor-fold defaultstate="collapsed" desc="Boolean actualizarSolicitudConViajeCancelado(Viaje viaje, List<Solicitud> list)">
+    /**
+     * actualiza en todas las solicitudes el viaje cancelado removiendolo
+     *
+     * @param viaje
+     * @param list
+     * @return EstatusViaje: IDA, IDA/REGRESO, NO SOLICITADO, SOLO IDA, SOLO
+     * REGRESO IDA= Indica que solo se registro el viaje de ida falta el viaje
+     * de regreso EstatusViaje IDA PENDIENTE REGRESO IDA/REGRESO SOLO IDA SOLO
+     * REGRESO NO ASIGNADO Viaje | 13 |13|IDA/REGRESO | 13 |14|IDA/REGRESO | 13
+     * |IDA PENDIENTE REGRESO | 13|SOLO IDA | 13|SOLO REGRESO ||NO ASIGNADO
+     */
+    public Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list, ResourceBundle mrb, ResourceBundle arb) {
+        try {
+
+            if (list == null || list.isEmpty()) {
+                for (Solicitud s : list) {
+
+                    switch (s.getEstatusViaje().getIdestatusviaje()) {
+                        case "IDA/REGRESO":
+                            updateSolicitudIdaRegreso(s, viaje, mrb, arb);
+                            break;
+                        case "IDA PENDIENTE REGRESO":
+                            break;
+                        case "SOLO IDA":
+                            break;
+                        case "SOLO REGRESO":
+                            break;
+                        case "NO ASIGNADO":
+                            break;
+
+                    }
+
+                }
+            }
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return false;
+    }
+    // </editor-fold>  
+
+    // <editor-fold defaultstate="collapsed" desc="Boolean updateSolicitudIdaRegreso(Solicitud s, ResourceBundle mrb, ResourceBundle arb)">
+    private Boolean updateSolicitudIdaRegreso(Solicitud s, Viaje viaje, ResourceBundle mrb, ResourceBundle arb) {
+        try {
+            if (s.getViaje() == null) {
+                return false;
+            }
+            switch (s.getViaje().size()) {
+                case 0:
+                    //No tiene viajes asignados
+                    break;
+
+                case 1:
+                    break;
+
+                case 2:
+                    if (s.getViaje().get(0).equals(viaje.getIdviaje()) && s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
+                        // Es el mismo viaje de ida y regreso se quitan los dos
+                        List<Viaje> viajeList = new ArrayList<>();
+                        viajeList.add(new Viaje());
+                        viajeList.add(new Viaje());
+                        s.setViaje(viajeList);
+                        s.setTieneAsignadoViajeIda("no");
+                        s.setTieneAsignadoViajeRegreso("no");
+                        solicitudRepository.update(s);
+                        return true;
+                    } else {
+                        if (s.getViaje().get(0).equals(viaje.getIdviaje()) && !s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
+                            // Es el viaje de ida que se desea cancelar.  
+                            List<Viaje> viajeList = new ArrayList<>();
+                            viajeList.add(new Viaje());
+                            viajeList.add(s.getViaje().get(1));
+                            s.setViaje(viajeList);
+                            s.setTieneAsignadoViajeIda("no");
+                            s.setTieneAsignadoViajeRegreso("si");
+                            solicitudRepository.update(s);
+                            return true;
+                        } else {
+                            if (!s.getViaje().get(0).equals(viaje.getIdviaje()) && s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
+                                // Es el viaje de regreso que se desea cancelar. 
+                                List<Viaje> viajeList = new ArrayList<>();
+                                viajeList.add(s.getViaje().get(0));
+                                viajeList.add(new Viaje());
+                                s.setViaje(viajeList);
+                                s.setTieneAsignadoViajeIda("si");
+                                s.setTieneAsignadoViajeRegreso("no");
+                                solicitudRepository.update(s);
+                                return true;
+                            }
+                        }
+                    }
+
+                    break;
+
+            }
+
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return false;
+    }
+
+    // </editor-fold>  
+    // <editor-fold defaultstate="collapsed" desc="Boolean updateSolicitudIdaPendienteRegreso(Solicitud s, ResourceBundle mrb, ResourceBundle arb)">
+    private Boolean updateSolicitudIdaPendienteRegreso(Solicitud s, ResourceBundle mrb, ResourceBundle arb) {
+
+        try {
+
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return false;
+    }
+
+    // </editor-fold>  
+    // <editor-fold defaultstate="collapsed" desc="Boolean updateSolicitudSoloIda(Solicitud s, ResourceBundle mrb, ResourceBundle arb)">
+    private Boolean updateSolicitudSoloIda(Solicitud s, ResourceBundle mrb, ResourceBundle arb) {
+
+        try {
+
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return false;
+    }
+
+    // </editor-fold>  
+    // <editor-fold defaultstate="collapsed" desc="Boolean updateSolicitudSoloRegreso(Solicitud s, ResourceBundle mrb, ResourceBundle arb)">
+    private Boolean updateSolicitudSoloRegreso(Solicitud s, ResourceBundle mrb, ResourceBundle arb) {
+
+        try {
+
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return false;
+    }
+
+    // </editor-fold>  
+    // <editor-fold defaultstate="collapsed" desc="Boolean updateSolicitudNoAsignadoBoolean(Solicitud s, ResourceBundle mrb, ResourceBundle arb)">
+    private Boolean updateSolicitudNoAsignadoBoolean(Solicitud s, ResourceBundle mrb, ResourceBundle arb) {
+
+        try {
+
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return false;
+    }
+    // </editor-fold>  
+
 }

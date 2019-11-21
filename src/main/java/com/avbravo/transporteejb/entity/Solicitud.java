@@ -110,6 +110,15 @@ public class Solicitud {
     VistoBuenoSubdirectorAdministrativo vistoBuenoSubdirectorAdministrativo;
     private String tieneAsignadoViajeIda;
     private String tieneAsignadoViajeRegreso;
+    private String fusionado;
+
+    public String getFusionado() {
+        return fusionado;
+    }
+
+    public void setFusionado(String fusionado) {
+        this.fusionado = fusionado;
+    }
  
     @Embedded
     List<UserInfo> userInfo;

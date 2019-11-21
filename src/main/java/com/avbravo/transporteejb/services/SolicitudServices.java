@@ -5,11 +5,17 @@
  */
 package com.avbravo.transporteejb.services;
 
+import com.avbravo.jmoordb.configuration.JmoordbConfiguration;
 import com.avbravo.jmoordb.configuration.JmoordbContext;
+import com.avbravo.jmoordb.mongodb.history.services.AutoincrementableServices;
 import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
+import com.avbravo.jmoordb.mongodb.repository.Repository;
+import com.avbravo.jmoordb.services.RevisionHistoryServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
-import com.avbravo.transporteejb.entity.EstatusViaje;
+import static com.avbravo.jmoordb.util.JmoordbUtil.nameOfClass;
+import static com.avbravo.jmoordb.util.JmoordbUtil.nameOfMethod;
 import com.avbravo.transporteejb.entity.Solicitud;
+import com.avbravo.transporteejb.entity.Tipovehiculo;
 import com.avbravo.transporteejb.entity.Usuario;
 import com.avbravo.transporteejb.entity.Viaje;
 import com.avbravo.transporteejb.repository.EstatusViajeRepository;
@@ -50,6 +56,9 @@ public class SolicitudServices {
     ViajeRepository viajesRepository;
     @Inject
     VehiculoRepository vehiculoRepository;
+
+    @Inject
+    AutoincrementableServices autoincrementableServices;
 
     List<Solicitud> solicitudList = new ArrayList<>();
 
@@ -640,149 +649,60 @@ public class SolicitudServices {
     }
     // </editor-fold>  
 
-    // <editor-fold defaultstate="collapsed" desc="Boolean actualizarSolicitudConViajeCancelado(Viaje viaje, List<Solicitud> list)">
-    /**
-     * actualiza en todas las solicitudes el viaje cancelado removiendolo
-     *
-     * @param viaje
-     * @param list
-     * @return EstatusViaje: IDA, IDA/REGRESO, NO SOLICITADO, SOLO IDA, SOLO
-     * REGRESO IDA= Indica que solo se registro el viaje de ida falta el viaje
-     * de regreso
-     */
-    public Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list, String titleWarning, String mensajewarning) {
+    // <editor-fold defaultstate="collapsed" desc="metodo()">
+    // <editor-fold defaultstate="collapsed" desc="Boolean insert(Tipovehiculo tipovehiculo)">
+    public List<Object> insert(Solicitud solicitud, Tipovehiculo tipovehiculo,List<Solicitud> solicitudGuardadasList, ResourceBundle mrb, ResourceBundle arb) {
+        List<Object> list = new ArrayList<>();
+        Boolean valid = false;
         try {
-
-            if (list == null || list.isEmpty()) {
-                for (Solicitud s : list) {
-                    //No hay viajes 
-                    if (s.getViaje().size() == 0) {
-
-                    } else {
-                        //Un solo viaje
-                        if (s.getViaje().size() == 1) {
-                            if (s.getViaje().get(0).getIdviaje().equals(viaje.getIdviaje())) {
-                                List<Viaje> viajeList = new ArrayList<>();
-                                s.setViaje(viajeList);
-                                actualizarViajeIda("no")
-                              
-                                Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
-                                if (optional.isPresent()) {
-                                    s.setEstatusViaje(optional.get());
-                                } else {
-                                    JmoordbUtil.warningDialog(titleWarning, mensajewarning);
-                                    return false;
-                                }
-
-                                repository.update(s);
-                            }
-
-                        } else {
-                            //dos viajes
-                            if (s.getViaje().size() == 2) {
-                                //Mismo viaje de ida y regreso
-                                if (s.getViaje().get(0).equals(viaje.getIdviaje()) && s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
-                                    List<Viaje> viajeList = new ArrayList<>();
-                                    s.setViaje(viajeList);
-                                    //cambiar el estatus del viaje a no asignado
-                                    actualizarViajeIda("no");
-                                    actualizarViajeRegreso("no");
-
-                                    Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
-                                    if (optional.isPresent()) {
-                                        s.setEstatusViaje(optional.get());
-                                    } else {
-                                        JmoordbUtil.warningDialog(titleWarning, mensajewarning);
-                                        return false;
-                                    }
-
-                                    repository.update(s);
-
-                                } else {
-                                    //si es el primer viaje de ida y de regreso otro viaje
-                                    //Solo quitar el primer viaje
-                                    if (s.getViaje().get(0).equals(viaje.getIdviaje()) && !s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
-                                        List<Viaje> viajeList = new ArrayList<>();
-                                        viajeList.add(new Viaje());
-                                        viajeList.add(s.getViaje().get(1));
-                                        s.setViaje(viajeList);
-                                        //cambiar el estatus del viaje a no asignado
-
-                                        Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
-                                        if (optional.isPresent()) {
-                                            s.setEstatusViaje(optional.get());
-                                        } else {
-                                            JmoordbUtil.warningDialog(titleWarning, mensajewarning);
-                                            return false;
-                                        }
-
-                                        repository.update(s);
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    //Es el mismo viaje de ida y regreso
-                    if (s.getViaje().get(0).equals(viaje.getIdviaje()) && s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
-                        List<Viaje> viajeList = new ArrayList<>();
-                        s.setViaje(viajeList);
-                        //cambiar el estatus del viaje a no asignado
-
-                        Optional<EstatusViaje> optional = estatusViajeServices.estatusViajeInicial();
-                        if (optional.isPresent()) {
-                            s.setEstatusViaje(optional.get());
-                        } else {
-                            JmoordbUtil.warningDialog(titleWarning, mensajewarning);
-                            return false;
-                        }
-
-                        repository.update(s);
-
-                    } else {
-                        // Si el que se quita es el viaje de ida
-                        if (s.getViaje().get(0).equals(viaje.getIdviaje()) && !s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
-                            EstatusViaje estatusViaje = new EstatusViaje();
-                            estatusViaje.setIdestatusviaje("PENDIENTEIDA/REGRESOASIGNADO");
-                            Optional<EstatusViaje> optional = estatusViajeRepository.findById(estatusViaje);
-                            if (optional.isPresent()) {
-                                estatusViaje = optional.get();
-                            } else {
-                                JmoordbUtil.warningDialog(titleWarning, mensajewarning);
-                                return false;
-                            }
-                            s.setEstatusViaje(estatusViaje);
-
-                            //Removerlo 
-                            s.getViaje().remove(0);
-                            repository.update(s);
-                        } else {
-                            //Remueve el viaje de regreso y si tiene viaje de ida
-                            if (s.getViaje().get(1).getIdviaje().equals(viaje.getIdviaje())) {
-                                EstatusViaje estatusViaje = new EstatusViaje();
-                                estatusViaje.setIdestatusviaje("PENDIENTEREGRESO/IDAASIGNADO");
-                                Optional<EstatusViaje> optional = estatusViajeRepository.findById(estatusViaje);
-                                if (optional.isPresent()) {
-                                    estatusViaje = optional.get();
-                                } else {
-                                    JmoordbUtil.warningDialog(titleWarning, mensajewarning);
-                                    return false;
-                                }
-                                s.setEstatusViaje(estatusViaje);
-
-                                //Removerlo 
-                                s.getViaje().remove(0);
-                                repository.update(s);
-                            }
-                        }
-                    }
-                }
+            Usuario jmoordb_user = (Usuario) JmoordbContext.get("jmoordb_user");
+            Integer idsolicitud = autoincrementableServices.getContador("solicitud");
+            solicitud.setIdsolicitud(idsolicitud);
+            //Se establece en 1 el numero de vehiculos solicitados a ser guardados
+            solicitud.setNumerodevehiculos(1);
+            Optional<Solicitud> optional = repository.findById(solicitud);
+            if (optional.isPresent()) {
+                JmoordbUtil.warningMessage(arb.getString("warning.idexist"));
+                valid =false;
             }
+
+            //Viajes
+//            List<Viaje> viajeList = new ArrayList<>();
+//            viajeList.add(new Viaje());
+//            viajeList.add(new Viaje());
+//            solicitud.setViaje(viajeList);
+
+            //Lo datos del usuario
+            List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
+
+            tipovehiculoList.add(tipovehiculo);
+            solicitud.setTipovehiculo(tipovehiculoList);
+            solicitud.setUserInfo(repository.generateListUserinfo(jmoordb_user.getUsername(), "create"));
+            if (repository.save(solicitud)) {
+                Solicitud sol = new Solicitud();
+                sol = (Solicitud) JmoordbUtil.copyBeans(sol, solicitud);
+                solicitudGuardadasList.add(sol);
+
+                //guarda el contenido anterior
+                JmoordbConfiguration jmc = new JmoordbConfiguration();
+                Repository repositoryRevisionHistory = jmc.getRepositoryRevisionHistory();
+                RevisionHistoryServices revisionHistoryServices = jmc.getRevisionHistoryServices();
+                repositoryRevisionHistory.save(revisionHistoryServices.getRevisionHistory(solicitud.getIdsolicitud().toString(), jmoordb_user.getUsername(),
+                        "create", "solicitud", repository.toDocument(solicitud).toString()));
+
+            } else {
+                JmoordbUtil.warningMessage(repository.getException().toString());
+                valid=false;
+            }
+            valid = true;
         } catch (Exception e) {
-            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+            errorServices.errorMessage(nameOfClass(), nameOfMethod(), e.getLocalizedMessage(), e);
         }
-        return false;
-    }
+        list.add(valid);
+        list.add(solicitud);
+        list.add(solicitudGuardadasList);
+        return list;
+    }// </editor-fold>
+
     // </editor-fold>  
 }

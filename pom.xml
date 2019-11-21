@@ -18,7 +18,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>commonejb</artifactId>
-            <version>0.17.1</version>
+            <version>0.18</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
