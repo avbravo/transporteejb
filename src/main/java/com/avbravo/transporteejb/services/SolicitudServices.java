@@ -56,6 +56,9 @@ public class SolicitudServices {
     ViajeRepository viajesRepository;
     @Inject
     VehiculoRepository vehiculoRepository;
+    
+    @Inject
+    ViajeServices viajeServices;
 
     @Inject
     AutoincrementableServices autoincrementableServices;
@@ -649,7 +652,7 @@ public class SolicitudServices {
     }
     // </editor-fold>  
 
-    // <editor-fold defaultstate="collapsed" desc="metodo()">
+   
     // <editor-fold defaultstate="collapsed" desc="Boolean insert(Tipovehiculo tipovehiculo)">
     public List<Object> insert(Solicitud solicitud, Tipovehiculo tipovehiculo,List<Solicitud> solicitudGuardadasList, ResourceBundle mrb, ResourceBundle arb) {
         List<Object> list = new ArrayList<>();
@@ -666,11 +669,13 @@ public class SolicitudServices {
                 valid =false;
             }
 
-            //Viajes
-//            List<Viaje> viajeList = new ArrayList<>();
-//            viajeList.add(new Viaje());
-//            viajeList.add(new Viaje());
-//            solicitud.setViaje(viajeList);
+//            //Viajes
+//           List<Viaje> viajeList = new ArrayList<>();
+//           
+//         
+//           viajeList.add(viajeServices.viajeInicializadoParaSolicitud());
+//           viajeList.add(viajeServices.viajeInicializadoParaSolicitud());
+//           solicitud.setViaje(viajeList);
 
             //Lo datos del usuario
             List<Tipovehiculo> tipovehiculoList = new ArrayList<>();
@@ -705,5 +710,5 @@ public class SolicitudServices {
         return list;
     }// </editor-fold>
 
-    // </editor-fold>  
+ 
 }

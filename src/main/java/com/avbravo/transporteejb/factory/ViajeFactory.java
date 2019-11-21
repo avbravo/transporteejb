@@ -12,6 +12,6 @@ import com.avbravo.transporteejb.entity.Viaje;
  * @author avbravo
  */
     interface ViajeFactory<P extends Viaje> {
-    P create();
+    P create(Integer idviaje);
 }
 

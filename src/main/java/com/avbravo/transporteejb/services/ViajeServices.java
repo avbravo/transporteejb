@@ -995,4 +995,19 @@ public class ViajeServices {
     }
     // </editor-fold>  
 
+    // <editor-fold defaultstate="collapsed" desc="Viaje viajeInicializadoParaSolicitud(">
+    /**
+     * Devuelve un viaje com el idviaje en -1 para ser usado cuando se crea una nueva solicitud
+     * @return 
+     */
+    public Viaje viajeInicializadoParaSolicitud(){
+        Viaje viaje = new Viaje();
+        try {
+            viaje.setIdviaje(-1);
+        } catch (Exception e) {
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return viaje;
+    }
+    // </editor-fold>  
 }
