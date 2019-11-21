@@ -698,9 +698,10 @@ public class SolicitudServices {
         } catch (Exception e) {
             errorServices.errorMessage(nameOfClass(), nameOfMethod(), e.getLocalizedMessage(), e);
         }
-        list.add(valid);
+       
         list.add(solicitud);
         list.add(solicitudGuardadasList);
+         list.add(valid);
         return list;
     }// </editor-fold>
 
