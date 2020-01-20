@@ -178,4 +178,15 @@ public class Vehiculo {
         this.userInfo = userInfo;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    
+    
+    
 }

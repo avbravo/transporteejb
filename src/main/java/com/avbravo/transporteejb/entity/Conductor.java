@@ -127,4 +127,15 @@ public class Conductor {
         this.userInfo = userInfo;
     }
 
+    public String getLicencia() {
+        return licencia;
+    }
+
+    public void setLicencia(String licencia) {
+        this.licencia = licencia;
+    }
+    
+    
+    
+
 }
