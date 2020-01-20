@@ -26,11 +26,24 @@ public class Usuario {
     private Unidad unidad;
  
     private String activo;
+    private String autorizasalvoconducto;
     @Embedded
     List<UserInfo> userInfo;
 
     public Usuario() {
     }
+
+    public String getAutorizasalvoconducto() {
+        return autorizasalvoconducto;
+    }
+
+    public void setAutorizasalvoconducto(String autorizasalvoconducto) {
+        this.autorizasalvoconducto = autorizasalvoconducto;
+    }
+    
+    
+    
+    
 
     @Override
     public String toString() {
