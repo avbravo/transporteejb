@@ -16,7 +16,6 @@ import java.util.List;
  *
  * @author avbravo
  */
-
 public class Conductor {
 
     @Id
@@ -28,24 +27,18 @@ public class Conductor {
     private String email;
     private String activo;
     private String escontrol;
-    
-      private Double totalkm;
+    private String licencia;
+
+    private Double totalkm;
     Double totalconsumo;
     Integer totalviajes;
 
-
-   @Embedded
+    @Embedded
     List<UserInfo> userInfo;
 
- 
-  
-    
-    
     public Conductor() {
     }
 
-    
-    
     public Double getTotalkm() {
         return totalkm;
     }
@@ -69,13 +62,7 @@ public class Conductor {
     public void setTotalviajes(Integer totalviajes) {
         this.totalviajes = totalviajes;
     }
-    
-    
-    
-    
-    
-    
-   
+
     public Integer getIdconductor() {
         return idconductor;
     }
@@ -88,10 +75,6 @@ public class Conductor {
         this.escontrol = escontrol;
     }
 
-    
-    
-    
-    
     public void setIdconductor(Integer idconductor) {
         this.idconductor = idconductor;
     }
@@ -103,8 +86,6 @@ public class Conductor {
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
-
-   
 
     public String getNombre() {
         return nombre;
@@ -145,6 +126,5 @@ public class Conductor {
     public void setUserInfo(List<UserInfo> userInfo) {
         this.userInfo = userInfo;
     }
-   
-    
+
 }

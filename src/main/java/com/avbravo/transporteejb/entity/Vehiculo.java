@@ -23,6 +23,7 @@ public class Vehiculo {
     private Integer idvehiculo;
     @Secondary
     private String placa;
+    private String codigo;
     private String marca;
     private String modelo;
     private Integer anio;
