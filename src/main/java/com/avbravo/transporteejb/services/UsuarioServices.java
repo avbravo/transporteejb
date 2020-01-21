@@ -55,6 +55,29 @@ public class UsuarioServices {
         return suggestions;
     }
     
+     // <editor-fold defaultstate="collapsed" desc="completeAutorizadoSalvoConducto(String query)">
+   /**
+    * Retorna el listado de usuarios con autorizado salvo conducto ="si"
+    * @param query
+    * @return 
+    */
+    public List<Usuario> completeAutorizadoSalvoConducto(String query) {
+        List<Usuario> suggestions = new ArrayList<>();
+        List<Usuario> list = new ArrayList<>();
+        try {
+            list= repository.complete(query);
+            for(Usuario u:list){
+                if(u.getAutorizasalvoconducto().equals("si")){
+                    suggestions.add(u);
+                }
+            }
+        } catch (Exception e) {
+             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(),e); 
+        }
+
+        return suggestions;
+    }
+     // </editor-fold>
     
 
     public List<Usuario> getUsuarioList() {
