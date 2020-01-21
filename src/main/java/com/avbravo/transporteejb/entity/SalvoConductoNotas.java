@@ -18,6 +18,7 @@ import java.util.List;
 public class SalvoConductoNotas {
     @Id
     private String idsalvoconductonotas;
+    private String descripcion;
     private String activo;
       @Embedded
     List<UserInfo> userInfo;
@@ -31,6 +32,14 @@ public class SalvoConductoNotas {
 
     public void setIdsalvoconductonotas(String idsalvoconductonotas) {
         this.idsalvoconductonotas = idsalvoconductonotas;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     
