@@ -5,12 +5,15 @@ import com.avbravo.jmoordb.anotations.Id;
 import com.avbravo.jmoordb.anotations.Referenced;
 import com.avbravo.jmoordb.pojos.UserInfo;
 import java.util.List;
+import javax.validation.constraints.Size;
 
 public class Usuario {
 
     @Id
     private String username;
+    @Size(min = 10,max = 250)    
     private String password;    
+    @Size(min = 8,max = 250)  
     private String nombre;
     private String cedula;
     private String celular;
