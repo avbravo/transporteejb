@@ -8,10 +8,11 @@ package com.avbravo.transporteejb.services;
 import com.avbravo.jmoordb.mongodb.history.services.ErrorInfoServices;
 import com.avbravo.jmoordb.util.JmoordbUtil;
 import com.avbravo.transporteejb.entity.Conductor;
-import com.avbravo.transporteejb.entity.EstatusViaje;
+import com.avbravo.transporteejb.entity.Estatus;
 import com.avbravo.transporteejb.entity.Solicitud;
 import com.avbravo.transporteejb.entity.Vehiculo;
 import com.avbravo.transporteejb.entity.Viaje;
+import com.avbravo.transporteejb.repository.EstatusRepository;
 import com.avbravo.transporteejb.repository.SolicitudRepository;
 import com.avbravo.transporteejb.repository.ViajeRepository;
 import com.mongodb.client.model.Filters;
@@ -37,6 +38,8 @@ public class ViajeServices {
 
     @Inject
     ErrorInfoServices errorServices;
+    @Inject
+    EstatusRepository estatusRepository;
     @Inject
     ViajeRepository repository;
     List<Viaje> solicitudList = new ArrayList<>();
@@ -857,10 +860,17 @@ public class ViajeServices {
      */
     public Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list, ResourceBundle mrb, ResourceBundle arb) {
         try {
-
+            Estatus estatus = new Estatus();
             if (list == null || list.isEmpty()) {
-                for (Solicitud s : list) {
+                List<Estatus> listEstatus = estatusRepository.findBy("idestatus", "CANCELADO");
+                if (listEstatus == null || listEstatus.isEmpty()) {
 
+                } else {
+                    estatus = listEstatus.get(0);
+
+                }
+                for (Solicitud s : list) {
+                    s.setEstatus(estatus);
                     switch (s.getEstatusViaje().getIdestatusviaje()) {
                         case "IDA/REGRESO":
                             updateSolicitudIdaRegreso(s, viaje, mrb, arb);
@@ -888,6 +898,7 @@ public class ViajeServices {
     // <editor-fold defaultstate="collapsed" desc="Boolean updateSolicitudIdaRegreso(Solicitud s, ResourceBundle mrb, ResourceBundle arb)">
     private Boolean updateSolicitudIdaRegreso(Solicitud s, Viaje viaje, ResourceBundle mrb, ResourceBundle arb) {
         try {
+
             if (s.getViaje() == null) {
                 return false;
             }
@@ -908,6 +919,7 @@ public class ViajeServices {
                         s.setViaje(viajeList);
                         s.setTieneAsignadoViajeIda("no");
                         s.setTieneAsignadoViajeRegreso("no");
+
                         solicitudRepository.update(s);
                         return true;
                     } else {
@@ -997,15 +1009,17 @@ public class ViajeServices {
 
     // <editor-fold defaultstate="collapsed" desc="Viaje viajeInicializadoParaSolicitud(">
     /**
-     * Devuelve un viaje com el idviaje en -1 para ser usado cuando se crea una nueva solicitud
-     * @return 
+     * Devuelve un viaje com el idviaje en -1 para ser usado cuando se crea una
+     * nueva solicitud
+     *
+     * @return
      */
-    public Viaje viajeInicializadoParaSolicitud(){
+    public Viaje viajeInicializadoParaSolicitud() {
         Viaje viaje = new Viaje();
         try {
             viaje.setIdviaje(-1);
         } catch (Exception e) {
-             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return viaje;
     }
