@@ -424,6 +424,7 @@ public class ViajeServices {
      */
     public Boolean vehiculoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo, Date fechahorainicioreserva, Date fechahorafinreserva, Integer idviaje) {
         try {
+            
             Bson filter = Filters.and(eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()), eq("activo", "si"), ne("idviaje", idviaje));
 
             return repository.isAvailableBetweenDateHour(filter,
@@ -770,6 +771,7 @@ public class ViajeServices {
     }
 
     // </editor-fold>
+   
     // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo,Solicitud solicitud, Viaje viaje)">
     public Boolean isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo, Solicitud solicitud, Viaje viaje) {
         Boolean valid = false;
@@ -798,7 +800,7 @@ public class ViajeServices {
     public Boolean isVehiculoActivoDisponibleExcluyendoMismoViajeSinSolicitud(Vehiculo vehiculo, Viaje viaje) {
         Boolean valid = false;
         try {
-          
+
             if (vehiculo.getActivo().equals("no") && vehiculo.getEnreparacion().equals("si")) {
 
             } else {
