@@ -1068,4 +1068,47 @@ public class ViajeServices {
         return viaje;
     }
     // </editor-fold>  
+    
+    // <editor-fold defaultstate="collapsed" desc="sinSolicitud(List<Viaje> viajeList)">
+    
+    public List<Viaje> sinSolicitud(List<Viaje> viajeList){
+        List<Viaje> list = new ArrayList<>();
+        try {
+             if(viajeList == null || viajeList.isEmpty()){
+                
+            }else{
+                  for(Viaje v:viajeList){
+                    if(v.getViajesinsolicitud().equals("no")){
+                        list.add(v);
+                    }
+                }
+               
+            }
+        } catch (Exception e) {
+               errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return list;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="conSolicitud(List<Viaje> viajeList)">
+    
+    public List<Viaje> conSolicitud(List<Viaje> viajeList){
+        List<Viaje> list = new ArrayList<>();
+        try {
+             if(viajeList == null || viajeList.isEmpty()){
+                
+            }else{
+                  for(Viaje v:viajeList){
+                    if(v.getViajesinsolicitud().equals("si")){
+                        list.add(v);
+                    }
+                }
+               
+            }
+        } catch (Exception e) {
+               errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return list;
+    }
+    // </editor-fold>
 }
