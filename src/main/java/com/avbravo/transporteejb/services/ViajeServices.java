@@ -749,7 +749,28 @@ public class ViajeServices {
     }
 
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo)">
+    // <editor-fold defaultstate="collapsed" desc="Boolean isVehiculoActivoDisponibleSinSolicitud(Vehiculo vehiculo, Viaje viaje) ">
+    public Boolean isVehiculoActivoDisponibleSinSolicitud(Vehiculo vehiculo, Viaje viaje) {
+        Boolean valid = false;
+        try {
+            
+            if (vehiculo.getActivo().equals("no") && vehiculo.getEnreparacion().equals("si")) {
+
+            } else {
+                if (vehiculoDisponible(vehiculo, viaje.getFechahorainicioreserva(), viaje.getFechahorafinreserva())) {
+                    valid = true;
+                }
+            }
+
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+            //errorServices.errorDialog(nameOfClass(), nameOfMethod(), nameOfMethod(), e.getLocalizedMessage());
+        }
+        return valid;
+    }
+
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo,Solicitud solicitud, Viaje viaje)">
     public Boolean isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo, Solicitud solicitud, Viaje viaje) {
         Boolean valid = false;
         try {
@@ -757,6 +778,27 @@ public class ViajeServices {
                 return valid;
             }
 
+            if (vehiculo.getActivo().equals("no") && vehiculo.getEnreparacion().equals("si")) {
+
+            } else {
+                if (vehiculoDisponibleExcluyendoMismoViaje(vehiculo, viaje.getFechahorainicioreserva(), viaje.getFechahorafinreserva(), viaje.getIdviaje())) {
+                    valid = true;
+                }
+            }
+
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        return valid;
+    }
+
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="List<Object> asignarListViajesASolicitud(Viaje viaje, Solicitud solicitud, ResourceBundle mrb, ResourceBundle arb)">
+    // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponibleExcluyendoMismoViajeSinSolicitud(Vehiculo vehiculo,Viaje viaje)">
+    public Boolean isVehiculoActivoDisponibleExcluyendoMismoViajeSinSolicitud(Vehiculo vehiculo, Viaje viaje) {
+        Boolean valid = false;
+        try {
+          
             if (vehiculo.getActivo().equals("no") && vehiculo.getEnreparacion().equals("si")) {
 
             } else {

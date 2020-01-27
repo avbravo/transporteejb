@@ -49,14 +49,11 @@ public class Viaje {
     private Integer asientosdisponibles;
     
     private String mensajeWarning;
+    
+    private String viajesinsolicitud;
+    
 
-    public Integer getAsientosdisponibles() {
-        return asientosdisponibles;
-    }
-
-    public void setAsientosdisponibles(Integer asientosdisponibles) {
-        this.asientosdisponibles = asientosdisponibles;
-    }
+   
 
     @Embedded
     List<UserInfo> userInfo;
@@ -69,8 +66,22 @@ public class Viaje {
         this.mision = mision;
     }
 
+    public String getViajesinsolicitud() {
+        return viajesinsolicitud;
+    }
+
+    public void setViajesinsolicitud(String viajesinsolicitud) {
+        this.viajesinsolicitud = viajesinsolicitud;
+    }
+
     
-    
+     public Integer getAsientosdisponibles() {
+        return asientosdisponibles;
+    }
+
+    public void setAsientosdisponibles(Integer asientosdisponibles) {
+        this.asientosdisponibles = asientosdisponibles;
+    }
     public String getRealizado() {
         return realizado;
     }
