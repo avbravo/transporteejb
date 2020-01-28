@@ -889,6 +889,38 @@ public class ViajeServices {
         return list;
     }
     // </editor-fold>  
+    // <editor-fold defaultstate="collapsed" desc="List<Object> asignarListViajesASolicitud(Viaje viaje, Solicitud solicitud, ResourceBundle mrb, ResourceBundle arb)">
+    /**
+     * Valida en base al estatusviaje y carga viajelist asignandolo a solicitud
+     * y devuelve si fue exitoso o no.
+     *
+     * @param viaje
+     * @param solicitud
+     * @param mrb
+     * @param arb
+     * @return
+     */
+    public List<Object> asignarListViajesIdaRegresoASolicitud(Viaje viajeIda, Viaje viajeRegreso, Solicitud solicitud, ResourceBundle mrb, ResourceBundle arb) {
+        List<Object> list = new ArrayList<>();
+        List<Viaje> viajeList = new ArrayList<>();
+        Boolean valid = false;
+        try {
+           
+                    viajeList.add(viajeIda);
+                    viajeList.add(viajeRegreso);
+                    solicitud.setTieneAsignadoViajeIda("si");
+                    solicitud.setTieneAsignadoViajeRegreso("si");
+                   
+        } catch (Exception e) {
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+        }
+        solicitud.setViaje(viajeList);
+        list.add(valid);
+        list.add(solicitud);
+
+        return list;
+    }
+    // </editor-fold>  
 
     // <editor-fold defaultstate="collapsed" desc="Boolean actualizarSolicitudConViajeCancelado(Viaje viaje, List<Solicitud> list)">
     /**
