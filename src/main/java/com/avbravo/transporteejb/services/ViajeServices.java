@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Supplier;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
@@ -45,6 +46,14 @@ public class ViajeServices {
     List<Viaje> solicitudList = new ArrayList<>();
     @Inject
     SolicitudRepository solicitudRepository;
+
+   public Supplier<List<Viaje>> supplier
+            = new Supplier<List<Viaje>>() {
+        @Override
+        public List<Viaje> get() {
+            return new ArrayList<>();
+        }
+    };
 
     public List<Viaje> complete(String query) {
         List<Viaje> suggestions = new ArrayList<>();
@@ -424,7 +433,7 @@ public class ViajeServices {
      */
     public Boolean vehiculoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo, Date fechahorainicioreserva, Date fechahorafinreserva, Integer idviaje) {
         try {
-            
+
             Bson filter = Filters.and(eq("vehiculo.idvehiculo", vehiculo.getIdvehiculo()), eq("activo", "si"), ne("idviaje", idviaje));
 
             return repository.isAvailableBetweenDateHour(filter,
@@ -754,7 +763,7 @@ public class ViajeServices {
     public Boolean isVehiculoActivoDisponibleSinSolicitud(Vehiculo vehiculo, Viaje viaje) {
         Boolean valid = false;
         try {
-            
+
             if (vehiculo.getActivo().equals("no") && vehiculo.getEnreparacion().equals("si")) {
 
             } else {
@@ -771,7 +780,6 @@ public class ViajeServices {
     }
 
     // </editor-fold>
-   
     // <editor-fold defaultstate="collapsed" desc="isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo,Solicitud solicitud, Viaje viaje)">
     public Boolean isVehiculoActivoDisponibleExcluyendoMismoViaje(Vehiculo vehiculo, Solicitud solicitud, Viaje viaje) {
         Boolean valid = false;
@@ -888,6 +896,7 @@ public class ViajeServices {
 
         return list;
     }
+
     // </editor-fold>  
     // <editor-fold defaultstate="collapsed" desc="List<Object> asignarListViajesASolicitud(Viaje viaje, Solicitud solicitud, ResourceBundle mrb, ResourceBundle arb)">
     /**
@@ -905,12 +914,12 @@ public class ViajeServices {
         List<Viaje> viajeList = new ArrayList<>();
         Boolean valid = false;
         try {
-           
-                    viajeList.add(viajeIda);
-                    viajeList.add(viajeRegreso);
-                    solicitud.setTieneAsignadoViajeIda("si");
-                    solicitud.setTieneAsignadoViajeRegreso("si");
-                   
+
+            viajeList.add(viajeIda);
+            viajeList.add(viajeRegreso);
+            solicitud.setTieneAsignadoViajeIda("si");
+            solicitud.setTieneAsignadoViajeRegreso("si");
+
         } catch (Exception e) {
             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
@@ -1100,45 +1109,44 @@ public class ViajeServices {
         return viaje;
     }
     // </editor-fold>  
-    
+
     // <editor-fold defaultstate="collapsed" desc="sinSolicitud(List<Viaje> viajeList)">
-    
-    public List<Viaje> sinSolicitud(List<Viaje> viajeList){
+    public List<Viaje> sinSolicitud(List<Viaje> viajeList) {
         List<Viaje> list = new ArrayList<>();
         try {
-             if(viajeList == null || viajeList.isEmpty()){
-                
-            }else{
-                  for(Viaje v:viajeList){
-                    if(v.getViajesinsolicitud().equals("no")){
+            if (viajeList == null || viajeList.isEmpty()) {
+
+            } else {
+                for (Viaje v : viajeList) {
+                    if (v.getViajesinsolicitud().equals("no")) {
                         list.add(v);
                     }
                 }
-               
+
             }
         } catch (Exception e) {
-               errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return list;
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="conSolicitud(List<Viaje> viajeList)">
-    
-    public List<Viaje> conSolicitud(List<Viaje> viajeList){
+
+    public List<Viaje> conSolicitud(List<Viaje> viajeList) {
         List<Viaje> list = new ArrayList<>();
         try {
-             if(viajeList == null || viajeList.isEmpty()){
-                
-            }else{
-                  for(Viaje v:viajeList){
-                    if(v.getViajesinsolicitud().equals("si")){
+            if (viajeList == null || viajeList.isEmpty()) {
+
+            } else {
+                for (Viaje v : viajeList) {
+                    if (v.getViajesinsolicitud().equals("si")) {
                         list.add(v);
                     }
                 }
-               
+
             }
         } catch (Exception e) {
-               errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
+            errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
         }
         return list;
     }
