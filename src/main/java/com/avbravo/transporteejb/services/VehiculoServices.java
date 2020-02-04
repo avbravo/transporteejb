@@ -14,6 +14,7 @@ import com.avbravo.transporteejb.repository.ViajeRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bson.Document;
@@ -234,9 +235,13 @@ public class VehiculoServices {
      * @param vehiculoDisponiblesList
      * @return
      */
-    public Integer pasajerosRecomendados(List<Vehiculo> vehiculoDisponiblesList, Integer pasajeros) {
+    public Integer pasajerosRecomendados(List<Vehiculo> vehiculoDisponiblesList, Integer pasajeros, ResourceBundle mrb, ResourceBundle arb) {
         Integer pasajerosPendientes = pasajeros;
         try {
+            if(vehiculoDisponiblesList == null || vehiculoDisponiblesList.isEmpty()){
+                  JmoordbUtil.warningDialog(arb.getString("warning.view"), mrb.getString("warning.nohayvehiculosdisponibles"));
+                                return 0;
+            }
             Integer mayorCapacidad = vehiculoDisponiblesList.get(0).getPasajeros();
             for (Vehiculo v : vehiculoDisponiblesList) {
 
