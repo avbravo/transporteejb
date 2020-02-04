@@ -919,6 +919,7 @@ public class ViajeServices {
             viajeList.add(viajeRegreso);
             solicitud.setTieneAsignadoViajeIda("si");
             solicitud.setTieneAsignadoViajeRegreso("si");
+            valid=true;
 
         } catch (Exception e) {
             errorServices.errorMessage(JmoordbUtil.nameOfClass(), JmoordbUtil.nameOfMethod(), e.getLocalizedMessage(), e);
