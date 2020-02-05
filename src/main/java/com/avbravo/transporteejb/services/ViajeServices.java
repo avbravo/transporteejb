@@ -212,7 +212,7 @@ public class ViajeServices {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="isValid()">
+    // <editor-fold defaultstate="collapsed" desc="Boolean isValid(Viaje viajes, ResourceBundle mrb, ResourceBundle arb, Boolean... kmCombustibleMayorCero)">
     public Boolean isValid(Viaje viajes, ResourceBundle mrb, ResourceBundle arb, Boolean... kmCombustibleMayorCero) {
         try {
             Boolean isKmCombustibleMayorCero = true;
@@ -285,6 +285,7 @@ public class ViajeServices {
     }
 
     // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="isValidDate()">
     public Boolean isValidDate(Viaje viaje, ResourceBundle mrb, ResourceBundle arb) {
         try {
@@ -932,7 +933,7 @@ public class ViajeServices {
     }
     // </editor-fold>  
 
-    // <editor-fold defaultstate="collapsed" desc="Boolean actualizarSolicitudConViajeCancelado(Viaje viaje, List<Solicitud> list)">
+    // <editor-fold defaultstate="collapsed" desc="Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list, ResourceBundle mrb, ResourceBundle arb,Boolean cancelarSolicitud) ">
     /**
      * actualiza en todas las solicitudes el viaje cancelado removiendolo
      *
@@ -944,11 +945,17 @@ public class ViajeServices {
      * REGRESO NO ASIGNADO Viaje | 13 |13|IDA/REGRESO | 13 |14|IDA/REGRESO | 13
      * |IDA PENDIENTE REGRESO | 13|SOLO IDA | 13|SOLO REGRESO ||NO ASIGNADO
      */
-    public Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list, ResourceBundle mrb, ResourceBundle arb) {
+    public Boolean actualizarSolicitudesConViajeCancelado(Viaje viaje, List<Solicitud> list, ResourceBundle mrb, ResourceBundle arb,Boolean cancelarSolicitud) {
         try {
             Estatus estatus = new Estatus();
             if (list == null || list.isEmpty()) {
-                List<Estatus> listEstatus = estatusRepository.findBy("idestatus", "CANCELADO");
+                  List<Estatus> listEstatus  = new ArrayList<>();
+                if(cancelarSolicitud){
+                 listEstatus = estatusRepository.findBy("idestatus", "CANCELADO");
+                }else{
+                      listEstatus = estatusRepository.findBy("idestatus", "SOLICITADO");
+                }
+               
                 if (listEstatus == null || listEstatus.isEmpty()) {
 
                 } else {
