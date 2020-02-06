@@ -27,7 +27,7 @@ public class Solicitud {
     private String periodoacademico;
     @Secondary
     private Date fecha;
-    private List<String> numerogrupo;
+    private String numerogrupo;
     private Integer numerodevehiculos;
     private List<String> rangoagenda;
 
@@ -63,7 +63,7 @@ public class Solicitud {
     List<Usuario> usuario;
 
     private String objetivo;
-    private List<String> lugares;
+    private String lugares;
 
     private Date fechahorapartida;
     private String lugarpartida;
@@ -71,7 +71,7 @@ public class Solicitud {
 
     private Date fechahoraregreso;
 
-    private List<String> recursossolicitados;
+    private String recursossolicitados;
     private String observaciones;
 
     @Referenced(collection = "Estatus",
@@ -233,13 +233,7 @@ public class Solicitud {
         this.fecha = fecha;
     }
 
-    public List<String> getNumerogrupo() {
-        return numerogrupo;
-    }
-
-    public void setNumerogrupo(List<String> numerogrupo) {
-        this.numerogrupo = numerogrupo;
-    }
+    
 
     public List<Carrera> getCarrera() {
         return carrera;
@@ -297,22 +291,7 @@ public class Solicitud {
         this.fechahoraregreso = fechahoraregreso;
     }
 
-    public List<String> getLugares() {
-        return lugares;
-    }
-
-    public void setLugares(List<String> lugares) {
-        this.lugares = lugares;
-    }
-
-    public List<String> getRecursossolicitados() {
-        return recursossolicitados;
-    }
-
-    public void setRecursossolicitados(List<String> recursossolicitados) {
-        this.recursossolicitados = recursossolicitados;
-    }
-
+    
     public String getObservaciones() {
         return observaciones;
     }
@@ -409,7 +388,33 @@ public class Solicitud {
         this.tieneAsignadoViajeRegreso = tieneAsignadoViajeRegreso;
     }
 
+    public String getNumerogrupo() {
+        return numerogrupo;
+    }
+
+    public void setNumerogrupo(String numerogrupo) {
+        this.numerogrupo = numerogrupo;
+    }
+
+    public String getLugares() {
+        return lugares;
+    }
+
+    public void setLugares(String lugares) {
+        this.lugares = lugares;
+    }
+
+    public String getRecursossolicitados() {
+        return recursossolicitados;
+    }
+
+    public void setRecursossolicitados(String recursossolicitados) {
+        this.recursossolicitados = recursossolicitados;
+    }
+
    
+    
+    
 
  
 }
