@@ -112,7 +112,7 @@ public class EstatusServices {
                     color = "green";
                     break;
                 case "SOLICITADO":
-                    color = "blue";
+                    color = "black";
                     break;
                 default:
                     color = "black";
