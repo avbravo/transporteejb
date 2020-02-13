@@ -249,7 +249,9 @@ public class UsuarioServices {
     public Boolean esElSubdirectorAdministrativoQuienSolicita(Usuario usuario) {
         Boolean found = false;
         try {
-
+if(usuario==null || usuario.getRol()== null){
+    return false;
+}
             for (Rol rol : usuario.getRol()) {
                 if (rol.getIdrol().equals("SUBDIRECTORADMINISTRATIVO")) {
                     found = true;
