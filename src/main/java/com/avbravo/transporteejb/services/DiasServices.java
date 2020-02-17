@@ -28,7 +28,7 @@ public class DiasServices {
     ErrorInfoServices errorServices;
     private List<String> diasList;
 
-    public List<String> j() {
+    public List<String> generarDiasList() {
 
         try {
             diasList = new ArrayList<String>();
