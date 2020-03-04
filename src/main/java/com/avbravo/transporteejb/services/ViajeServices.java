@@ -611,10 +611,10 @@ public class ViajeServices {
                     color = "green";
                     break;
                 case "no":
-                    color = "black";
+                    color = "brown";
                     break;
                 default:
-                    color = "blue";
+                    color = "black";
             }
             if (activo.equals("no")) {
                 color = "red";
